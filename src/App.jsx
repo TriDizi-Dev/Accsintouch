@@ -3,6 +3,7 @@ import Homepage from './pages/Home/Homepage';
 import CartPage from './components/Cart/CartPage';
 import AboutUs from './pages/About/AboutUs';
 import ContactUs from './pages/Contact/ContactUs';
+
 function App() {
   return (
     <Router>
