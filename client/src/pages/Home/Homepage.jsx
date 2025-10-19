@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import './homepage.css'; // Updated to match the new CSS file name
+import './Homepage.css'; // Updated to match the new CSS file name
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 // Image imports from assets folder
