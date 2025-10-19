@@ -1,0 +1,276 @@
+/* Header.css */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #E8F5E9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* Logo */
+.logo-container {
+  flex-shrink: 0;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: #666;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s ease;
+  position: relative;
+  padding: 5px 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #9C27B0;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: #9C27B0;
+}
+
+.nav-link:hover {
+  color: #9C27B0;
+}
+
+/* Header Right Section */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+/* Search Box */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 25px;
+  padding: 10px 20px;
+  width: 250px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.search-box:focus-within {
+  border-color: #9C27B0;
+  box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  background: transparent;
+  color: #333;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icons */
+.icon {
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon:hover {
+  color: #9C27B0;
+  transform: scale(1.1);
+}
+
+.icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 5px;
+}
+
+/* Badge for Cart/Wishlist Count */
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #f44336;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .header-container {
+    padding: 15px 40px;
+    gap: 20px;
+  }
+
+  .nav {
+    gap: 25px;
+  }
+
+  .search-box {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 15px 30px;
+    flex-wrap: wrap;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+    order: 2;
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .header-right {
+    order: 3;
+    gap: 15px;
+  }
+
+  .nav {
+    order: 4;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0;
+  }
+
+  .nav.nav-open {
+    max-height: 300px;
+    padding: 20px 0;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .search-box {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 12px 20px;
+  }
+
+  .search-box {
+    width: 150px;
+    padding: 8px 15px;
+  }
+
+  .search-input {
+    font-size: 13px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .logo a {
+    width: 45px;
+    height: 45px;
+    font-size: 11px;
+  }
+
+  .header-right {
+    gap: 12px;
+  }
+}
