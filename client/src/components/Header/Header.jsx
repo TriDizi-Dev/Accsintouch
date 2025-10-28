@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { Heart, ShoppingCart, Search, Menu, X, User } from 'lucide-react';
+import { Heart, ShoppingCart, Menu, X, User, Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import LOGO from '../../assets/LOGO.png';
 
 const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const navigate = useNavigate();
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('Searching for:', searchQuery);
-  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleCategorySelect = (e) => {
+    const category = e.target.value;
+    setSelectedCategory(category);
+
+    if (category) {
+      navigate(`/category/${category}`);
+      window.scrollTo(0, 0);
+    }
   };
 
   return (
@@ -40,68 +45,30 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
           ...styles.nav,
           ...(isMobileMenuOpen ? styles.navOpen : {})
         }}>
-          <a 
-            href="/" 
-            style={{
-              ...styles.navLink,
-              ...(activePage === 'home' ? styles.navLinkActive : {})
-            }}
-          >
-            Home
-          </a>
-          <a 
-            href="/products" 
-            style={{
-              ...styles.navLink,
-              ...(activePage === 'products' ? styles.navLinkActive : {})
-            }}
-          >
-            Products
-          </a>
-          <a 
-            href="/blog" 
-            style={{
-              ...styles.navLink,
-              ...(activePage === 'blog' ? styles.navLinkActive : {})
-            }}
-          >
-            Blog
-          </a>
-          <a 
-            href="/contact" 
-            style={{
-              ...styles.navLink,
-              ...(activePage === 'contact' ? styles.navLinkActive : {})
-            }}
-          >
-            Contact Us
-          </a>
-          <a 
-            href="/about" 
-            style={{
-              ...styles.navLink,
-              ...(activePage === 'about' ? styles.navLinkActive : {})
-            }}
-          >
-            About Us
-          </a>
+          <a href="/" style={{ ...styles.navLink, ...(activePage === 'home' ? styles.navLinkActive : {}) }}>Home</a>
+          <a href="/products" style={{ ...styles.navLink, ...(activePage === 'products' ? styles.navLinkActive : {}) }}>Products</a>
+          <a href="/blog" style={{ ...styles.navLink, ...(activePage === 'blog' ? styles.navLinkActive : {}) }}>Blog</a>
+          <a href="/contact" style={{ ...styles.navLink, ...(activePage === 'contact' ? styles.navLinkActive : {}) }}>Contact Us</a>
+          <a href="/about" style={{ ...styles.navLink, ...(activePage === 'about' ? styles.navLinkActive : {}) }}>About Us</a>
         </nav>
 
         {/* Header Right Section */}
         <div style={styles.headerRight}>
-          {/* Search Box */}
-          <form style={styles.searchBox} onSubmit={handleSearch}>
-            <input 
-              type="text" 
-              placeholder="Search" 
-              style={styles.searchInput}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button type="submit" style={styles.searchButton}>
-              <Search style={styles.icon} size={20} />
-            </button>
-          </form>
+          {/* Search Dropdown */}
+          <div style={styles.searchBox}>
+            <Search size={18} style={{ color: '#666', marginRight: '8px' }} />
+            <select
+              value={selectedCategory}
+              onChange={handleCategorySelect}
+              style={styles.categorySelect}
+            >
+              <option value="">Search</option>
+              <option value="hair-bows">Hair Bows</option>
+              <option value="earring">Earrings</option>
+              <option value="scrunchies">Scrunchies</option>
+              <option value="claw-clips">Claw Clips</option>
+            </select>
+          </div>
 
           {/* Wishlist Icon */}
           <div style={styles.iconLink} onClick={() => navigate('/wishlist')}>
@@ -160,19 +127,6 @@ const styles = {
     height: '50px',
     objectFit: 'contain',
   },
-  logo: {
-    width: '50px',
-    height: '50px',
-    borderRadius: '50%',
-    background: 'white',
-    border: '2px solid #9C27B0',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    color: '#9C27B0',
-  },
   mobileMenuToggle: {
     display: 'none',
     background: 'none',
@@ -215,27 +169,18 @@ const styles = {
     alignItems: 'center',
     background: '#F1F2F7',
     borderRadius: '25px',
-    padding: '10px 20px',
-    width: '250px',
-    transition: 'all 0.3s ease',
+    padding: '8px 14px',
+    width: '200px',
     border: '2px solid transparent',
   },
-  searchInput: {
+  categorySelect: {
     border: 'none',
     outline: 'none',
-    flex: 1,
     fontSize: '14px',
     background: 'transparent',
     color: '#333',
-  },
-  searchButton: {
-    background: 'none',
-    border: 'none',
     cursor: 'pointer',
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%',
   },
   icon: {
     color: '#666',

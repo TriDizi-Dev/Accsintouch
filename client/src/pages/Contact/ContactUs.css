@@ -143,14 +143,18 @@
 /* Features Section */
 .features-section-contact {
   margin-top: 80px;
+  margin-left: -195px;
+  margin-right: -195px;
+  margin-bottom:-70px;
   padding: 40px 0;
   background: #000;
+  
 }
 
 .features-grid-contact {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
+  gap: 80px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px;

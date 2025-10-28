@@ -1,117 +1,68 @@
-// Footer.jsx
+
 import React from 'react';
-import { Facebook, Twitter, Pin, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './Footer.css';
+import LOGO from '../../assets/LOGO.png';
+import facebookIcon from '../../assets/fb.png';
+import twitterIcon from '../../assets/twitter.png';
+import pinterestIcon from '../../assets/pin.png';
+import instagramIcon from '../../assets/ig.png';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+export default function Footer() {
+  const navigate = useNavigate();
 
-  const categories = [
-    { name: 'Claw Clips', link: '/category/claw-clips' },
-    { name: 'Earring', link: '/category/earrings' },
-    { name: 'Scrunchies', link: '/category/scrunchies' },
-    { name: 'Hair Bows', link: '/category/hair-bows' },
-  ];
-
-  const quickLinks = [
-    { name: 'Home', link: '/' },
-    { name: 'Our Company', link: '/company' },
-    { name: 'About us', link: '/about' },
-    { name: 'Contact Us', link: '/contact' },
-  ];
-
-  const socialLinks = [
-    { icon: <Facebook size={18} />, link: 'https://facebook.com', name: 'Facebook' },
-    { icon: <Twitter size={18} />, link: 'https://twitter.com', name: 'Twitter' },
-    { icon: <Pin size={18} />, link: 'https://pinterest.com', name: 'Pinterest' },
-    { icon: <Linkedin size={18} />, link: 'https://linkedin.com', name: 'LinkedIn' },
-  ];
+  const handleNavigation = (path) => {
+    navigate(path);
+    window.scrollTo(0, 0);
+  };
 
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        {/* Company Info Column */}
-        <div className="footer-col footer-about">
-          <div className="footer-logo">
-            <div className="logo">ACCS</div>
-          </div>
-          <h3 className="footer-brand">ACCS IN-TOUCH</h3>
-          <p className="footer-tagline">One Stop for your Hair Accessories</p>
-          <div className="social-links">
-            {socialLinks.map((social, index) => (
-              <a 
-                key={index}
-                href={social.link} 
-                className="social-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.name}
-              >
-                {social.icon}
-              </a>
-            ))}
+    <footer className="footer-about">
+      <div className="footer-content-about">
+        <div className="footer-col-about">
+          <img src={LOGO} alt="ACCS Logo" className="footer-logo" />
+          <h3 className="footer-title-about">ACCS IN-TOUCH</h3>
+          <p className="footer-text-about">One Stop for your Hair Accessories</p>
+          <div className="social-links-about">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <img src={facebookIcon} alt="Facebook" />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <img src={twitterIcon} alt="Twitter" />
+            </a>
+            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+              <img src={pinterestIcon} alt="Pinterest" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <img src={instagramIcon} alt="Instagram" />
+            </a>
           </div>
         </div>
         
-        {/* Categories Column */}
-        <div className="footer-col">
-          <h4 className="footer-heading">Categories</h4>
-          <ul className="footer-list">
-            {categories.map((category, index) => (
-              <li key={index}>
-                <a href={category.link} className="footer-link">
-                  {category.name}
-                </a>
-              </li>
-            ))}
+        <div className="footer-col-about">
+          <h4 className="footer-heading-about">Categories</h4>
+          <ul className="footer-list-about">
+            <li onClick={() => handleNavigation('/category/claw-clips')}>Claw Clips</li>
+            <li onClick={() => handleNavigation('/category/earring')}>Earring</li>
+            <li onClick={() => handleNavigation('/category/scrunchies')}>Scrunchies</li>
+            <li onClick={() => handleNavigation('/category/hair-bows')}>Hair Bows</li>
           </ul>
         </div>
         
-        {/* Quick Links Column */}
-        <div className="footer-col">
-          <h4 className="footer-heading">Quick links</h4>
-          <ul className="footer-list">
-            {quickLinks.map((link, index) => (
-              <li key={index}>
-                <a href={link.link} className="footer-link">
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        
-        {/* Contact Column */}
-        <div className="footer-col">
-          <h4 className="footer-heading">Contact</h4>
-          <ul className="footer-contact">
-            <li className="contact-item">
-              <MapPin size={16} className="contact-icon" />
-              <span>123 Fashion Street, Delhi, India</span>
-            </li>
-            <li className="contact-item">
-              <Mail size={16} className="contact-icon" />
-              <a href="mailto:info@accsintouch.com">info@accsintouch.com</a>
-            </li>
-            <li className="contact-item">
-              <Phone size={16} className="contact-icon" />
-              <a href="tel:+911234567890">+91 1234567890</a>
-            </li>
+        <div className="footer-col-about">
+          <h4 className="footer-heading-about">Quick links</h4>
+          <ul className="footer-list-about">
+            <li onClick={() => handleNavigation('/')}>Home</li>
+            <li onClick={() => handleNavigation('/company')}>Our Company</li>
+            <li onClick={() => handleNavigation('/about')}>About Us</li>
+            <li onClick={() => handleNavigation('/contact')}>Contact Us</li>
           </ul>
         </div>
       </div>
       
-      {/* Footer Bottom */}
-      <div className="footer-bottom">
-        <p>&copy; {currentYear} ACCS IN-TOUCH - All Rights Reserved</p>
-        <div className="footer-bottom-links">
-          <a href="/privacy">Privacy Policy</a>
-          <span className="separator">•</span>
-          <a href="/terms">Terms & Conditions</a>
-        </div>
+      <div className="footer-bottom-about">
+        <p>© 2025 ACCS IN-TOUCH - All Rights Reserved</p>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

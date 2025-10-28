@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import LOGO from '../../assets/LOGO.png';
 import icon from '../../assets/icon.png';
@@ -166,41 +167,7 @@ const ContactUs = () => {
       </section>
 
       {/* Footer */}
-      <footer className="footer-contact">
-        <div className="footer-content-contact">
-          <div className="footer-col-contact">
-            <img src={LOGO} alt="ACCS Logo" className="footer-logo" />
-            <h3 className="footer-title-contact">ACCS IN-TOUCH</h3>
-            <p className="footer-text-contact">One Stop for your Hair Accessories</p>
-            <div className="social-links-contact">
-              <span>f</span>
-              <span>t</span>
-              <span>p</span>
-              <span>in</span>
-            </div>
-          </div>
-          
-          <div className="footer-col-contact">
-            <h4 className="footer-heading-contact">Categories</h4>
-            <ul className="footer-list-contact">
-              <li>Claw Clips</li>
-              <li>Earring</li>
-              <li>Scrunchies</li>
-              <li>Hair Bows</li>
-            </ul>
-          </div>
-          
-          <div className="footer-col-contact">
-            <h4 className="footer-heading-contact">Quick links</h4>
-            <ul className="footer-list-contact">
-              <li>Home</li>
-              <li>Our Company</li>
-              <li>About Us</li>
-              <li>Contact Us</li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

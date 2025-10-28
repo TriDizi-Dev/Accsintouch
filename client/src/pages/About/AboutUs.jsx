@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import about1 from '../../assets/about1.png';
 import about2 from '../../assets/about2.png';
 import LOGO from '../../assets/LOGO.png';
@@ -127,41 +128,7 @@ const AboutUs = () => {
       </section>
 
       {/* Footer */}
-      <footer className="footer-about">
-        <div className="footer-content-about">
-          <div className="footer-col-about">
-            <img src={LOGO} alt="ACCS Logo" className="footer-logo" />
-            <h3 className="footer-title-about">ACCS IN-TOUCH</h3>
-            <p className="footer-text-about">One Stop for your Hair Accessories</p>
-            <div className="social-links-about">
-              <span>f</span>
-              <span>t</span>
-              <span>p</span>
-              <span>in</span>
-            </div>
-          </div>
-          
-          <div className="footer-col-about">
-            <h4 className="footer-heading-about">Categories</h4>
-            <ul className="footer-list-about">
-              <li>Claw Clips</li>
-              <li>Earring</li>
-              <li>Scrunchies</li>
-              <li>Hair Bows</li>
-            </ul>
-          </div>
-          
-          <div className="footer-col-about">
-            <h4 className="footer-heading-about">Quick links</h4>
-            <ul className="footer-list-about">
-              <li>Home</li>
-              <li>Our Company</li>
-              <li>About Us</li>
-              <li>Contact Us</li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

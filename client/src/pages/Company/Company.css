@@ -1,0 +1,123 @@
+.company-page {
+  background-color: #f9fafb;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: #1f2937;
+}
+
+/* Hero Section */
+.company-hero {
+  position: relative;
+  height: 18rem;
+  overflow: hidden;
+}
+
+.company-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+
+.company-hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.company-hero-text h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.company-hero-text p {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Mission & Vision */
+.company-section {
+  padding: 4rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+}
+
+.company-content h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.company-content p {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Values Section */
+.company-values {
+  background-color: #ffffff;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.company-values h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.value-card {
+  background: #f3f4f6;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+}
+
+.value-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Closing Section */
+.company-closing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background-color: #f9fafb;
+}
+
+.company-closing-image {
+  flex: 1;
+  min-width: 300px;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.company-closing-text {
+  flex: 1;
+}
+
+.company-closing-text h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.company-closing-text p {
+  color: #4b5563;
+  line-height: 1.6;
+}

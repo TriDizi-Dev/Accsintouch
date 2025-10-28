@@ -1,0 +1,123 @@
+.profile-page {
+  background-color: #f9fafb;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: #1f2937;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.profile-hero {
+  background: linear-gradient(to right, #b09fce,#b09fce);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.profile-hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.profile-hero p {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Profile Info */
+.profile-section {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.profile-avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #9333ea; /* nice purple */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+
+}
+
+.profile-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-info p {
+  color: #4b5563;
+  margin: 0.3rem 0;
+}
+
+.profile-edit-btn {
+  background-color: #9333ea;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-edit-btn:hover {
+  background-color: #7c3aed;
+}
+
+/* Wishlist / Orders Section */
+.profile-sections-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  padding: 2rem 3rem 5rem;
+}
+
+.profile-subsection {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-subsection h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.profile-subsection p {
+  color: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-avatar img {
+    width: 100px;
+    height: 100px;
+  }
+}
