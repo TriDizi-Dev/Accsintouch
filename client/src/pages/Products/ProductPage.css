@@ -506,6 +506,14 @@ body {
 }
 
 /* Newsletter Section */
+
+.newsletter-wrapper {
+  margin-left: calc(-18rem - 2rem);
+  margin-right: 16rem;
+  width: calc(100% + 8rem + 10rem);
+  margin-bottom: 3rem;
+}
+
 .newsletter-section {
   box-sizing: border-box;
   position: relative;
