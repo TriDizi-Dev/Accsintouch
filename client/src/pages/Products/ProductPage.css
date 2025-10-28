@@ -948,3 +948,347 @@ body {
     padding: 0.625rem 0.875rem;
   }
 }
+/* ===================================================================
+   ADD THESE RESPONSIVE STYLES TO THE END OF YOUR ProductPage.css
+   =================================================================== */
+
+/* Newsletter Wrapper Responsive */
+@media (max-width: 1024px) {
+  .newsletter-wrapper {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .newsletter-section {
+    padding: 2.5rem 2rem !important;
+  }
+
+  .newsletter-container {
+    max-width: 100% !important;
+    gap: 3rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .newsletter-wrapper {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    padding: 0 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem !important;
+  }
+
+  .newsletter-section {
+    padding: 2rem 1.5rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .newsletter-container {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 2rem !important;
+    max-width: 100% !important;
+  }
+
+  .newsletter-heading h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .newsletter-description {
+    font-size: 0.875rem !important;
+  }
+
+  .newsletter-form {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+
+  .newsletter-input,
+  .newsletter-submit {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsletter-wrapper {
+    padding: 0 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .newsletter-section {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .newsletter-container {
+    gap: 1.5rem !important;
+  }
+
+  .newsletter-heading h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .newsletter-description {
+    font-size: 0.75rem !important;
+  }
+
+  .newsletter-input,
+  .newsletter-submit {
+    font-size: 0.75rem !important;
+    padding: 0.625rem 0.875rem !important;
+  }
+}
+
+/* Hero Banner Responsive */
+@media (max-width: 1024px) {
+  .hero-banner {
+    height: 14rem;
+  }
+
+  .hero-title {
+    font-size: 1.875rem;
+  }
+
+  .hero-discount {
+    font-size: 2.5rem;
+  }
+
+  .hero-image-left,
+  .hero-image-right {
+    width: 25%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 12rem;
+  }
+
+  .hero-content {
+    padding: 0 15px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-discount {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-button {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .hero-image-left,
+  .hero-image-right {
+    width: 30%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-banner {
+    height: 10rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .hero-title {
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
+
+  .hero-discount {
+    font-size: 1.75rem;
+  }
+
+  .hero-button {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-image-left,
+  .hero-image-right {
+    display: none;
+  }
+}
+
+/* Main Content & Products Grid Responsive */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 2rem 1.5rem;
+    margin: 0 auto;
+  }
+
+  .content-wrapper {
+    gap: 1.5rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .product-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .filters-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .filters-container {
+    padding: 1.25rem;
+  }
+
+  .products-section {
+    width: 100%;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+    width: 100% !important;
+  }
+
+  .product-card {
+    width: 100%;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .trending-button {
+    margin-right: 0 !important;
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .trending-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 1rem 0.75rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .product-card {
+    max-width: 100%;
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+  }
+
+  .filter-section-title {
+    font-size: 0.8rem;
+  }
+
+  .filter-option span {
+    font-size: 0.8rem;
+  }
+
+  .filters-title {
+    font-size: 0.9rem;
+  }
+
+  .product-name {
+    font-size: 0.8rem;
+  }
+
+  .product-price {
+    font-size: 0.8rem;
+  }
+
+  .trending-button {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.875rem;
+    width: 100%;
+  }
+}
+
+/* Filter Clear Button Responsive */
+@media (max-width: 768px) {
+  .products-section > div:first-child {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+    margin-right: 0 !important;
+  }
+
+  .products-section > div:first-child button {
+    width: 100%;
+  }
+}
+
+/* Product Image Container Responsive */
+@media (max-width: 480px) {
+  .product-image-container {
+    height: 10rem;
+    padding: 0.75rem;
+  }
+
+  .product-image {
+    max-width: 8rem;
+    max-height: 8rem;
+  }
+
+  .product-info {
+    padding: 0.75rem;
+  }
+}
+
+/* Footer Responsive (if needed) */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    padding: 2rem 0;
+  }
+
+  .footer-container {
+    padding: 0 1rem;
+  }
+}
