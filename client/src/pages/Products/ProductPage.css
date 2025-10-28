@@ -509,8 +509,8 @@ body {
 
 .newsletter-wrapper {
   margin-left: calc( - 2rem);
-  margin-right: 13rem;
-  width: calc(100% + 18rem + 10rem);
+  margin-right: 3rem;
+  width: calc(100% + 8rem + 10rem);
   margin-bottom: 3rem;
 }
 
