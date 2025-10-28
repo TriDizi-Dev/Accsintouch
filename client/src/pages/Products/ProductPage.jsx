@@ -451,7 +451,7 @@ const ProductPage = () => {
                     padding: '8px 16px',
                     background: '#f44336',
                     color: 'white',
-                    border: 'none',
+                    borderRight: '3rem',
                     borderRadius: '20px',
                     cursor: 'pointer',
                     fontSize: '14px',
@@ -596,9 +596,9 @@ const ProductPage = () => {
         
         {/* Newsletter Section - Outside content-wrapper to span full width */}
         <div style={{ 
-  marginLeft: 'calc( - 2rem)', 
+  marginLeft: 'calc( -18rem- 2rem)', 
   marginRight: '16rem',
-  width: 'calc(100% + 18rem + 14rem)',
+  width: 'calc(100% + 8rem + 10rem)',
   marginBottom: '3rem'
 }}>
         <div className="newsletter-section">
