@@ -981,3 +981,374 @@
     font-size: 36px;
   }
 }
+
+
+/* Hero Section - 50% OFF */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .hero-right {
+    width: 100%;
+    height: 400px;
+    grid-column: 1;
+  }
+
+  .hero-left {
+    bottom: 30px;
+    left: 30px;
+    max-width: 280px;
+  }
+
+  .hero-title {
+    font-size: 70px;
+  }
+
+  .hero-subtitle {
+    font-size: 32px;
+  }
+
+  .promo-card {
+    height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 10px;
+  }
+
+  .hero-right {
+    height: 350px;
+  }
+
+  .hero-left {
+    bottom: 20px;
+    left: 20px;
+    gap: 10px;
+    max-width: 250px;
+  }
+
+  .hero-title {
+    font-size: 60px;
+  }
+
+  .hero-subtitle {
+    font-size: 28px;
+  }
+
+  .hero-text {
+    font-size: 13px;
+    max-width: 240px;
+  }
+
+  .promo-card {
+    height: 200px;
+    padding: 0;
+  }
+
+  .promo-card.promo-purple {
+    flex-direction: column;
+  }
+
+  .promo-card.promo-purple .promo-content {
+    flex: 1;
+    width: 100%;
+  }
+
+  .promo-card.promo-purple > div:last-child {
+    padding: 20px;
+  }
+
+  .promo-light {
+    height: 220px;
+    padding: 20px;
+  }
+
+  .promo-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .btn-primary {
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-right {
+    height: 300px;
+  }
+
+  .hero-left {
+    bottom: 15px;
+    left: 15px;
+    gap: 8px;
+  }
+
+  .hero-title {
+    font-size: 50px;
+  }
+
+  .hero-subtitle {
+    font-size: 24px;
+  }
+
+  .hero-text {
+    font-size: 12px;
+    max-width: 200px;
+  }
+
+  .promo-card {
+    height: 180px;
+  }
+
+  .promo-title {
+    font-size: 24px;
+  }
+
+  .promo-label {
+    font-size: 10px;
+  }
+
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 11px;
+  }
+}
+
+/* Last Chance Banner */
+@media (max-width: 1024px) {
+  .hero-banner {
+    height: 14rem;
+    padding: 15px;
+  }
+
+  .hero-title {
+    font-size: 1.875rem;
+  }
+
+  .hero-discount {
+    font-size: 2.5rem;
+  }
+
+  .hero-image-left,
+  .hero-image-right {
+    width: 25%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 12rem;
+    padding: 10px;
+  }
+
+  .hero-content {
+    padding: 0 15px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-discount {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-button {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .hero-image-left,
+  .hero-image-right {
+    width: 30%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-banner {
+    height: 10rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .hero-title {
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
+
+  .hero-discount {
+    font-size: 1.75rem;
+  }
+
+  .hero-button {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-image-left,
+  .hero-image-right {
+    display: none;
+  }
+}
+
+/* Features Section (4 Icons) */
+@media (max-width: 1024px) {
+  .features-section-contact {
+    padding: 50px 40px;
+  }
+
+  .features-grid-contact {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-section-contact {
+    padding: 40px 30px;
+    margin: 40px 0;
+  }
+
+  .features-grid-contact {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .feature-card-contact {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-icon-contact {
+    width: 60px;
+    height: 60px;
+  }
+
+  .feature-title-contact {
+    font-size: 16px;
+  }
+
+  .feature-text-contact {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-section-contact {
+    padding: 30px 20px;
+    margin: 30px 0;
+  }
+
+  .features-grid-contact {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .feature-icon-contact {
+    width: 50px;
+    height: 50px;
+  }
+
+  .feature-icon-contact img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .feature-title-contact {
+    font-size: 15px;
+  }
+
+  .feature-text-contact {
+    font-size: 12px;
+  }
+}
+
+/* Newsletter Section */
+@media (max-width: 1024px) {
+  .newsletter-section {
+    padding: 60px 40px;
+  }
+
+  .newsletter-content {
+    gap: 50px;
+  }
+
+  .newsletter-title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .newsletter-section {
+    padding: 50px 30px;
+    margin: 40px 0 0 0;
+  }
+
+  .newsletter-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .newsletter-title {
+    font-size: 36px;
+  }
+
+  .newsletter-text {
+    font-size: 13px;
+  }
+
+  .newsletter-right {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .newsletter-input {
+    width: 100%;
+    padding: 14px 24px;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    padding: 14px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsletter-section {
+    padding: 40px 20px;
+  }
+
+  .newsletter-title {
+    font-size: 28px;
+  }
+
+  .newsletter-text {
+    font-size: 12px;
+  }
+
+  .newsletter-input {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .btn-secondary {
+    padding: 12px 20px;
+    font-size: 12px;
+  }
+}

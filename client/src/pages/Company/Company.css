@@ -121,3 +121,150 @@
   color: #4b5563;
   line-height: 1.6;
 }
+@media (max-width: 1024px) {
+  .company-hero {
+    height: 15rem;
+  }
+
+  .company-hero-text h1 {
+    font-size: 2.25rem;
+  }
+
+  .company-section {
+    padding: 3rem 2rem;
+    gap: 2.5rem;
+  }
+
+  .company-values {
+    padding: 3rem 2rem;
+  }
+
+  .company-closing {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .company-hero {
+    height: 12rem;
+  }
+
+  .company-hero-text h1 {
+    font-size: 1.875rem;
+  }
+
+  .company-hero-text p {
+    font-size: 0.875rem;
+  }
+
+  .company-section {
+    padding: 2.5rem 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .company-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .company-content p {
+    font-size: 0.9rem;
+  }
+
+  .company-values {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .company-values h2 {
+    font-size: 1.75rem;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .value-card {
+    padding: 1.25rem;
+  }
+
+  .value-card h3 {
+    font-size: 1rem;
+  }
+
+  .company-closing {
+    padding: 2.5rem 1.5rem;
+    flex-direction: column;
+  }
+
+  .company-closing-image {
+    width: 100%;
+    max-height: 300px;
+  }
+
+  .company-closing-text h2 {
+    font-size: 1.5rem;
+  }
+
+  .company-closing-text p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-hero {
+    height: 10rem;
+  }
+
+  .company-hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .company-hero-text p {
+    font-size: 0.75rem;
+  }
+
+  .company-section {
+    padding: 2rem 1rem;
+  }
+
+  .company-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .company-content p {
+    font-size: 0.85rem;
+  }
+
+  .company-values {
+    padding: 2rem 1rem;
+  }
+
+  .company-values h2 {
+    font-size: 1.5rem;
+  }
+
+  .value-card {
+    padding: 1rem;
+  }
+
+  .value-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .value-card p {
+    font-size: 0.85rem;
+  }
+
+  .company-closing {
+    padding: 2rem 1rem;
+  }
+
+  .company-closing-text h2 {
+    font-size: 1.25rem;
+  }
+
+  .company-closing-text p {
+    font-size: 0.85rem;
+  }
+}
