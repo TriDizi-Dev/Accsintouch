@@ -141,7 +141,9 @@ const ProductDetail = () => {
       />
 
       <div className="breadcrumb">
-        <span>Home</span> &gt; <span>Product</span> &gt; <span>Product detail</span>
+        <span
+        onClick={() => navigate("/")}>Home</span> &gt; <span
+        onClick={() => navigate("/products")}>Product</span> &gt; <span>Product detail</span>
       </div>
 
       <div className="product-main-section">
