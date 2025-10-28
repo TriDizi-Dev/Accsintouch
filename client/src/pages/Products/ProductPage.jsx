@@ -601,27 +601,62 @@ const ProductPage = () => {
   width: 'calc(100% + 8rem + 10rem)',
   marginBottom: '3rem'
 }}>
-        <div className="newsletter-section">
-          <div className="newsletter-container">
-            <div className="newsletter-heading">
-              <h2>SUBSCRIBE OUR</h2>
-              <h2>NEWSLETTER</h2>
-            </div>
-            <div className="newsletter-form-container">
-              <p className="newsletter-description">
-                Discover quality fashion that reflects your style and makes everyday living more enjoyable.
-              </p>
-              <div className="newsletter-form">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="newsletter-input"
-                />
-                <button className="newsletter-submit">Subscribe Now</button>
-              </div>
-            </div>
-            </div>
-          </div>
+        <div className="newsletter-section" style={{
+    marginLeft: window.innerWidth <= 768 ? '0' : undefined,
+    marginRight: window.innerWidth <= 768 ? '0' : undefined,
+    width: window.innerWidth <= 768 ? '100%' : undefined,
+    padding: window.innerWidth <= 480 ? '1.5rem 1rem' : 
+             window.innerWidth <= 768 ? '2rem 1.5rem' : 
+             window.innerWidth <= 1024 ? '2.5rem 2rem' : undefined
+  }}>
+    <div className="newsletter-container" style={{
+      flexDirection: window.innerWidth <= 768 ? 'column' : 'row',
+      textAlign: window.innerWidth <= 768 ? 'center' : 'left',
+      gap: window.innerWidth <= 768 ? '2rem' : '20rem',
+      maxWidth: window.innerWidth <= 768 ? '100%' : '73%'
+    }}>
+      <div className="newsletter-heading">
+        <h2 style={{
+          fontSize: window.innerWidth <= 480 ? '1.25rem' : 
+                   window.innerWidth <= 768 ? '1.5rem' : '1.875rem'
+        }}>SUBSCRIBE OUR</h2>
+        <h2 style={{
+          fontSize: window.innerWidth <= 480 ? '1.25rem' : 
+                   window.innerWidth <= 768 ? '1.5rem' : '1.875rem'
+        }}>NEWSLETTER</h2>
+      </div>
+      <div className="newsletter-form-container">
+        <p className="newsletter-description" style={{
+          fontSize: window.innerWidth <= 480 ? '0.8rem' : 
+                   window.innerWidth <= 768 ? '0.875rem' : '0.875rem'
+        }}>
+          Discover quality fashion that reflects your style and makes everyday living more enjoyable.
+        </p>
+        <div className="newsletter-form" style={{
+          flexDirection: window.innerWidth <= 768 ? 'column' : 'row',
+          gap: window.innerWidth <= 768 ? '0.75rem' : '0.75rem'
+        }}>
+          <input
+            type="email"
+            placeholder="Your email"
+            className="newsletter-input"
+            style={{
+              width: window.innerWidth <= 768 ? '100%' : undefined,
+              fontSize: window.innerWidth <= 480 ? '0.8rem' : '0.875rem',
+              padding: window.innerWidth <= 480 ? '0.625rem 0.875rem' : '0.75rem 1rem'
+            }}
+          />
+          <button className="newsletter-submit" style={{
+            width: window.innerWidth <= 768 ? '100%' : undefined,
+            fontSize: window.innerWidth <= 480 ? '0.8rem' : '0.875rem',
+            padding: window.innerWidth <= 480 ? '0.625rem 0.875rem' : '0.75rem 2rem'
+          }}>
+            Subscribe Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
         </div>
       </div>
 
