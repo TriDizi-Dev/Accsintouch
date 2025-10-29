@@ -40,8 +40,10 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
     
     return {
       header: {
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
+  left: 0,
+  right: 0,
         zIndex: 100,
         background: '#ffffffff',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
@@ -132,8 +134,8 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
         alignItems: 'center',
         background: '#F1F2F7',
         borderRadius: '25px',
-        padding: width <= 480 ? '6px 10px' : width <= 768 ? '6px 12px' : '8px 14px',
-        width: width <= 480 ? '120px' : width <= 768 ? '150px' : width <= 1024 ? '180px' : '200px',
+        padding: width <= 480 ? '8px 12px' : width <= 768 ? '10px 16px' : '12px 20px',
+        width: width <= 480 ? '180px' : width <= 768 ? '220px' : width <= 1024 ? '280px' : '350px',
         border: '2px solid transparent',
       },
       categorySelect: {
@@ -202,9 +204,10 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
           <nav style={styles.nav}>
             <a href="/" style={{ ...styles.navLink, ...(activePage === 'home' ? styles.navLinkActive : {}) }}>Home</a>
             <a href="/products" style={{ ...styles.navLink, ...(activePage === 'products' ? styles.navLinkActive : {}) }}>Products</a>
-            <a href="/blog" style={{ ...styles.navLink, ...(activePage === 'blog' ? styles.navLinkActive : {}) }}>Blog</a>
-            <a href="/contact" style={{ ...styles.navLink, ...(activePage === 'contact' ? styles.navLinkActive : {}) }}>Contact Us</a>
+            {/*
+            <a href="/blog" style={{ ...styles.navLink, ...(activePage === 'blog' ? styles.navLinkActive : {}) }}>Blog</a>*/}
             <a href="/about" style={{ ...styles.navLink, ...(activePage === 'about' ? styles.navLinkActive : {}) }}>About Us</a>
+            <a href="/contact" style={{ ...styles.navLink, ...(activePage === 'contact' ? styles.navLinkActive : {}) }}>Contact Us</a>
           </nav>
         )}
 
@@ -243,10 +246,10 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
           </div>
 
           {/* User Icon */}
-          <div style={styles.iconLink} onClick={() => navigate('/profile')}>
+           {/*<div style={styles.iconLink} onClick={() => navigate('/profile')}>
             <User style={styles.icon} />
-          </div>
-        </div>
+          </div>*/}
+        </div> 
 
         {/* Navigation - Mobile */}
         {isMobile && isMobileMenuOpen && (

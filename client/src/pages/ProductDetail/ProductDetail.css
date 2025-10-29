@@ -1,7 +1,10 @@
+body {
+  padding-top: 90px; /* Adjust based on your header height */
+}
 .product-detail-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
   font-family: 'Arial', sans-serif;
   background: white;
 }

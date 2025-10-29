@@ -211,7 +211,7 @@ export default function HomePage() {
               <img src={bow1} alt="Hair Bow" style={{ height: '120px', width: '120px', marginTop:'-20px' }} />
             </div>
             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 10px' }}>
-              <p className="promo-browse-text">BROWSE HAIR ACCESSORIES</p>
+              <p className="promo-browse-text" style={{fontFamily: 'Segoe UI', fontWeight:'bold'}}>Browse Hair Accessories</p>
               {/* Updated Buy Now Button to navigate to Hair Bows category */}
               <button className="btn-primary" onClick={() => handleNavigateToCategory('hair-bows')}>
                 Buy Now
@@ -302,13 +302,13 @@ export default function HomePage() {
           </div>
         </div>
         
-        <div className="products-grid">
+        <div className="products-grid" style={{maxWidth:'200%',gap:'10px'}}>
           {getVisibleProducts().map(product => (
             <div 
               key={product.id} 
               className="product-card"
               onClick={() => handleProductClick(product)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer' , width:'100%',maxWidth:'200%', }}
             >
               <div className="product-image-container">
                 <Heart 
@@ -378,13 +378,13 @@ export default function HomePage() {
           </div>
         </div>
         
-        <div className="products-grid">
+        <div className="products-grid" style={{maxWidth:'200%',gap:'10px'}}>
           {getVisibleEarrings().map(product => (
             <div 
               key={product.id} 
               className="product-card"
               onClick={() => handleProductClick(product)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer' , width:'100%',maxWidth:'200%', }}
             >
               <div className="product-image-container">
                 <Heart 

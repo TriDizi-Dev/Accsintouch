@@ -1,17 +1,26 @@
 /* AccsInTouch.css - Exact Figma Match */
 
 /* Reset and Base Styles */
+
+body {
+  padding-top: 70px; /* Adjust based on your header height */
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
 .accs-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #000;
   background: #fff;
   min-height: 100vh;
+   overflow-x: hidden;
+  max-width: 100vw;
 }
 
 /* Hero Section - Exact Match */

@@ -1,5 +1,7 @@
 /* AboutUs.css */
-
+body {
+  padding-top: 70px; /* Adjust based on your header height */
+}
 .about-page {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #fff;

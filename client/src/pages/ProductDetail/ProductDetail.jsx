@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import './ProductDetail.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Heart, ShoppingBag } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 // Import images
 import girlEarring from '../../assets/girlearring.png';
@@ -21,10 +21,10 @@ import bow1 from '../../assets/bow1.png';
 import violetclip from '../../assets/violetclip.png';
 
 const ProductDetail = () => {
-  const [quantity, setQuantity] = useState(4);
+  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
   const descriptionRef = useRef(null);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   // State for wishlist and cart
   const [wishlist, setWishlist] = useState(() => {
@@ -80,6 +80,7 @@ const ProductDetail = () => {
   // Handle product click for navigation
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
+    window.scrollTo(0, 0);
   };
 
   // Quantity change handler
@@ -141,9 +142,7 @@ const ProductDetail = () => {
       />
 
       <div className="breadcrumb">
-        <span
-        onClick={() => navigate("/")}>Home</span> &gt; <span
-        onClick={() => navigate("/products")}>Product</span> &gt; <span>Product detail</span>
+        <span onClick={() => navigate("/")}>Home</span> &gt; <span onClick={() => navigate("/products")}>Product</span> &gt; <span>Product detail</span>
       </div>
 
       <div className="product-main-section">
@@ -167,11 +166,11 @@ const ProductDetail = () => {
         <div className="product-info">
           <h1>YouBella Jewellery Bohemian Multi-Color Earrings for Girls and Women</h1>
           
-          <div className="rating">
+          {/* <div className="rating">
             <span className="rating-number">4.2</span>
             <span className="stars">⭐⭐⭐⭐⭐</span>
             <span className="reviews">245</span>
-          </div>
+          </div>*/}
 
           <div className="price-section">
             <span className="current-price">₹ 1,500</span>
@@ -262,11 +261,12 @@ const ProductDetail = () => {
 
       <div className="similar-products-section">
         <h2 className="section-title">Similar Products</h2>
-        <div className="products-grid">
+        <div className="products-grid" style={{maxWidth:'200%', gap:'14px'}}>
           {similarProducts.map((product) => (
             <div 
               key={product.id} 
               className="product-card"
+              style={{cursor: 'pointer', width:'100%', maxWidth:'200%'}}
               onClick={() => handleProductClick(product.id)}
             >
               <div className="product-image-container">
@@ -287,13 +287,6 @@ const ProductDetail = () => {
               <div className="product-info">
                 <div className="product-header">
                   <span className="product-name">{product.name}</span>
-                  <ShoppingBag 
-                    className="lock-icon" 
-                    size={16}
-                    style={{ cursor: 'pointer' }}
-                    color={isInCart(product.id) ? '#9C27B0' : '#9ca3af'}
-                    onClick={(e) => toggleCart(e, product)}
-                  />
                 </div>
                 <div className="product-details">
                   <div className="color-options">
@@ -303,9 +296,27 @@ const ProductDetail = () => {
                   </div>
                   <span className="product-price">₹{product.price}</span>
                 </div>
-                <div className="product-rating">
-                  <span>{product.rating}</span>
-                  <span className="star-icon">★</span>
+                <div className="product-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                  <div className="product-rating">
+                    <span>{product.rating}</span>
+                    <span className="star-icon">★</span>
+                  </div>
+                  <button 
+                    onClick={(e) => toggleCart(e, product)}
+                    style={{
+                      padding: '6px 16px',
+                      background: isInCart(product.id) ? '#9C27B0' : '#000',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '20px',
+                      cursor: 'pointer',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    {isInCart(product.id) ? 'In Cart' : 'Add to Cart'}
+                  </button>
                 </div>
               </div>
             </div>

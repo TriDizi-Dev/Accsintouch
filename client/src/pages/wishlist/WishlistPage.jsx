@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, ShoppingCart, ChevronRight, Heart } from 'lucide-react';
+import { Trash2, ShoppingCart, ChevronRight, Heart, X } from 'lucide-react';
 import './WishlistPage.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const WishlistPage = () => {
   const navigate = useNavigate();
+  const [showClearModal, setShowClearModal] = useState(false);
   
   // Load wishlist and cart from localStorage
   const [wishlist, setWishlist] = useState(() => {
@@ -27,9 +28,6 @@ const WishlistPage = () => {
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
-
-  // Get cart count
- 
 
   // Remove from wishlist
   const handleRemove = (id) => {
@@ -67,13 +65,149 @@ const WishlistPage = () => {
     window.scrollTo(0, 0);
   };
 
+  // Clear all wishlist items
+  const handleClearAll = () => {
+    setWishlist([]);
+    setShowClearModal(false);
+  };
+
   return (
     <div className="wishlist-page">
       <Header  
-         cartCount={0} 
+        cartCount={cart.length} 
         wishlistCount={wishlist.length}
         activePage="wishlist"
       />
+
+      {/* Clear Confirmation Modal */}
+      {showClearModal && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+          }}
+          onClick={() => setShowClearModal(false)}
+        >
+          <div 
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '20px',
+              padding: '40px',
+              maxWidth: '450px',
+              width: '90%',
+              textAlign: 'center',
+              position: 'relative',
+              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowClearModal(false)}
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '15px',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#666',
+                padding: '5px',
+              }}
+            >
+              <X size={24} />
+            </button>
+
+            <div style={{ marginBottom: '20px' }}>
+              <Heart 
+                size={64} 
+                style={{ 
+                  color: '#f44336', 
+                  strokeWidth: 1.5 
+                }} 
+              />
+            </div>
+
+            <h2 style={{ 
+              fontSize: '24px', 
+              fontWeight: '700', 
+              marginBottom: '15px',
+              color: '#333'
+            }}>
+              Clear Entire Wishlist?
+            </h2>
+
+            <p style={{ 
+              fontSize: '15px', 
+              color: '#666', 
+              marginBottom: '30px',
+              lineHeight: '1.6'
+            }}>
+              Are you sure you want to remove all {wishlist.length} items from your wishlist? This action cannot be undone.
+            </p>
+
+            <div style={{ 
+              display: 'flex', 
+              gap: '12px',
+              justifyContent: 'center'
+            }}>
+              <button
+                onClick={() => setShowClearModal(false)}
+                style={{
+                  padding: '12px 30px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '25px',
+                  background: 'white',
+                  color: '#333',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.borderColor = '#333';
+                  e.target.style.background = '#f5f5f5';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.borderColor = '#e0e0e0';
+                  e.target.style.background = 'white';
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleClearAll}
+                style={{
+                  padding: '12px 30px',
+                  border: 'none',
+                  borderRadius: '25px',
+                  background: '#f44336',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = '#d32f2f';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = '#f44336';
+                }}
+              >
+                Yes, Clear All
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="wishlist-main">
         {/* Breadcrumb */}
@@ -92,11 +226,7 @@ const WishlistPage = () => {
             {wishlist.length > 0 && (
               <button 
                 className="clear-wishlist-btn"
-                onClick={() => {
-                  if (window.confirm('Are you sure you want to clear your entire wishlist?')) {
-                    setWishlist([]);
-                  }
-                }}
+                onClick={() => setShowClearModal(true)}
               >
                 Clear All
               </button>
@@ -222,7 +352,7 @@ const WishlistPage = () => {
                 className="suggested-btn-outline"
                 onClick={() => navigate('/cart')}
               >
-                
+                View Cart
               </button>
             </div>
           </div>

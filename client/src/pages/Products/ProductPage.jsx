@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { Heart, ShoppingBag, Search, Lock } from 'lucide-react';
+import { Heart, Search, Lock } from 'lucide-react';
 import './ProductPage.css';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
@@ -70,15 +70,32 @@ const ProductPage = () => {
     };
     return colorMap[colorCode] || 'Other';
   };
+
   const getHeroTitle = () => {
-  switch (category) {
-    case 'hair-bows': return 'Beautiful Hair Bows';
-    case 'earring': return 'Elegant Earrings';
-    case 'scrunchies': return 'Soft Scrunchies';
-    case 'claw-clips': return 'Trendy Claw Clips';
-    default: return 'END OF SEASON SALE UP TO';
-  }
-};
+    if (selectedFilters.products.length === 4) {
+      return 'All Products';
+    }
+    if (selectedFilters.products.length > 0) {
+      // Map category names to nice display names
+      const niceNames = selectedFilters.products.map(category => {
+        switch(category) {
+          case 'Hair bow': return 'Beautiful Hair Bows';
+          case 'Earrings': return 'Elegant Earrings';
+          case 'Scrunchies': return 'Soft Scrunchies';
+          case 'Claw Clips': return 'Trendy Claw Clips';
+          default: return category;
+        }
+      });
+      return niceNames.join(' & ');
+    }
+    switch (category) {
+      case 'hair-bows': return 'Beautiful Hair Bows';
+      case 'earring': return 'Elegant Earrings';
+      case 'scrunchies': return 'Soft Scrunchies';
+      case 'claw-clips': return 'Trendy Claw Clips';
+      default: return 'END OF SEASON SALE UP TO';
+    }
+  };
 
   // All products data
   const allProducts = [
@@ -116,6 +133,32 @@ const ProductPage = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
+  // Set initial filter based on URL category
+  useEffect(() => {
+    if (category) {
+      const categoryMap = {
+        'claw-clips': 'Claw Clips',
+        'earring': 'Earrings',
+        'hair-bows': 'Hair bow',
+        'scrunchies': 'Scrunchies'
+      };
+      
+      const categoryName = categoryMap[category];
+      if (categoryName && !selectedFilters.products.includes(categoryName)) {
+        setSelectedFilters(prev => ({
+          ...prev,
+          products: [categoryName]
+        }));
+      }
+    } else if (!category && !searchQuery) {
+      // When on /products page (all products), check all categories
+      setSelectedFilters(prev => ({
+        ...prev,
+        products: ['Hair bow', 'Earrings', 'Scrunchies', 'Claw Clips']
+      }));
+    }
+  }, [category]);
+
   // Handle category filtering from URL
   useEffect(() => {
     let filtered = [...allProducts];
@@ -130,22 +173,7 @@ const ProductPage = () => {
       );
     }
 
-    // Filter by category from URL (only if no product type filter is selected)
-    if (category && selectedFilters.products.length === 0) {
-      const categoryMap = {
-        'claw-clips': 'Claw Clips',
-        'earring': 'Earrings',
-        'hair-bows': 'Hair bow',
-        'scrunchies': 'Scrunchies'
-      };
-      
-      const categoryName = categoryMap[category];
-      if (categoryName) {
-        filtered = filtered.filter(p => p.category === categoryName);
-      }
-    }
-
-    // Apply product type filters (overrides URL category)
+    // Apply product type filters
     if (selectedFilters.products.length > 0) {
       filtered = filtered.filter(p => selectedFilters.products.includes(p.category));
     }
@@ -198,10 +226,10 @@ const ProductPage = () => {
 
   // Initialize filtered products
   useEffect(() => {
-  if (!category) {
-    setFilteredProducts(allProducts);
-  }
-}, [category]);
+    if (!category) {
+      setFilteredProducts(allProducts);
+    }
+  }, [category]);
 
   // Handle search from header
   const handleSearch = (query) => {
@@ -248,7 +276,7 @@ const ProductPage = () => {
   };
 
   const getCartCount = () => {
-    return cart.length; // Returns number of unique products, not total quantity
+    return cart.length;
   };
 
   // Navigation
@@ -289,12 +317,28 @@ const ProductPage = () => {
     if (searchQuery) {
       return `Search Results for "${searchQuery}" (${filteredProducts.length} items)`;
     }
+    if (selectedFilters.products.length === 4) {
+      return `All Products (${filteredProducts.length} items)`;
+    }
+    if (selectedFilters.products.length > 0) {
+      // Map category names to nice display names for page title
+      const niceNames = selectedFilters.products.map(category => {
+        switch(category) {
+          case 'Hair bow': return 'Beautiful Hair Bows';
+          case 'Earrings': return 'Elegant Earrings';
+          case 'Scrunchies': return 'Soft Scrunchies';
+          case 'Claw Clips': return 'Trendy Claw Clips';
+          default: return category;
+        }
+      });
+      return `${niceNames.join(' & ')} (${filteredProducts.length} items)`;
+    }
     if (category) {
       const categoryMap = {
-        'claw-clips': 'Claw Clips',
-        'earring': 'Earrings',
-        'hair-bows': 'Hair Bows',
-        'scrunchies': 'Scrunchies'
+        'claw-clips': 'Trendy Claw Clips',
+        'earring': 'Elegant Earrings',
+        'hair-bows': 'Beautiful Hair Bows',
+        'scrunchies': 'Soft Scrunchies'
       };
       return categoryMap[category] || 'All Products';
     }
@@ -320,9 +364,7 @@ const ProductPage = () => {
         <div className="hero-content">
           <p className="hero-subtitle">Last Chance</p>
           <h1 className="hero-title">{getHeroTitle()}</h1>
-
           <h2 className="hero-discount">50% OFF</h2>
-          
         </div>
       </div>
 
@@ -451,7 +493,8 @@ const ProductPage = () => {
                     padding: '8px 16px',
                     background: '#f44336',
                     color: 'white',
-                    borderRight: '3rem',
+                    marginRight: '10.5rem',
+                    border: 'none',
                     borderRadius: '20px',
                     cursor: 'pointer',
                     fontSize: '14px',
@@ -502,13 +545,6 @@ const ProductPage = () => {
                     <div className="product-info">
                       <div className="product-header">
                         <span className="product-name">{product.name}</span>
-                        <ShoppingBag 
-                          className="lock-icon" 
-                          size={16}
-                          style={{ cursor: 'pointer' }}
-                          color={isInCart(product.id) ? '#9C27B0' : '#9ca3af'}
-                          onClick={(e) => toggleCart(e, product)}
-                        />
                       </div>
                       <div className="product-details">
                         <div className="color-options">
@@ -518,9 +554,27 @@ const ProductPage = () => {
                         </div>
                         <span className="product-price">₹{product.price}</span>
                       </div>
-                      <div className="product-rating">
-                        <span>{product.rating}</span>
-                        <span className="star-icon">★</span>
+                      <div className="product-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                        <div className="product-rating">
+                          <span>{product.rating}</span>
+                          <span className="star-icon">★</span>
+                        </div>
+                        <button 
+                          onClick={(e) => toggleCart(e, product)}
+                          style={{
+                            padding: '6px 16px',
+                            background: isInCart(product.id) ? '#9C27B0' : '#000',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            fontSize: '12px',
+                            fontWeight: '600',
+                            transition: 'all 0.3s ease'
+                          }}
+                        >
+                          {isInCart(product.id) ? 'In Cart' : 'Add to Cart'}
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -565,13 +619,6 @@ const ProductPage = () => {
                       <div className="product-info">
                         <div className="product-header">
                           <span className="product-name">{product.name}</span>
-                          <ShoppingBag 
-                            className="lock-icon" 
-                            size={16}
-                            style={{ cursor: 'pointer' }}
-                            color={isInCart(product.id) ? '#9C27B0' : '#9ca3af'}
-                            onClick={(e) => toggleCart(e, product)}
-                          />
                         </div>
                         <div className="product-details">
                           <div className="color-options">
@@ -581,9 +628,27 @@ const ProductPage = () => {
                           </div>
                           <span className="product-price">₹{product.price}</span>
                         </div>
-                        <div className="product-rating">
-                          <span>{product.rating}</span>
-                          <span className="star-icon">★</span>
+                        <div className="product-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                          <div className="product-rating">
+                            <span>{product.rating}</span>
+                            <span className="star-icon">★</span>
+                          </div>
+                          <button 
+                            onClick={(e) => toggleCart(e, product)}
+                            style={{
+                              padding: '6px 16px',
+                              background: isInCart(product.id) ? '#9C27B0' : '#000',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '20px',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              transition: 'all 0.3s ease'
+                            }}
+                          >
+                            {isInCart(product.id) ? 'In Cart' : 'Add to Cart'}
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -594,27 +659,27 @@ const ProductPage = () => {
           </div>
         </div>
         
-        {/* Newsletter Section - Outside content-wrapper to span full width */}
+        {/* Newsletter Section */}
         <div className="newsletter-wrapper">
-        <div className="newsletter-section">
-          <div className="newsletter-container">
-            <div className="newsletter-heading">
-              <h2>SUBSCRIBE OUR</h2>
-              <h2>NEWSLETTER</h2>
-            </div>
-            <div className="newsletter-form-container">
-              <p className="newsletter-description">
-                Discover quality fashion that reflects your style and makes everyday living more enjoyable.
-              </p>
-              <div className="newsletter-form">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="newsletter-input"
-                />
-                <button className="newsletter-submit">Subscribe Now</button>
+          <div className="newsletter-section">
+            <div className="newsletter-container">
+              <div className="newsletter-heading">
+                <h2>SUBSCRIBE OUR</h2>
+                <h2>NEWSLETTER</h2>
               </div>
-            </div>
+              <div className="newsletter-form-container">
+                <p className="newsletter-description">
+                  Discover quality fashion that reflects your style and makes everyday living more enjoyable.
+                </p>
+                <div className="newsletter-form">
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    className="newsletter-input"
+                  />
+                  <button className="newsletter-submit">Subscribe Now</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
