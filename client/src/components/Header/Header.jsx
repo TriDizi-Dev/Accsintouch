@@ -256,9 +256,9 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
           <nav style={styles.navMobile}>
             <a href="/" style={{ ...styles.navLink, ...(activePage === 'home' ? styles.navLinkActive : {}) }}>Home</a>
             <a href="/products" style={{ ...styles.navLink, ...(activePage === 'products' ? styles.navLinkActive : {}) }}>Products</a>
-            <a href="/blog" style={{ ...styles.navLink, ...(activePage === 'blog' ? styles.navLinkActive : {}) }}>Blog</a>
-            <a href="/contact" style={{ ...styles.navLink, ...(activePage === 'contact' ? styles.navLinkActive : {}) }}>Contact Us</a>
+           {/* <a href="/blog" style={{ ...styles.navLink, ...(activePage === 'blog' ? styles.navLinkActive : {}) }}>Blog</a>*/}
             <a href="/about" style={{ ...styles.navLink, ...(activePage === 'about' ? styles.navLinkActive : {}) }}>About Us</a>
+            <a href="/contact" style={{ ...styles.navLink, ...(activePage === 'contact' ? styles.navLinkActive : {}) }}>Contact Us</a>
           </nav>
         )}
       </div>
