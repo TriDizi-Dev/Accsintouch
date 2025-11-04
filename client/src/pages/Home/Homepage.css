@@ -14,6 +14,134 @@ body {
 body {
   overflow-x: hidden;
 }
+/* Universal fixes for all sections to prevent right-side gaps */
+/* Top Updates Ticker */
+.updates-ticker-container {
+  width: 100%;
+  background: rgb(156, 39, 176);
+  padding: 12px 0;
+  position: relative;
+  z-index: 100;
+  margin-top: 10px; /* Adjust based on your header height */
+}
+
+.updates-swiper {
+  width: 100%;
+  height: auto;
+}
+
+.update-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.update-slide p {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .update-slide p {
+    font-size: 12px;
+  }
+  
+  .updates-ticker-container {
+    padding: 10px 0;
+  }
+}
+/* Ensure all sections take full width */
+.section {
+  padding: 50px 60px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Ensure all products grids take full width */
+.section .products-grid {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Fix for 3-column grids specifically */
+.products-grid[style*="grid-template-columns: repeat(3, 1fr)"],
+.products-grid[style*="gridTemplateColumns: repeat(3, 1fr)"] {
+  width: 100%;
+  max-width: 100%;
+  gap: 20px;
+  display: grid;
+}
+
+/* Fix for 4-column grids */
+.products-grid[style*="grid-template-columns: repeat(4, 1fr)"],
+.products-grid[style*="gridTemplateColumns: repeat(4, 1fr)"] {
+  width: 100%;
+  max-width: 100%;
+  gap: 20px;
+  display: grid;
+}
+
+/* Ensure all product cards respect grid width */
+.products-grid .product-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Fix for categories grid */
+.categories-grid {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: -50px;
+  box-sizing: border-box;
+}
+
+/* Fix for sale grid */
+.sale-grid {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Fix for reviews grid */
+.reviews-grid {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Fix for blog grid */
+.blog-grid {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Override any inline maxWidth styles */
+.section > div[style*="maxWidth"] {
+  max-width: 100% !important;
+}
+
+.section > div[style*="max-width"] {
+  max-width: 100% !important;
+}
 .accs-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #000;

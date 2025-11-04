@@ -232,14 +232,41 @@ const ProductPage = () => {
   }, [category]);
 
   // Handle search from header
-  const handleSearch = (query) => {
-    setSearchQuery(query);
+
+const handleSearch = (query) => {
+  setSearchQuery(query);
+  
+  // Check if the query matches a category
+  const categoryMap = {
+    'earrings': 'earring',
+    'earring': 'earring',
+    'scrunchies': 'scrunchies',
+    'scrunchie': 'scrunchies',
+    'claws': 'claw-clips',
+    'claw clips': 'claw-clips',
+    'claw': 'claw-clips',
+    'hair bows': 'hair-bows',
+    'hair bow': 'hair-bows',
+    'bows': 'hair-bows',
+    'bow': 'hair-bows'
+  };
+  
+  const lowerQuery = query.toLowerCase().trim();
+  const matchedCategory = categoryMap[lowerQuery];
+  
+  if (matchedCategory) {
+    // Navigate to category page
+    navigate(`/category/${matchedCategory}`);
+    window.scrollTo(0, 0);
+  } else {
+    // Filter products locally if no category match
     const filtered = allProducts.filter(p =>
       p.name.toLowerCase().includes(query.toLowerCase()) ||
       p.category.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredProducts(filtered);
-  };
+  }
+};
 
   // Wishlist functions
   const toggleWishlist = (e, product) => {

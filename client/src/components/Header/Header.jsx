@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Heart, ShoppingCart, Menu, X, User, Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import LOGO from '../../assets/LOGO.png';
 
 const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const navigate = useNavigate();
+  const searchRef = useRef(null);
+
+  const categories = [
+    { name: 'Earrings', value: 'earring' },
+    { name: 'Scrunchies', value: 'scrunchies' },
+    { name: 'Claws', value: 'claw-clips' },
+    { name: 'Hair Bows', value: 'hair-bows' },
+  ];
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,19 +30,82 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleCategorySelect = (e) => {
-    const category = e.target.value;
-    setSelectedCategory(category);
-
-    if (category) {
-      navigate(`/category/${category}`);
-      window.scrollTo(0, 0);
-    }
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setShowSuggestions(query.length > 0);
   };
+
+  // In Header.js, replace the handleSearchSubmit function with this:
+
+const handleSearchSubmit = (e) => {
+  e.preventDefault();
+  if (searchQuery.trim()) {
+    // Check if query matches a category first
+    const categoryMap = {
+      'earrings': 'earring',
+      'earring': 'earring',
+      'scrunchies': 'scrunchies',
+      'scrunchie': 'scrunchies',
+      'claws': 'claw-clips',
+      'claw clips': 'claw-clips',
+      'claw': 'claw-clips',
+      'hair bows': 'hair-bows',
+      'hair bow': 'hair-bows',
+      'bows': 'hair-bows',
+      'bow': 'hair-bows'
+    };
+    
+    const lowerQuery = searchQuery.toLowerCase().trim();
+    const matchedCategory = categoryMap[lowerQuery];
+    
+    if (matchedCategory) {
+      navigate(`/category/${matchedCategory}`);
+    } else {
+      // Navigate to products page with search query
+      navigate('/products', { state: { searchQuery: searchQuery } });
+    }
+    
+    setShowSuggestions(false);
+    setSearchQuery('');
+    window.scrollTo(0, 0);
+  }
+};
+
+  const handleSuggestionClick = (category) => {
+    navigate(`/category/${category.value}`);
+    setShowSuggestions(false);
+    setSearchQuery('');
+  };
+
+  // Filter categories based on search query
+  const getSuggestions = () => {
+    if (!searchQuery.trim()) return [];
+
+    const query = searchQuery.toLowerCase();
+    
+    return categories.filter(category =>
+      category.name.toLowerCase().includes(query)
+    );
+  };
+
+  const suggestions = getSuggestions();
 
   const getResponsiveStyles = () => {
     const width = window.innerWidth;
@@ -42,9 +114,9 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
       header: {
         position: 'fixed',
         top: 0,
-  left: 0,
-  right: 0,
-        zIndex: 100,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
         background: '#ffffffff',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
       },
@@ -129,6 +201,10 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
         flexShrink: 0,
         order: width <= 768 ? 2 : 0,
       },
+      searchContainer: {
+        position: 'relative',
+        zIndex: 10000,
+      },
       searchBox: {
         display: 'flex',
         alignItems: 'center',
@@ -137,15 +213,68 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
         padding: width <= 480 ? '8px 12px' : width <= 768 ? '10px 16px' : '12px 20px',
         width: width <= 480 ? '180px' : width <= 768 ? '220px' : width <= 1024 ? '280px' : '350px',
         border: '2px solid transparent',
+        transition: 'all 0.3s ease',
       },
-      categorySelect: {
+      searchBoxFocused: {
+        borderColor: '#9C27B0',
+        boxShadow: '0 2px 8px rgba(156, 39, 176, 0.1)',
+      },
+      searchInput: {
         border: 'none',
         outline: 'none',
         fontSize: width <= 480 ? '11px' : width <= 768 ? '12px' : width <= 1024 ? '13px' : '14px',
         background: 'transparent',
         color: '#333',
-        cursor: 'pointer',
         width: '100%',
+        marginLeft: '8px',
+      },
+      suggestionsDropdown: {
+        position: 'absolute',
+        top: 'calc(100% + 8px)',
+        left: 0,
+        right: 0,
+        background: 'white',
+        borderRadius: '12px',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        maxHeight: '400px',
+        overflowY: 'auto',
+        zIndex: 1001,
+      },
+      suggestionItem: {
+        padding: '12px 16px',
+        cursor: 'pointer',
+        borderBottom: '1px solid #f0f0f0',
+        transition: 'background 0.2s ease',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+      },
+      suggestionItemHover: {
+        background: '#f8f9fa',
+      },
+      suggestionIcon: {
+        width: '20px',
+        height: '20px',
+        color: '#9C27B0',
+      },
+      suggestionText: {
+        flex: 1,
+      },
+      suggestionName: {
+        fontSize: '14px',
+        color: '#333',
+        fontWeight: 500,
+      },
+      suggestionCategory: {
+        fontSize: '12px',
+        color: '#999',
+        marginTop: '2px',
+      },
+      noResults: {
+        padding: '20px',
+        textAlign: 'center',
+        color: '#999',
+        fontSize: '14px',
       },
       icon: {
         color: '#666',
@@ -204,8 +333,6 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
           <nav style={styles.nav}>
             <a href="/" style={{ ...styles.navLink, ...(activePage === 'home' ? styles.navLinkActive : {}) }}>Home</a>
             <a href="/products" style={{ ...styles.navLink, ...(activePage === 'products' ? styles.navLinkActive : {}) }}>Products</a>
-            {/*
-            <a href="/blog" style={{ ...styles.navLink, ...(activePage === 'blog' ? styles.navLinkActive : {}) }}>Blog</a>*/}
             <a href="/about" style={{ ...styles.navLink, ...(activePage === 'about' ? styles.navLinkActive : {}) }}>About Us</a>
             <a href="/contact" style={{ ...styles.navLink, ...(activePage === 'contact' ? styles.navLinkActive : {}) }}>Contact Us</a>
           </nav>
@@ -213,20 +340,84 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
 
         {/* Header Right Section */}
         <div style={styles.headerRight}>
-          {/* Search Dropdown */}
-          <div style={styles.searchBox}>
-            <Search size={18} style={{ color: '#666', marginRight: '8px' }} />
-            <select
-              value={selectedCategory}
-              onChange={handleCategorySelect}
-              style={styles.categorySelect}
-            >
-              <option value="">Search</option>
-              <option value="hair-bows">Hair Bows</option>
-              <option value="earring">Earrings</option>
-              <option value="scrunchies">Scrunchies</option>
-              <option value="claw-clips">Claw Clips</option>
-            </select>
+          {/* Search Box with Suggestions */}
+          <div style={styles.searchContainer} ref={searchRef}>
+            <form onSubmit={handleSearchSubmit}>
+              <div style={{
+                ...styles.searchBox,
+                ...(showSuggestions ? styles.searchBoxFocused : {})
+              }}>
+                <Search size={18} style={{ color: '#666' }} />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  onFocus={() => searchQuery && setShowSuggestions(true)}
+                  style={styles.searchInput}
+                />
+              </div>
+            </form>
+
+            {/* Suggestions Dropdown */}
+            {showSuggestions && (
+              <div style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: 0,
+                right: 0,
+                background: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                maxHeight: '400px',
+                overflowY: 'auto',
+                zIndex: 10001,
+              }}>
+                {suggestions.length > 0 ? (
+                  suggestions.map((category, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        padding: '12px 16px',
+                        cursor: 'pointer',
+                        borderBottom: '1px solid #f0f0f0',
+                        transition: 'background 0.2s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                      }}
+                      onClick={() => handleSuggestionClick(category)}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f8f9fa'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                    >
+                      <Search style={{
+                        width: '20px',
+                        height: '20px',
+                        color: '#9C27B0',
+                      }} size={18} />
+                      <div style={{ flex: 1 }}>
+                        <div style={{
+                          fontSize: '14px',
+                          color: '#333',
+                          fontWeight: 500,
+                        }}>
+                          {category.name}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{
+                    padding: '20px',
+                    textAlign: 'center',
+                    color: '#999',
+                    fontSize: '14px',
+                  }}>
+                    No categories found for "{searchQuery}"
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Wishlist Icon */}
@@ -244,11 +435,6 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
               <span style={styles.badge}>{cartCount}</span>
             )}
           </div>
-
-          {/* User Icon */}
-           {/*<div style={styles.iconLink} onClick={() => navigate('/profile')}>
-            <User style={styles.icon} />
-          </div>*/}
         </div> 
 
         {/* Navigation - Mobile */}
@@ -256,7 +442,6 @@ const Header = ({ cartCount = 0, wishlistCount = 0, activePage = 'home' }) => {
           <nav style={styles.navMobile}>
             <a href="/" style={{ ...styles.navLink, ...(activePage === 'home' ? styles.navLinkActive : {}) }}>Home</a>
             <a href="/products" style={{ ...styles.navLink, ...(activePage === 'products' ? styles.navLinkActive : {}) }}>Products</a>
-           {/* <a href="/blog" style={{ ...styles.navLink, ...(activePage === 'blog' ? styles.navLinkActive : {}) }}>Blog</a>*/}
             <a href="/about" style={{ ...styles.navLink, ...(activePage === 'about' ? styles.navLinkActive : {}) }}>About Us</a>
             <a href="/contact" style={{ ...styles.navLink, ...(activePage === 'contact' ? styles.navLinkActive : {}) }}>Contact Us</a>
           </nav>
