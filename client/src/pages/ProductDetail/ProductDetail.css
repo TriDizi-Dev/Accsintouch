@@ -197,7 +197,7 @@ body {
 .explore-btn {
   flex: 1;
   padding: 14px 24px;
-  background: black;
+  background-color :rgb(156, 39, 176);
   color: white;
   border: none;
   border-radius: 25px;
@@ -216,7 +216,7 @@ body {
   padding: 14px 24px;
   background: white;
   color: black;
-  border: 2px solid black;
+  border: 2px solid rgb(156, 39, 176);
   border-radius: 25px;
   font-size: 16px;
   font-weight: 500;

@@ -30,7 +30,7 @@
 .contact-main-title {
   font-size: 48px;
   font-weight: bold;
-  color: #000;
+  color: rgb(156, 39, 176);
   margin-bottom: 10px;
 }
 
@@ -44,6 +44,7 @@
 .contact-info-item {
   display: flex;
   align-items: flex-start;
+  color :rgb(156, 39, 176);
   gap: 20px;
 }
 
@@ -87,7 +88,7 @@
 .contact-form-title {
   font-size: 32px;
   font-weight: bold;
-  color: #000;
+  color:rgb(156, 39, 176);
   margin-bottom: 30px;
 }
 
@@ -125,7 +126,7 @@
 }
 
 .submit-button {
-  background: #000;
+  background:rgb(156, 39, 176);
   color: #fff;
   padding: 15px 30px;
   font-size: 16px;

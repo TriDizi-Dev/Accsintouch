@@ -508,7 +508,7 @@ const handleSearch = (query) => {
           {/* Products Section */}
           <div className="products-section">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px',marginRight: '-13rem' }}>
-              <h2 className="section-title" style={{ marginBottom: 0 }}>{getPageTitle()}</h2>
+              <h2 className="section-title" style={{ color:'rgb(156, 39, 176)',marginBottom: 0 }}>{getPageTitle()}</h2>
               {(selectedFilters.products.length > 0 || 
                 selectedFilters.ratings.length > 0 || 
                 selectedFilters.discounts.length > 0 || 

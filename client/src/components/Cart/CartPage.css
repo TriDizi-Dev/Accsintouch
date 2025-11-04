@@ -348,6 +348,7 @@
 .summary-title {
   font-size: 18px;
   font-weight: bold;
+  color :rgb(156, 39, 176);
   margin-bottom: 20px;
 }
 
@@ -389,7 +390,7 @@
 
 .apply-coupon-btn {
   padding: 10px 20px;
-  background: #000;
+  background-color :rgb(156, 39, 176);
   color: white;
   border: none;
   border-radius: 25px;
@@ -449,7 +450,7 @@
 .checkout-btn {
   width: 100%;
   padding: 15px;
-  background: #000;
+  background-color :rgb(156, 39, 176);
   color: white;
   border: none;
   border-radius: 25px;

@@ -59,7 +59,7 @@ const AboutUs = () => {
       <section className="about-content">
         <div className="about-section">
           <h1 className="about-title">About Us:</h1>
-          <h2 className="about-subtitle">The Story of ACCS IN-TOUCH</h2>
+          <h2 className="about-subtitle" style={{color:'rgb(156, 39, 176)'}}>The Story of ACCS IN-TOUCH</h2>
           <p className="about-text">
             Welcome to ACCS IN-TOUCH, where every piece tells a story of passion and craftsmanship. Our journey began with a 
             simple idea: to create beautiful, high-quality hair accessories and jewelry that not only add a touch of sparkle to your 
@@ -104,13 +104,13 @@ const AboutUs = () => {
               find something you love.
             </p>
             <p className="about-text signature">With love,</p>
-            <p className="about-text signature-name">The ACCS IN-TOUCH Team</p>
+            <p className="about-text signature-name" >The ACCS IN-TOUCH Team</p>
           </div>
         </div>
 
         {/* Features Section */}
         <div className="features-section-about">
-          <h2 className="about-subtitle">Our Feature</h2>
+          <h2 className="about-subtitle" style={{color:'black'}}>Our Feature</h2>
           <div className="features-grid-about">
             {features.map((feature, index) => (
               <div key={index} className="feature-card-about">

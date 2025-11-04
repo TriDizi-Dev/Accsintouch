@@ -74,7 +74,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
             <button 
               onClick={handleNavigateToProducts}
               style={{
-                background: '#000',
+                backgroundColor :'rgb(156, 39, 176)',
                 color: 'white',
                 padding: '16px 40px',
                 borderRadius: '50px',
@@ -164,7 +164,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
             <button 
               onClick={handleNavigateToProducts}
               style={{
-                background: '#000',
+                backgroundColor :'rgb(156, 39, 176)',
                 color: 'white',
                 padding: '16px 40px',
                 borderRadius: '50px',
@@ -292,7 +292,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
             <button 
               onClick={() => handleNavigateToCategory('hair-bows')}
               style={{
-                background: '#000',
+                backgroundColor :'rgb(156, 39, 176)',
                 color: 'white',
                 padding: '16px 40px',
                 borderRadius: '50px',

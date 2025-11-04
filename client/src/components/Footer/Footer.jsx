@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
         
         <div className="footer-col-about">
-          <h4 className="footer-heading-about">Categories</h4>
+          <h4 className="footer-heading-about" style={{color :'rgb(156, 39, 176)',}}>Categories</h4>
           <ul className="footer-list-about">
             <li onClick={() => handleNavigation('/category/claw-clips')}>Claw Clips</li>
             <li onClick={() => handleNavigation('/category/earring')}>Earring</li>
@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
         
         <div className="footer-col-about">
-          <h4 className="footer-heading-about">Quick links</h4>
+          <h4 className="footer-heading-about" style={{color :'rgb(156, 39, 176)',}}>Quick links</h4>
           <ul className="footer-list-about">
             <li onClick={() => handleNavigation('/')}>Home</li>
             <li onClick={() => handleNavigation('/company')}>Our Company</li>
