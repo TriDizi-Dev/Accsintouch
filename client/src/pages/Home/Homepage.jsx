@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer'; 
 import Carousel from '../../components/caroselbanner/Carousel';
-
 // Image imports from assets folder
 import bands2 from '../../assets/bands2.png';
 import bowred from '../../assets/bowred.png';
@@ -175,42 +174,42 @@ export default function HomePage() {
   return (
     <div className="accs-container">
       <Header 
-        cartCount={cartItems.size} 
-        wishlistCount={wishlistItems.size}
-        activePage="home"
-        onCartClick={() => navigate('/cart')}
-        onWishlistClick={() => navigate('/wishlist')}
-      />
+  cartCount={cartItems.size} 
+  wishlistCount={wishlistItems.size}
+  activePage="home"
+  onCartClick={() => navigate('/cart')}
+  onWishlistClick={() => navigate('/wishlist')}
+/>
 
-      {/* Top Updates Ticker */}
-      <div className="updates-ticker-container">
-        <Swiper
-          modules={[Autoplay]}
-          spaceBetween={0}
-          slidesPerView={1}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          speed={800}
-          loop={true}
-          direction="horizontal"
-          className="updates-swiper"
-        >
-          {updates.map((update) => (
-            <SwiperSlide key={update.id}>
-              <div className="update-slide">
-                <p>{update.message}</p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+{/* Top Updates Ticker */}
+<div className="updates-ticker-container">
+  <Swiper
+    modules={[Autoplay]}
+    spaceBetween={0}
+    slidesPerView={1}
+    autoplay={{
+      delay: 3000,
+      disableOnInteraction: false,
+    }}
+    speed={800}
+    loop={true}
+    direction="horizontal"
+    className="updates-swiper"
+  >
+    {updates.map((update) => (
+      <SwiperSlide key={update.id}>
+        <div className="update-slide">
+          <p>{update.message}</p>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
-      <Carousel 
-        handleNavigateToProducts={handleNavigateToProducts}
-        handleNavigateToCategory={handleNavigateToCategory}
-      />
+<Carousel 
+  handleNavigateToProducts={handleNavigateToProducts}
+  handleNavigateToCategory={handleNavigateToCategory}
+/>
 
       {/* Browse Categories Section */}
       <section className="section">
@@ -238,7 +237,7 @@ export default function HomePage() {
       {/* Browse Categories - Claw Clips */}
       <section className="section">
         <h2 className="section-title">Claws</h2>
-        <div className="products-grid claws-grid" style={{gridTemplateColumns: 'repeat(3, 1fr)', marginBottom:'-50px',marginTop:'10px',maxWidth:'100%', gap:'20px'}}>
+        <div className="products-grid" style={{gridTemplateColumns: 'repeat(3, 1fr)', maxWidth:'150%',marginBottom:'-50px',marginTop:'10px', marginRight:'300px',gap:'20px'}}>
           {[
             { id: 4, name: 'Claw Clip', price: '₹15', image: violetclip, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'claw-clips' },
             { id: 14, name: 'White Clip', price: '₹15', image: whiteclip, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'claw-clips' },
@@ -248,7 +247,7 @@ export default function HomePage() {
               key={product.id} 
               className="product-card"
               onClick={() => handleProductClick(product)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer' , width:'100%' ,marginTop:'10px' ,gap:'30px' }}
             >
               <div className="product-image-container">
                 <Heart 
@@ -448,7 +447,7 @@ export default function HomePage() {
       </section>
 
       {/* Buy Earrings Section */}
-      {/*  <section className="earrings-section">
+    {/*  <section className="earrings-section">
         <div className="earrings-content">
           <div className="earrings-left">
             <h2 className="earrings-title">Buy<br/>Earrings</h2>
@@ -464,7 +463,7 @@ export default function HomePage() {
       </section>*/}
 
       {/* Sale Section */}
-      {/*  <section className="section">
+     {/*  <section className="section">
         <h2 className="section-title">SALE IS ON!</h2>
         <div className="sale-grid">
           <div className="sale-card">
@@ -506,7 +505,7 @@ export default function HomePage() {
       </div>
 
       {/* New Sale on Earrings */}
-      {/*  <section className="section">
+     {/*  <section className="section">
         <div className="section-header">
           <h2 className="section-title">NEW SALE ON EARRING</h2>
           <div className="nav-buttons">
@@ -566,7 +565,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>*/}
-      {/* New Arrivals */}
+ {/* New Arrivals */}
       <section className="section">
         <div className="section-header">
           <h2 className="section-title">NEW ARRIVALS</h2>
@@ -655,13 +654,13 @@ export default function HomePage() {
               {review.video ? (
                 <div className="review-video">
                   <img src={review.image} alt={review.name} className="review-image" />
-                  <div className="play-button">Play</div>
+                  <div className="play-button">▶️</div>
                 </div>
               ) : (
                 <img src={review.image} alt={review.name} className="review-avatar" />
               )}
               <div className="review-rating">
-                <span className="star">Star</span>
+                <span className="star">⭐</span>
                 <span className="rating-number">{review.rating}</span>
               </div>
               <h4 className="review-name">{review.name}</h4>
