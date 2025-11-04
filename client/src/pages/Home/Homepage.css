@@ -46,6 +46,30 @@ body {
   margin: 0;
   letter-spacing: 0.5px;
 }
+/* ==============================================
+   Responsive for 3-item grids (claws, earrings, etc.)
+   ============================================== */
+.three-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Tablets and small desktops */
+@media (max-width: 992px) {
+  .three-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .three-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 
 

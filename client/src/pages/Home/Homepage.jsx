@@ -237,7 +237,7 @@ export default function HomePage() {
       {/* Browse Categories - Claw Clips */}
       <section className="section">
         <h2 className="section-title">Claws</h2>
-        <div className="products-grid" style={{gridTemplateColumns: 'repeat(3, 1fr)', maxWidth:'150%',marginBottom:'-50px',marginTop:'10px', marginRight:'300px',gap:'20px'}}>
+        <div className="products-grid three-grid">
           {[
             { id: 4, name: 'Claw Clip', price: '₹15', image: violetclip, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'claw-clips' },
             { id: 14, name: 'White Clip', price: '₹15', image: whiteclip, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'claw-clips' },
@@ -292,8 +292,8 @@ export default function HomePage() {
       {/* Browse Categories - Earrings */}
       <section className="section">
         <h2 className="section-title">Earrings</h2>
-        <div className="products-grid" style={{gridTemplateColumns: 'repeat(3, 1fr)', marginBottom:'-50px',marginTop:'10px',maxWidth:'100%', gap:'20px'}}>
-          {earrings.slice(0, 3).map(product => (
+        <div className="products-grid three-grid">
+           {earrings.slice(0, 3).map(product => (
             <div 
               key={product.id} 
               className="product-card"
@@ -578,8 +578,7 @@ export default function HomePage() {
             </button>
           </div>*/}
         </div>
-        
-        <div className="products-grid" style={{gridTemplateColumns: 'repeat(3, 1fr)', maxWidth:'100%', gap:'20px'}}>
+        <div className="products-grid three-grid">
           {products.map(product => (
             <div 
               key={product.id} 
