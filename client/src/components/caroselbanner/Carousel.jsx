@@ -142,16 +142,19 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
         justifyContent: 'center',
         overflow: 'hidden'
       }}>
-        <img 
-          src={girlwithbun} 
-          alt="Promo Offer" 
-          style={{ 
-            width: isMobile ? '100%' : '100%',
-            height: '100%',
-            objectFit: isMobile ? 'contain' : 'cover',
-            objectPosition: 'center'
-          }} 
-        />
+        {!isMobile && (
+  <img 
+    src={girlwithbun} 
+    alt="Promo Offer" 
+    style={{ 
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      objectPosition: 'center'
+    }} 
+  />
+)}
+
       </div>
 
       <div style={{ 
@@ -267,19 +270,16 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
               boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
               animation: 'float 3s ease-in-out infinite'
             }}>
-              {!isMobile && (
-  <img 
-    src={bow1} 
-    alt="Hair Bow" 
-    style={{ 
-      height: isTablet ? '180px' : '220px',
-      width: isTablet ? '180px' : '220px',
-      objectFit: 'contain',
-      filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.1))'
-    }} 
-  />
-)}
-
+              <img 
+                src={bow1} 
+                alt="Hair Bow" 
+                style={{ 
+                  height: isMobile ? '140px' : isTablet ? '180px' : '220px',
+                  width: isMobile ? '140px' : isTablet ? '180px' : '220px',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.1))'
+                }} 
+              />
             </div>
           </div>
           
