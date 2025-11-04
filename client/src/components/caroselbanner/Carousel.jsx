@@ -134,10 +134,9 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
       boxShadow: '0 10px 40px rgba(0,0,0,0.08)'
     }}>
       <div style={{ 
-        flex: isMobile ? '0 0 auto' : '1',
-        width: isMobile ? '100%' : '50%',
-        height: isMobile ? '180px' : '100%',
-        display: 'flex',
+        flex: isMobile ? '0' : '1',
+        width: isMobile ? '0' : '50%',
+        height: isMobile ? 'none' : 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden'
