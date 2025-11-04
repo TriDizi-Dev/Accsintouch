@@ -82,7 +82,7 @@ const ProductPage = () => {
           case 'Hair bow': return 'Beautiful Hair Bows';
           case 'Earrings': return 'Elegant Earrings';
           case 'Scrunchies': return 'Soft Scrunchies';
-          case 'Claw Clips': return 'Trendy Claw Clips';
+          case 'Claws': return 'Trendy Claws';
           default: return category;
         }
       });
@@ -92,7 +92,7 @@ const ProductPage = () => {
       case 'hair-bows': return 'Beautiful Hair Bows';
       case 'earring': return 'Elegant Earrings';
       case 'scrunchies': return 'Soft Scrunchies';
-      case 'claw-clips': return 'Trendy Claw Clips';
+      case 'claw-clips': return 'Trendy Claws';
       default: return 'END OF SEASON SALE UP TO';
     }
   };
@@ -100,7 +100,7 @@ const ProductPage = () => {
   // All products data
   const allProducts = [
     { id: 1, name: 'Organza Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#8B4513', '#000000', '#D2691E'], image: bands, category: 'Hair bow' },
-    { id: 2, name: 'Purple Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#DDA0DD', '#FFB6C1', '#E6E6FA'], image: violetclip, category: 'Claw Clips' },
+    { id: 2, name: 'Purple Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#DDA0DD', '#FFB6C1', '#E6E6FA'], image: violetclip, category: 'Claws' },
     { id: 3, name: 'Hair Bow Classic', price: 150, originalPrice: 250, rating: 4, colors: ['#F5F5DC', '#8B4513', '#000000'], image: bow1, category: 'Hair bow' },
     { id: 4, name: 'Gold Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#FFA500', '#DAA520'], image: goldbow, category: 'Hair bow' },
     { id: 5, name: 'Red Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#8B0000', '#A0522D', '#800000'], image: bowred, category: 'Hair bow' },
@@ -110,7 +110,7 @@ const ProductPage = () => {
     { id: 9, name: 'Pearl Earring', price: 150, originalPrice: 250, rating: 3, colors: ['#FFFFFF', '#F5DEB3', '#E5E4E2'], image: earring1, category: 'Earrings' },
     { id: 10, name: 'Designer Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#C0C0C0', '#E5E4E2'], image: earring3, category: 'Earrings' },
     { id: 11, name: 'Triangle Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#FFFF00', '#DAA520'], image: earring4, category: 'Earrings' },
-    { id: 12, name: 'White Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#FFFFFF', '#808080', '#000000'], image: whiteclip, category: 'Claw Clips' },
+    { id: 12, name: 'White Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#FFFFFF', '#808080', '#000000'], image: whiteclip, category: 'Claws' },
     { id: 13, name: 'Fluffy Scrunchie', price: 150, originalPrice: 250, rating: 4, colors: ['#FF0000', '#FFB6C1', '#FF69B4'], image: fluffyredband, category: 'Scrunchies' },
     { id: 14, name: 'Velvet Scrunchie', price: 150, originalPrice: 250, rating: 3, colors: ['#000000', '#8B4513', '#A0522D'], image: bands2, category: 'Scrunchies' },
   ];
@@ -118,7 +118,7 @@ const ProductPage = () => {
   const trendingProducts = [
     { id: 101, name: 'Ear Ring', price: 120, originalPrice: 220, rating: 4, colors: ['#3B82F6', '#2196F3', '#0C8DC0'], image: earring2, category: 'Earrings' },
     { id: 102, name: 'Classic Bow', price: 250, originalPrice: 350, rating: 5, colors: ['#FF0000', '#8B0000', '#C00C0C'], image: bow1, category: 'Hair bow' },
-    { id: 103, name: 'Claw Clip', price: 180, originalPrice: 280, rating: 5, colors: ['#FFD700', '#FFA500', '#FF69B4'], image: trending3, category: 'Claw Clips' },
+    { id: 103, name: 'Claw Clip', price: 180, originalPrice: 280, rating: 5, colors: ['#FFD700', '#FFA500', '#FF69B4'], image: trending3, category: 'Claws' },
     { id: 104, name: 'Ear Ring', price: 200, originalPrice: 300, rating: 5, colors: ['#9C27B0', '#FF69B4', '#FFD700'], image: trending4, category: 'Earrings' },
   ];
   
@@ -137,7 +137,7 @@ const ProductPage = () => {
   useEffect(() => {
     if (category) {
       const categoryMap = {
-        'claw-clips': 'Claw Clips',
+        'claw-clips': 'Claws',
         'earring': 'Earrings',
         'hair-bows': 'Hair bow',
         'scrunchies': 'Scrunchies'
@@ -154,7 +154,7 @@ const ProductPage = () => {
       // When on /products page (all products), check all categories
       setSelectedFilters(prev => ({
         ...prev,
-        products: ['Hair bow', 'Earrings', 'Scrunchies', 'Claw Clips']
+        products: ['Hair bow', 'Earrings', 'Scrunchies', 'Claws']
       }));
     }
   }, [category]);
@@ -354,7 +354,7 @@ const handleSearch = (query) => {
           case 'Hair bow': return 'Beautiful Hair Bows';
           case 'Earrings': return 'Elegant Earrings';
           case 'Scrunchies': return 'Soft Scrunchies';
-          case 'Claw Clips': return 'Trendy Claw Clips';
+          case 'Claws': return 'Trendy Claws';
           default: return category;
         }
       });
@@ -362,7 +362,7 @@ const handleSearch = (query) => {
     }
     if (category) {
       const categoryMap = {
-        'claw-clips': 'Trendy Claw Clips',
+        'claws': 'Trendy Claws',
         'earring': 'Elegant Earrings',
         'hair-bows': 'Beautiful Hair Bows',
         'scrunchies': 'Soft Scrunchies'
@@ -407,7 +407,7 @@ const handleSearch = (query) => {
               <div className="filter-section">
                 <h4 className="filter-section-title">Product</h4>
                 <div className="filter-options">
-                  {['Hair bow', 'Earrings', 'Scrunchies', 'Claw Clips'].map(item => (
+                  {['Hair bow', 'Earrings', 'Scrunchies', 'Claws'].map(item => (
                     <label key={item} className="filter-option">
                       <input 
                         type="checkbox"
@@ -613,7 +613,7 @@ const handleSearch = (query) => {
             {!category && !searchQuery && (
               <div className="trending-section">
                 <div className="trending-header">
-                  <h2 className="section-title">Trending Product</h2>
+                  <h2 className="section-title" >Trending Product</h2>
                   <button 
                     className="trending-button " 
                     onClick={() => setShowAllTrending(!showAllTrending)}

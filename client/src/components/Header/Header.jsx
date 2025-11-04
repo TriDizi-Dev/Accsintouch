@@ -64,7 +64,7 @@ const handleSearchSubmit = (e) => {
       'scrunchies': 'scrunchies',
       'scrunchie': 'scrunchies',
       'claws': 'claw-clips',
-      'claw clips': 'claw-clips',
+      'Claws': 'claw-clips',
       'claw': 'claw-clips',
       'hair bows': 'hair-bows',
       'hair bow': 'hair-bows',

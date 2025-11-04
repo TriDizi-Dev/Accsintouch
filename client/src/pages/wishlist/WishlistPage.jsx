@@ -329,6 +329,7 @@ const WishlistPage = () => {
               <p>Save items you love by clicking the heart icon on products</p>
               <button 
                 className="btn-primary" 
+                style={{backgroundColor :'rgb(156, 39, 176)'}}
                 onClick={() => navigate('/products')}
               >
                 Start Shopping

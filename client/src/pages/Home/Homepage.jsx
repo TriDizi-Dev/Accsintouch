@@ -15,6 +15,8 @@ import trending3 from '../../assets/trending3.png';
 import goldbow from '../../assets/goldbow.png';
 import bands from '../../assets/bands.png';
 import bow1 from '../../assets/bow1.png';
+import review3 from '../../assets/review3.jfif';
+import review4 from '../../assets/review4.jfif';
 import violetclip from '../../assets/violetclip.png';
 import earring1 from '../../assets/earring1.png';
 import earring3 from '../../assets/earring3.png';
@@ -29,8 +31,8 @@ import shippingandquality from '../../assets/shippingandquality.png';
 import support from '../../assets/support.png';
 import returnlogo from '../../assets/returnlogo.png';
 import LOGO from '../../assets/LOGO.png';
-import review1 from '../../assets/review1.png';
-import review2 from '../../assets/review2.png';
+import review1 from '../../assets/review1.jfif';
+import review2 from '../../assets/review2.jfif';
 import blog1 from '../../assets/blog1.png';
 import blog2 from '../../assets/blog2.png';
 import blog3 from '../../assets/blog3.png';
@@ -56,10 +58,10 @@ export default function HomePage() {
   ];
 
   const reviews = [
-    { name: 'Saurabh Agarwal', rating: 4.1, role: 'Rita Care', image: review2 },
-    { name: 'Saurabh Agarwal', rating: 4.1, role: 'Rita Care', image: review2 },
-    { name: 'Saurabh Agarwal', rating: 4.1, role: 'Rita Care', image: review2 },
-    { name: 'Shruti Agarwal', rating: 4.1, role: 'Rita Care', image: review1},
+    { name: 'Saurabh Agarwal', rating: 4.1, role: 'Rita Care', image: review1 },
+    { name: 'Shruti', rating: 4.1, role: 'Rita Care', image: review2 },
+    { name: 'Bindu Priya', rating: 4.1, role: 'Rita Care', image: review3 },
+    { name: 'Anand Bhat', rating: 4.1, role: 'Rita Care', image: review4},
   ];
 
   const blogs = [
@@ -215,7 +217,7 @@ export default function HomePage() {
         <div className="categories-grid">
           <div className="category-card" onClick={() => handleNavigateToCategory('claw-clips')}>
             <img src={whiteclip} alt="Claw Clips" className="category-icon" />
-            <p className="category-name">Claw Clips</p>
+            <p className="category-name">Claws</p>
           </div>
           <div className="category-card" onClick={() => handleNavigateToCategory('earring')}>
             <img src={earringcategory} alt="Earring" className="category-icon" />
@@ -234,7 +236,7 @@ export default function HomePage() {
 
       {/* Browse Categories - Claw Clips */}
       <section className="section">
-        <h2 className="section-title">Claw Clips</h2>
+        <h2 className="section-title">Claws</h2>
         <div className="products-grid" style={{gridTemplateColumns: 'repeat(3, 1fr)', maxWidth:'150%',marginBottom:'-50px',marginTop:'10px', marginRight:'300px',gap:'20px'}}>
           {[
             { id: 4, name: 'Claw Clip', price: '₹15', image: violetclip, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'claw-clips' },

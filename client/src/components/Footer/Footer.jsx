@@ -42,8 +42,8 @@ export default function Footer() {
         <div className="footer-col-about">
           <h4 className="footer-heading-about" style={{color :'rgb(156, 39, 176)',}}>Categories</h4>
           <ul className="footer-list-about">
-            <li onClick={() => handleNavigation('/category/claw-clips')}>Claw Clips</li>
-            <li onClick={() => handleNavigation('/category/earring')}>Earring</li>
+            <li onClick={() => handleNavigation('/category/claw-clips')}>claws</li>
+            <li onClick={() => handleNavigation('/category/earring')}>Earrings</li>
             <li onClick={() => handleNavigation('/category/scrunchies')}>Scrunchies</li>
             <li onClick={() => handleNavigation('/category/hair-bows')}>Hair Bows</li>
           </ul>

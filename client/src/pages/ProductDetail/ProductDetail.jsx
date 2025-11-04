@@ -123,7 +123,7 @@ const ProductDetail = () => {
     },
     {
       id: 4,
-      name: 'Claw Clip',
+      name: 'violet claw',
       price: 15,
       originalPrice: 25,
       rating: 4,
