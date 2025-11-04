@@ -50,6 +50,14 @@ export default function HomePage() {
     { id: 2, name: 'Velvet Bow', price: '₹15', image: bowred, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'hair-bows' },
     { id: 3, name: 'Classic Bow', price: '₹15', image: bow1, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'hair-bows' },
   ];
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+React.useEffect(() => {
+  const handleResize = () => setWindowWidth(window.innerWidth);
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+
 
   const earrings = [
     { id: 6, name: 'Gold Earring', price: '₹15', image: earring5, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'earring' },
@@ -159,6 +167,11 @@ export default function HomePage() {
     navigate('/products');
     window.scrollTo(0, 0);
   };
+const getResponsiveGrid = () => {
+  if (windowWidth <= 600) return '1fr';
+  if (windowWidth <= 992) return 'repeat(2, 1fr)';
+  return 'repeat(3, 1fr)';
+};
 
   const handleNavigateToCategory = (category) => {
     navigate(`/category/${category}`);
@@ -237,7 +250,9 @@ export default function HomePage() {
       {/* Browse Categories - Claw Clips */}
       <section className="section">
         <h2 className="section-title">Claws</h2>
-        <div className="products-grid three-grid">
+        <div className="products-grid" 
+        style={{display: 'grid',
+    gridTemplateColumns: getResponsiveGrid(),maxWidth:'150%',marginBottom:'-50px',marginTop:'10px', marginRight:'300px',gap:'20px'}}>
           {[
             { id: 4, name: 'Claw Clip', price: '₹15', image: violetclip, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'claw-clips' },
             { id: 14, name: 'White Clip', price: '₹15', image: whiteclip, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'claw-clips' },
@@ -292,8 +307,9 @@ export default function HomePage() {
       {/* Browse Categories - Earrings */}
       <section className="section">
         <h2 className="section-title">Earrings</h2>
-        <div className="products-grid three-grid">
-           {earrings.slice(0, 3).map(product => (
+        <div className="products-grid" style={{display: 'grid',
+    gridTemplateColumns: getResponsiveGrid(),marginBottom:'-50px',marginTop:'10px',maxWidth:'100%', gap:'20px'}}>
+          {earrings.slice(0, 3).map(product => (
             <div 
               key={product.id} 
               className="product-card"
@@ -343,7 +359,8 @@ export default function HomePage() {
       {/* Browse Categories - Hair Bows */}
       <section className="section">
         <h2 className="section-title">Hair Bows</h2>
-        <div className="products-grid" style={{marginBottom:'-50px',marginTop:'10px',gridTemplateColumns: 'repeat(3, 1fr)', maxWidth:'100%', gap:'20px'}}>
+        <div className="products-grid" style={{marginBottom:'-50px',marginTop:'10px',display: 'grid',
+    gridTemplateColumns: getResponsiveGrid(), maxWidth:'100%', gap:'20px'}}>
           {products.slice(0, 3).map(product => (
             <div 
               key={product.id} 
@@ -394,7 +411,8 @@ export default function HomePage() {
       {/* Browse Categories - Scrunchies */}
       <section className="section">
         <h2 className="section-title">Scrunchies</h2>
-        <div className="products-grid" style={{marginBottom:'-20px',marginTop:'10px',gridTemplateColumns: 'repeat(3, 1fr)', maxWidth:'100%', gap:'20px'}}>
+        <div className="products-grid" style={{marginBottom:'-20px',marginTop:'10px',display: 'grid',
+    gridTemplateColumns: getResponsiveGrid(), maxWidth:'100%', gap:'20px'}}>
           {[
             { id: 17, name: 'Red Scrunchie', price: '₹15', image: fluffyredband, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'scrunchies' },
             { id: 18, name: 'Fluffy Band', price: '₹15', image: bands, colors: ['#C00C0C', '#0C8DC0', '#169E5C'], category: 'scrunchies' },
@@ -578,7 +596,9 @@ export default function HomePage() {
             </button>
           </div>*/}
         </div>
-        <div className="products-grid three-grid">
+        
+        <div className="products-grid" style={{display: 'grid',
+    gridTemplateColumns: getResponsiveGrid(),maxWidth:'100%', gap:'20px'}}>
           {products.map(product => (
             <div 
               key={product.id} 
