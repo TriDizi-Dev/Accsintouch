@@ -158,15 +158,17 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
       </div>
 
       <div style={{ 
-        flex: isMobile ? '1' : '1',
-        padding: isMobile ? '20px 24px' : isTablet ? '40px 30px' : '60px 50px',
-        textAlign: isMobile ? 'center' : 'left',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: isMobile ? 'center' : 'flex-start',
-        gap: isMobile ? '12px' : '20px'
-      }}>
+  flex: isMobile ? '1' : '1',
+  padding: isMobile ? '40px 24px' : isTablet ? '40px 30px' : '60px 50px',
+  textAlign: isMobile ? 'center' : 'left',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: isMobile ? 'center' : 'center',
+  alignItems: isMobile ? 'center' : 'flex-start',
+  gap: isMobile ? '14px' : '20px',
+  height: '100%'
+}}>
+
         <span style={{
           fontSize: isMobile ? '12px' : '13px',
           fontWeight: '700',
