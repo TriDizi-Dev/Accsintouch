@@ -1490,3 +1490,13 @@ body {
     font-size: 12px;
   }
 }
+/* Claw-Clips grid – responsive */
+.claws-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 768px) {
+  .claws-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .claws-grid { grid-template-columns: 1fr; }
+}
