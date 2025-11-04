@@ -118,95 +118,89 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
       )
     },
     {
-      id: 2,
-      type: 'promo-purple',
-      content: (
-        <div style={{ 
-          display: 'flex',
-          height: isMobile ? '450px' : isTablet ? '500px' : '550px',
-          width: '100%',
-          flexDirection: isMobile ? 'column-reverse' : 'row',
-          alignItems: 'stretch',
-          gap: 0,
-          background: 'linear-gradient(135deg, #FED7FF 0%, #FFE8FF 100%)',
-          borderRadius: isMobile ? '12px' : '20px',
-          overflow: 'hidden',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.08)'
-        }}>   
-          <div style={{ 
-            flex: isMobile ? '0 0 200px' : '1.2',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            <img 
-              src={girlwithbun} 
-              alt="Promo Offer" 
-              style={{ 
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                transform: 'scale(1.05)'
-              }} 
-            />
-          </div>
-          <div style={{ 
-            flex: isMobile ? '1' : '1',
-            padding: isMobile ? '30px 20px' : isTablet ? '40px 30px' : '60px 50px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: isMobile ? '16px' : '24px'
-          }}>
-            <span style={{
-              fontSize: isMobile ? '10px' : '12px',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              color: '#666',
-              display: 'block'
-            }}>For New Accounts</span>
-            <h2 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '44px' : '56px',
-              fontWeight: '800',
-              margin: 0,
-              lineHeight: '1.1',
-              letterSpacing: '-2px',
-              color: '#000'
-            }}>
-              EXCLUSIVE<br/>OFFER!
-            </h2>
-            <button 
-              onClick={handleNavigateToProducts}
-              style={{
-                backgroundColor: 'rgb(156, 39, 176)',
-                color: 'white',
-                padding: isMobile ? '14px 32px' : '16px 40px',
-                borderRadius: '50px',
-                border: 'none',
-                fontWeight: '600',
-                fontSize: isMobile ? '14px' : '15px',
-                cursor: 'pointer',
-                width: 'fit-content',
-                transition: 'all 0.3s ease',
-                letterSpacing: '0.5px',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
-              }}
-            >
-              Claim Now
-            </button>
-          </div>
-        </div>
-      )
-    },
+  id: 2,
+  type: 'promo-purple',
+  content: (
+    <div style={{ 
+      display: 'flex',
+      flexDirection: isMobile ? 'column' : 'row',
+      height: isMobile ? '420px' : isTablet ? '500px' : '550px',
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #FED7FF 0%, #FFE8FF 100%)',
+      borderRadius: isMobile ? '12px' : '20px',
+      overflow: 'hidden',
+      boxShadow: '0 10px 40px rgba(0,0,0,0.08)'
+    }}>
+      <div style={{ 
+        flex: isMobile ? '0 0 auto' : '1',
+        width: isMobile ? '100%' : '50%',
+        height: isMobile ? '180px' : '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+      }}>
+        <img 
+          src={girlwithbun} 
+          alt="Promo Offer" 
+          style={{ 
+            width: isMobile ? '100%' : '100%',
+            height: '100%',
+            objectFit: isMobile ? 'contain' : 'cover',
+            objectPosition: 'center'
+          }} 
+        />
+      </div>
+
+      <div style={{ 
+        flex: isMobile ? '1' : '1',
+        padding: isMobile ? '20px 24px' : isTablet ? '40px 30px' : '60px 50px',
+        textAlign: isMobile ? 'center' : 'left',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: isMobile ? 'center' : 'flex-start',
+        gap: isMobile ? '12px' : '20px'
+      }}>
+        <span style={{
+          fontSize: isMobile ? '12px' : '13px',
+          fontWeight: '700',
+          textTransform: 'uppercase',
+          letterSpacing: '1px',
+          color: '#555'
+        }}>For New Accounts</span>
+
+        <h2 style={{
+          fontSize: isMobile ? '32px' : isTablet ? '44px' : '56px',
+          fontWeight: '800',
+          lineHeight: '1.1',
+          color: '#000',
+          margin: 0
+        }}>EXCLUSIVE OFFER!</h2>
+
+        <button 
+          onClick={handleNavigateToProducts}
+          style={{
+            backgroundColor: 'rgb(156, 39, 176)',
+            color: 'white',
+            padding: isMobile ? '12px 28px' : '16px 40px',
+            borderRadius: '50px',
+            border: 'none',
+            fontWeight: '600',
+            fontSize: isMobile ? '14px' : '15px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+          }}
+        >
+          Claim Now
+        </button>
+      </div>
+    </div>
+  )
+},
     {
       id: 3,
       type: 'promo-light',
