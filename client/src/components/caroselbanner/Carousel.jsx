@@ -267,16 +267,19 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
               boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
               animation: 'float 3s ease-in-out infinite'
             }}>
-              <img 
-                src={bow1} 
-                alt="Hair Bow" 
-                style={{ 
-                  height: isMobile ? '140px' : isTablet ? '180px' : '220px',
-                  width: isMobile ? '140px' : isTablet ? '180px' : '220px',
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.1))'
-                }} 
-              />
+              {!isMobile && (
+  <img 
+    src={bow1} 
+    alt="Hair Bow" 
+    style={{ 
+      height: isTablet ? '180px' : '220px',
+      width: isTablet ? '180px' : '220px',
+      objectFit: 'contain',
+      filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.1))'
+    }} 
+  />
+)}
+
             </div>
           </div>
           
