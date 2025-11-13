@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import about1 from '../../assets/about1.png';
 import about2 from '../../assets/about2.png';
 import LOGO from '../../assets/LOGO.png';
+import WhatsAppLogo from '../../components/WhatsAppLogo';
 import icon from '../../assets/icon.png';
 import './AboutUs.css';
 
@@ -129,6 +130,7 @@ const AboutUs = () => {
 
       {/* Footer */}
       <Footer />
+      <WhatsAppLogo />
     </div>
   );
 };

@@ -151,7 +151,66 @@ body {
   max-width: 100vw;
 }
 
-/* Hero Section - Exact Match */
+.hero-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000; /* Keeping black background as per design */
+  padding: 20px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.hero-images {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-image-left, .hero-image-right {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  filter: none;
+  opacity: 1;
+}
+
+.hero-content {
+  text-align: center;
+  color: #ffffff; /* Changed to white for visibility against black background */
+  position: relative;
+  z-index: 1;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #cccccc; /* Lighter gray for subtitle */
+}
+
+.hero-title {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 10px 0;
+  color: #ffffff; /* Ensuring title is white */
+}
+
+.hero-discount {
+  font-size: 60px;
+  font-weight: 700;
+  color: #ffffff; /* Ensuring discount is white */
+}
+
+.hero-button {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Existing Hero Section (unchanged) */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -163,15 +222,15 @@ body {
 
 .hero-right {
   position: relative;
-  background: #000000;
+  background: #FFEFE7;
   border-radius: 15px;
   overflow: hidden;
   grid-column: 1;
   grid-row: 1;
-  width:60vw;
+  width: 60vw;
   height: 500px;
-  
 }
+
 .hero-image {
   width: 100%;
   height: 100%;
@@ -199,16 +258,20 @@ body {
 
 .hero-subtitle {
   font-size: 40px;
+  color: #ffffff;
   margin: 0;
   display: inline;
 }
 
 .hero-text {
+  color: #ffffff;
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
   max-width: 280px;
 }
+
+
 /* Promo Cards - Exact Match */
 .promo-card {
   border-radius: 20px;
@@ -638,127 +701,6 @@ body {
   color: #000;
 }
 
-/* Hero Banner Section */
-/* Hero Banner Section */
-.hero-banner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000; /* Keeping black background as per design */
-  padding: 20px;
-  margin: 20px 0;
-  position: relative;
-}
-
-.hero-images {
-  display: flex;
-  gap: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-.hero-image-left, .hero-image-right {
-  width: 200px;
-  height: auto;
-  object-fit: cover;
-  filter: none;
-  opacity: 1;
-}
-
-.hero-content {
-  text-align: center;
-  color: #ffffff; /* Changed to white for visibility against black background */
-  position: relative;
-  z-index: 1;
-}
-
-.hero-subtitle {
-  font-size: 18px;
-  color: #cccccc; /* Lighter gray for subtitle */
-}
-
-.hero-title {
-  font-size: 40px;
-  font-weight: 700;
-  margin: 10px 0;
-  color: #ffffff; /* Ensuring title is white */
-}
-
-.hero-discount {
-  font-size: 60px;
-  font-weight: 700;
-  color: #ffffff; /* Ensuring discount is white */
-}
-
-.hero-button {
-  background-color: #ffffff;
-  border: 1px solid #000000;
-  color: #000000;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Existing Hero Section (unchanged) */
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px 20px;
-  align-items: flex-start;
-  min-height: auto;
-}
-
-.hero-right {
-  position: relative;
-  background: #FFEFE7;
-  border-radius: 15px;
-  overflow: hidden;
-  grid-column: 1;
-  grid-row: 1;
-  width: 60vw;
-  height: 500px;
-}
-
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-left {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  z-index: 10;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 320px;
-}
-
-.hero-title {
-  font-size: 90px;
-  font-weight: bold;
-  line-height: 0.85;
-  margin: 0;
-}
-
-.hero-subtitle {
-  font-size: 40px;
-  color: #ffffff;
-  margin: 0;
-  display: inline;
-}
-
-.hero-text {
-  color: #ffffff;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
-  max-width: 280px;
-}
 
 /* Features Section - Exact Match */
 .features-section-contact {
@@ -815,7 +757,7 @@ body {
   color: #ccc;
 }
 
-/* Reviews Section - Exact Match */
+/* Reviews Section - UPDATED */
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -835,13 +777,13 @@ body {
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto 15px;
+  margin: 0 auto 20px;
   display: block;
 }
 
 .review-video {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .review-image {
@@ -859,35 +801,18 @@ body {
   color: #9C27B0;
 }
 
-.review-rating {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.star {
-  color: #FFC107;
-  font-size: 16px;
-}
-
-.rating-number {
-  font-weight: 700;
-  font-size: 15px;
-  color: #000;
-}
-
 .review-name {
   font-weight: 600;
-  margin-bottom: 5px;
-  font-size: 15px;
+  margin-bottom: 12px;
+  font-size: 16px;
   color: #333;
 }
 
-.review-role {
-  font-size: 13px;
+.review-text {
+  font-size: 14px;
   color: #666;
+  line-height: 1.6;
+  margin-top: 8px;
 }
 
 /* Blog Section - Exact Match */
@@ -1082,6 +1007,11 @@ body {
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  .hero-banner {
+    min-height: 300px;
+    padding: 30px 15px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1116,6 +1046,11 @@ body {
 
   .newsletter-title {
     font-size: 36px;
+  }
+  
+  .hero-banner {
+    min-height: 250px;
+    padding: 20px 10px;
   }
 }
 

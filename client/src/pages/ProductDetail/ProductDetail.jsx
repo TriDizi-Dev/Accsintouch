@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './ProductDetail.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Heart } from 'lucide-react';
+import WhatsAppLogo from '../../components/WhatsAppLogo';
+import { Heart, ArrowLeft } from 'lucide-react';
 
 // Import images
 import girlEarring from '../../assets/girlearring.png';
@@ -92,6 +93,36 @@ const ProductDetail = () => {
     }
   };
 
+  // Add to cart handler for main product
+  const handleAddToCart = () => {
+    const currentProduct = {
+      id: 999, // Use a unique ID for this product
+      name: 'YouBella Jewellery Bohemian Multi-Color Earrings for Girls and Women',
+      price: 1500,
+      originalPrice: 5500,
+      rating: 4,
+      colors: ['#FFD700', '#FF69B4', '#9C27B0'],
+      image: girlEarring,
+      category: 'Earrings',
+      quantity: quantity
+    };
+
+    const existingItem = cart.find(item => item.id === currentProduct.id);
+    
+    if (existingItem) {
+      // Update quantity if item already exists
+      setCart(cart.map(item => 
+        item.id === currentProduct.id 
+          ? { ...item, quantity: item.quantity + quantity }
+          : item
+      ));
+    } else {
+      // Add new item
+      setCart([...cart, currentProduct]);
+      
+    }
+  };
+
   // Similar products data
   const similarProducts = [
     {
@@ -141,8 +172,22 @@ const ProductDetail = () => {
         wishlistCount={wishlist.length}
       />
 
-      <div className="breadcrumb">
-        <span onClick={() => navigate("/")}>Home</span> &gt; <span onClick={() => navigate("/products")}>Product</span> &gt; <span>Product detail</span>
+      {/* Back Arrow */}
+      <div 
+        onClick={() => navigate('/products')}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          cursor: 'pointer',
+          marginBottom: '20px',
+          color: '#666',
+          fontSize: '14px',
+          fontWeight: '500'
+        }}
+      >
+        <ArrowLeft size={20} />
+        <span>Back to Products</span>
       </div>
 
       <div className="product-main-section">
@@ -194,7 +239,10 @@ const ProductDetail = () => {
             >
               Explore Product
             </button>
-            <button className="add-cart-btn">
+            <button 
+              className="add-cart-btn"
+              onClick={handleAddToCart}
+            >
               Add to Cart 
             </button>
           </div>
@@ -259,14 +307,14 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <div className="similar-products-section">
+      <div className="similar-products-section" style={{marginRight:'-100px',maxWidth: '150%', overflow: 'hidden'}}>
         <h2 className="section-title">Similar Products</h2>
-        <div className="products-grid" style={{maxWidth:'200%', gap:'14px'}}>
+        <div className="products-grid" style={{gap:'20px'}}>
           {similarProducts.map((product) => (
             <div 
               key={product.id} 
               className="product-card"
-              style={{cursor: 'pointer', width:'100%', maxWidth:'200%'}}
+              style={{cursor: 'pointer'}}
               onClick={() => handleProductClick(product.id)}
             >
               <div className="product-image-container">
@@ -326,6 +374,7 @@ const ProductDetail = () => {
 
       {/* Footer */}      
       <Footer />
+      <WhatsAppLogo />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Trash2, ShoppingCart, ChevronRight, Heart, X } from 'lucide-react';
 import './WishlistPage.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import WhatsAppLogo from '../../components/WhatsAppLogo';
 import { useNavigate } from 'react-router-dom';
 
 const WishlistPage = () => {
@@ -361,6 +362,7 @@ const WishlistPage = () => {
       </main>
 
       <Footer />
+      <WhatsAppLogo />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import './Profile.css';
+import WhatsAppLogo from '../../components/WhatsAppLogo';
 
 const Profile = () => {
   const user = {
@@ -64,6 +65,7 @@ const Profile = () => {
       
 
       <Footer />
+      <WhatsAppLogo />
     </div>
   );
 };

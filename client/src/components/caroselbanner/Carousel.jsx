@@ -33,7 +33,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
           background: 'linear-gradient(135deg, #FFEFE7 0%, #FFE8DC 100%)',
           borderRadius: isMobile ? '12px' : '20px',
           overflow: 'hidden',
-          height: isMobile ? '450px' : isTablet ? '500px' : '550px',
+          height: isMobile ? '350px' : isTablet ? '400px' : '500px',
           display: 'flex',
           alignItems: 'center',
           boxShadow: '0 10px 40px rgba(0,0,0,0.08)'
@@ -55,15 +55,15 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
           <div style={{
             position: 'relative',
             zIndex: 2,
-            padding: isMobile ? '30px 20px' : isTablet ? '40px' : '60px',
+            padding: isMobile ? '30px 20px' : isTablet ? '40px' : '50px',
             maxWidth: isMobile ? '100%' : '600px',
             display: 'flex',
             flexDirection: 'column',
-            gap: isMobile ? '16px' : '24px'
+            gap: isMobile ? '16px' : '20px'
           }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: isMobile ? '10px' : '15px' }}>
               <h1 style={{
-                fontSize: isMobile ? '72px' : isTablet ? '90px' : '120px',
+                fontSize: isMobile ? '60px' : isTablet ? '80px' : '100px',
                 fontWeight: '800',
                 lineHeight: '1',
                 margin: 0,
@@ -71,14 +71,14 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
                 textShadow: '2px 2px 4px rgba(0,0,0,0.05)'
               }}>50%</h1>
               <div style={{
-                fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
+                fontSize: isMobile ? '28px' : isTablet ? '36px' : '42px',
                 fontWeight: '700',
                 color: '#000',
                 letterSpacing: '-1px'
               }}>OFF</div>
             </div>
             <p style={{
-              fontSize: isMobile ? '14px' : '16px',
+              fontSize: isMobile ? '13px' : '15px',
               lineHeight: '1.6',
               color: '#333',
               maxWidth: isMobile ? '100%' : '420px',
@@ -91,11 +91,11 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
               style={{
                 backgroundColor: 'rgb(156, 39, 176)',
                 color: 'white',
-                padding: isMobile ? '14px 32px' : '16px 40px',
+                padding: isMobile ? '12px 28px' : '14px 36px',
                 borderRadius: '50px',
                 border: 'none',
                 fontWeight: '600',
-                fontSize: isMobile ? '14px' : '15px',
+                fontSize: isMobile ? '13px' : '14px',
                 cursor: 'pointer',
                 width: 'fit-content',
                 transition: 'all 0.3s ease',
@@ -124,7 +124,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
     <div style={{ 
       display: 'flex',
       flexDirection: isMobile ? 'column' : 'row',
-      height: isMobile ? '420px' : isTablet ? '500px' : '550px',
+      height: isMobile ? '350px' : isTablet ? '400px' : '500px',
       width: '100%',
       alignItems: 'center',
       justifyContent: 'center',
@@ -158,18 +158,18 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
 
       <div style={{ 
   flex: isMobile ? '1' : '1',
-  padding: isMobile ? '40px 24px' : isTablet ? '40px 30px' : '60px 50px',
+  padding: isMobile ? '35px 24px' : isTablet ? '35px 30px' : '50px',
   textAlign: isMobile ? 'center' : 'left',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: isMobile ? 'center' : 'center',
   alignItems: isMobile ? 'center' : 'flex-start',
-  gap: isMobile ? '14px' : '20px',
+  gap: isMobile ? '12px' : '18px',
   height: '100%'
 }}>
 
         <span style={{
-          fontSize: isMobile ? '12px' : '13px',
+          fontSize: isMobile ? '11px' : '12px',
           fontWeight: '700',
           textTransform: 'uppercase',
           letterSpacing: '1px',
@@ -177,7 +177,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
         }}>For New Accounts</span>
 
         <h2 style={{
-          fontSize: isMobile ? '32px' : isTablet ? '44px' : '56px',
+          fontSize: isMobile ? '28px' : isTablet ? '38px' : '48px',
           fontWeight: '800',
           lineHeight: '1.1',
           color: '#000',
@@ -189,11 +189,11 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
           style={{
             backgroundColor: 'rgb(156, 39, 176)',
             color: 'white',
-            padding: isMobile ? '12px 28px' : '16px 40px',
+            padding: isMobile ? '11px 26px' : '14px 36px',
             borderRadius: '50px',
             border: 'none',
             fontWeight: '600',
-            fontSize: isMobile ? '14px' : '15px',
+            fontSize: isMobile ? '13px' : '14px',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
@@ -214,11 +214,11 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: isMobile ? '450px' : isTablet ? '500px' : '550px',
+          height: isMobile ? '350px' : isTablet ? '400px' : '500px',
           width: '100%',
           background: 'linear-gradient(135deg, #E8E5FF 0%, #F5F3FF 100%)',
           borderRadius: isMobile ? '12px' : '20px',
-          padding: isMobile ? '30px 20px' : isTablet ? '40px' : '50px',
+          padding: isMobile ? '25px 20px' : isTablet ? '35px' : '45px',
           boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
           position: 'relative',
           overflow: 'hidden'
@@ -267,7 +267,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
             <div style={{
               background: 'white',
               borderRadius: '50%',
-              padding: isMobile ? '25px' : isTablet ? '30px' : '40px',
+              padding: isMobile ? '20px' : isTablet ? '25px' : '35px',
               boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
               animation: 'float 3s ease-in-out infinite'
             }}>
@@ -275,8 +275,8 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
                 src={bow1} 
                 alt="Hair Bow" 
                 style={{ 
-                  height: isMobile ? '140px' : isTablet ? '180px' : '220px',
-                  width: isMobile ? '140px' : isTablet ? '180px' : '220px',
+                  height: isMobile ? '120px' : isTablet ? '150px' : '180px',
+                  width: isMobile ? '120px' : isTablet ? '150px' : '180px',
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.1))'
                 }} 
@@ -296,7 +296,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
             <p style={{
               fontFamily: 'Segoe UI',
               fontWeight: '700',
-              fontSize: isMobile ? '14px' : '16px',
+              fontSize: isMobile ? '13px' : '15px',
               margin: 0,
               color: '#000',
               textAlign: isMobile ? 'center' : 'left'
@@ -308,11 +308,11 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
               style={{
                 backgroundColor: 'rgb(156, 39, 176)',
                 color: 'white',
-                padding: isMobile ? '14px 32px' : '16px 40px',
+                padding: isMobile ? '12px 28px' : '14px 36px',
                 borderRadius: '50px',
                 border: 'none',
                 fontWeight: '600',
-                fontSize: isMobile ? '14px' : '15px',
+                fontSize: isMobile ? '13px' : '14px',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 letterSpacing: '0.5px',
@@ -364,10 +364,11 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
 
   return (
     <section style={{ 
-      padding: isMobile ? '20px 16px' : isTablet ? '30px 40px' : '40px 60px',
+       padding: isMobile ? '8px' : isTablet ? '12px' : '16px',
       position: 'relative',
-      maxWidth: '1600px',
-      margin: '0 auto'
+      maxWidth: '100%',
+      margin: '0 auto',
+      marginTop: '30px'
     }}>
       <div style={{ 
         position: 'relative',
@@ -462,7 +463,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
 
         <div style={{
           position: 'absolute',
-          bottom: isMobile ? '20px' : '30px',
+          bottom: isMobile ? '15px' : '25px',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',

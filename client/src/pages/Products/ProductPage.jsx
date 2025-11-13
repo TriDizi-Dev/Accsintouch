@@ -20,6 +20,9 @@ import earring4 from '../../assets/earring4.png';
 import earring5 from '../../assets/earring5.png';
 import fluffyredband from '../../assets/fluffyredband.png';
 import whiteclip from '../../assets/whiteclip.png';
+import WhatsAppLogo from '../../components/WhatsAppLogo';
+
+const API_BASE_URL = 'https://acc-in-touch-1.onrender.com/api';
 
 const ProductPage = () => {
   const navigate = useNavigate();
@@ -28,7 +31,12 @@ const ProductPage = () => {
   
   // State management
   const [searchQuery, setSearchQuery] = useState('');
+  const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [trendingProducts, setTrendingProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
   const [wishlist, setWishlist] = useState(() => {
     const saved = localStorage.getItem('wishlist');
     return saved ? JSON.parse(saved) : [];
@@ -46,6 +54,105 @@ const ProductPage = () => {
     priceRanges: [],
     colors: []
   });
+
+  const [showAllTrending, setShowAllTrending] = useState(false);
+
+  // Fallback products (only used if backend fails)
+  const fallbackProducts = [
+    { id: 1, name: 'Organza Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#8B4513', '#000000', '#D2691E'], image: bands, category: 'Hair bow' },
+    { id: 2, name: 'Purple Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#DDA0DD', '#FFB6C1', '#E6E6FA'], image: violetclip, category: 'Claws' },
+    { id: 3, name: 'Hair Bow Classic', price: 150, originalPrice: 250, rating: 4, colors: ['#F5F5DC', '#8B4513', '#000000'], image: bow1, category: 'Hair bow' },
+    { id: 4, name: 'Gold Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#FFA500', '#DAA520'], image: goldbow, category: 'Hair bow' },
+    { id: 7, name: 'Diamond Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#F5DEB3', '#B8860B'], image: earring5, category: 'Earrings' },
+    { id: 8, name: 'Gold Hoop Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#C0C0C0', '#CD7F32'], image: earring2, category: 'Earrings' },
+    { id: 12, name: 'White Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#FFFFFF', '#808080', '#000000'], image: whiteclip, category: 'Claws' },
+    { id: 13, name: 'Fluffy Scrunchie', price: 150, originalPrice: 250, rating: 4, colors: ['#FF0000', '#FFB6C1', '#FF69B4'], image: fluffyredband, category: 'Scrunchies' },
+  ];
+
+  // Helper function to transform product from backend
+  const transformProduct = (product) => {
+    let imageUrl = bow1;
+    
+    if (product.image_url) {
+      if (typeof product.image_url === 'string') {
+        imageUrl = product.image_url;
+      } else if (product.image_url.url) {
+        imageUrl = product.image_url.url;
+      }
+    }
+
+    const basePrice = parseFloat(product.basicPricing) || 150;
+    const discountPercent = product.discountType ? parseInt(product.discountType.replace('%', '')) : 0;
+    const finalPrice = basePrice - (basePrice * discountPercent / 100);
+    const originalPrice = discountPercent > 0 ? basePrice : null;
+
+    // Map backend category to display category
+    const categoryMap = {
+      'claws': 'Claws',
+      'Earrings': 'Earrings',
+      'hairBows': 'Hair bow',
+      'scrunchies': 'Scrunchies'
+    };
+
+    return {
+      id: product.id,
+      name: product.productName || 'Unnamed Product',
+      price: Math.round(finalPrice),
+      originalPrice: originalPrice ? Math.round(originalPrice) : null,
+      rating: 4, // Default rating (you can add rating field in backend later)
+      colors: ['#C00C0C', '#0C8DC0', '#169E5C'],
+      image: imageUrl,
+      category: categoryMap[product.productCategory] || 'Other',
+      stock: product.productStatus,
+      description: product.productDescription,
+      discount: discountPercent,
+      createdAt: product.createdAt
+    };
+  };
+
+  // Fetch all products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        console.log('🔄 Fetching products from:', `${API_BASE_URL}/Product`);
+        
+        const response = await fetch(`${API_BASE_URL}/Product`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch products: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('✅ Products fetched:', data);
+        
+        const transformed = data.map(transformProduct);
+        setAllProducts(transformed);
+        
+        // Set trending products (4 most recent)
+        const trending = [...transformed]
+          .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+          .slice(0, 4);
+        setTrendingProducts(trending);
+        
+        setError(null);
+      } catch (err) {
+        console.error('❌ Error fetching products:', err);
+        setError(err.message);
+        setAllProducts(fallbackProducts);
+        setTrendingProducts(fallbackProducts.slice(0, 4));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Calculate discount percentage for a product
   const getDiscountPercentage = (product) => {
@@ -76,7 +183,6 @@ const ProductPage = () => {
       return 'All Products';
     }
     if (selectedFilters.products.length > 0) {
-      // Map category names to nice display names
       const niceNames = selectedFilters.products.map(category => {
         switch(category) {
           case 'Hair bow': return 'Beautiful Hair Bows';
@@ -96,33 +202,6 @@ const ProductPage = () => {
       default: return 'END OF SEASON SALE UP TO';
     }
   };
-
-  // All products data
-  const allProducts = [
-    { id: 1, name: 'Organza Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#8B4513', '#000000', '#D2691E'], image: bands, category: 'Hair bow' },
-    { id: 2, name: 'Purple Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#DDA0DD', '#FFB6C1', '#E6E6FA'], image: violetclip, category: 'Claws' },
-    { id: 3, name: 'Hair Bow Classic', price: 150, originalPrice: 250, rating: 4, colors: ['#F5F5DC', '#8B4513', '#000000'], image: bow1, category: 'Hair bow' },
-    { id: 4, name: 'Gold Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#FFA500', '#DAA520'], image: goldbow, category: 'Hair bow' },
-    { id: 5, name: 'Red Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#8B0000', '#A0522D', '#800000'], image: bowred, category: 'Hair bow' },
-    { id: 6, name: 'Velvet Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#FFB6C1', '#808080', '#000000'], image: bands2, category: 'Hair bow' },
-    { id: 7, name: 'Diamond Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#F5DEB3', '#B8860B'], image: earring5, category: 'Earrings' },
-    { id: 8, name: 'Gold Hoop Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#C0C0C0', '#CD7F32'], image: earring2, category: 'Earrings' },
-    { id: 9, name: 'Pearl Earring', price: 150, originalPrice: 250, rating: 3, colors: ['#FFFFFF', '#F5DEB3', '#E5E4E2'], image: earring1, category: 'Earrings' },
-    { id: 10, name: 'Designer Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#C0C0C0', '#E5E4E2'], image: earring3, category: 'Earrings' },
-    { id: 11, name: 'Triangle Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#FFFF00', '#DAA520'], image: earring4, category: 'Earrings' },
-    { id: 12, name: 'White Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#FFFFFF', '#808080', '#000000'], image: whiteclip, category: 'Claws' },
-    { id: 13, name: 'Fluffy Scrunchie', price: 150, originalPrice: 250, rating: 4, colors: ['#FF0000', '#FFB6C1', '#FF69B4'], image: fluffyredband, category: 'Scrunchies' },
-    { id: 14, name: 'Velvet Scrunchie', price: 150, originalPrice: 250, rating: 3, colors: ['#000000', '#8B4513', '#A0522D'], image: bands2, category: 'Scrunchies' },
-  ];
-
-  const trendingProducts = [
-    { id: 101, name: 'Ear Ring', price: 120, originalPrice: 220, rating: 4, colors: ['#3B82F6', '#2196F3', '#0C8DC0'], image: earring2, category: 'Earrings' },
-    { id: 102, name: 'Classic Bow', price: 250, originalPrice: 350, rating: 5, colors: ['#FF0000', '#8B0000', '#C00C0C'], image: bow1, category: 'Hair bow' },
-    { id: 103, name: 'Claw Clip', price: 180, originalPrice: 280, rating: 5, colors: ['#FFD700', '#FFA500', '#FF69B4'], image: trending3, category: 'Claws' },
-    { id: 104, name: 'Ear Ring', price: 200, originalPrice: 300, rating: 5, colors: ['#9C27B0', '#FF69B4', '#FFD700'], image: trending4, category: 'Earrings' },
-  ];
-  
-  const [showAllTrending, setShowAllTrending] = useState(false);
 
   // Load wishlist and cart from localStorage
   useEffect(() => {
@@ -150,12 +229,6 @@ const ProductPage = () => {
           products: [categoryName]
         }));
       }
-    } else if (!category && !searchQuery) {
-      // When on /products page (all products), check all categories
-      setSelectedFilters(prev => ({
-        ...prev,
-        products: ['Hair bow', 'Earrings', 'Scrunchies', 'Claws']
-      }));
     }
   }, [category]);
 
@@ -222,51 +295,47 @@ const ProductPage = () => {
     }
 
     setFilteredProducts(filtered);
-  }, [category, location.state, selectedFilters]);
+  }, [category, location.state, selectedFilters, allProducts]);
 
   // Initialize filtered products
   useEffect(() => {
-    if (!category) {
+    if (!category && !loading) {
       setFilteredProducts(allProducts);
     }
-  }, [category]);
+  }, [category, allProducts, loading]);
 
   // Handle search from header
-
-const handleSearch = (query) => {
-  setSearchQuery(query);
-  
-  // Check if the query matches a category
-  const categoryMap = {
-    'earrings': 'earring',
-    'earring': 'earring',
-    'scrunchies': 'scrunchies',
-    'scrunchie': 'scrunchies',
-    'claws': 'claw-clips',
-    'claw clips': 'claw-clips',
-    'claw': 'claw-clips',
-    'hair bows': 'hair-bows',
-    'hair bow': 'hair-bows',
-    'bows': 'hair-bows',
-    'bow': 'hair-bows'
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    
+    const categoryMap = {
+      'earrings': 'earring',
+      'earring': 'earring',
+      'scrunchies': 'scrunchies',
+      'scrunchie': 'scrunchies',
+      'claws': 'claw-clips',
+      'claw clips': 'claw-clips',
+      'claw': 'claw-clips',
+      'hair bows': 'hair-bows',
+      'hair bow': 'hair-bows',
+      'bows': 'hair-bows',
+      'bow': 'hair-bows'
+    };
+    
+    const lowerQuery = query.toLowerCase().trim();
+    const matchedCategory = categoryMap[lowerQuery];
+    
+    if (matchedCategory) {
+      navigate(`/category/${matchedCategory}`);
+      window.scrollTo(0, 0);
+    } else {
+      const filtered = allProducts.filter(p =>
+        p.name.toLowerCase().includes(query.toLowerCase()) ||
+        p.category.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
   };
-  
-  const lowerQuery = query.toLowerCase().trim();
-  const matchedCategory = categoryMap[lowerQuery];
-  
-  if (matchedCategory) {
-    // Navigate to category page
-    navigate(`/category/${matchedCategory}`);
-    window.scrollTo(0, 0);
-  } else {
-    // Filter products locally if no category match
-    const filtered = allProducts.filter(p =>
-      p.name.toLowerCase().includes(query.toLowerCase()) ||
-      p.category.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  }
-};
 
   // Wishlist functions
   const toggleWishlist = (e, product) => {
@@ -284,16 +353,14 @@ const handleSearch = (query) => {
     return wishlist.some(item => item.id === productId);
   };
 
-  // Cart functions - TOGGLE behavior (add/remove on click)
+  // Cart functions
   const toggleCart = (e, product) => {
     e.stopPropagation();
     const existingItem = cart.find(item => item.id === product.id);
     
     if (existingItem) {
-      // Remove from cart if already exists
       setCart(cart.filter(item => item.id !== product.id));
     } else {
-      // Add to cart with quantity 1
       setCart([...cart, { ...product, quantity: 1 }]);
     }
   };
@@ -339,8 +406,9 @@ const handleSearch = (query) => {
     }
   };
 
-  // Get page title based on category
+  // Get page title
   const getPageTitle = () => {
+    if (loading) return 'Loading Products...';
     if (searchQuery) {
       return `Search Results for "${searchQuery}" (${filteredProducts.length} items)`;
     }
@@ -348,7 +416,6 @@ const handleSearch = (query) => {
       return `All Products (${filteredProducts.length} items)`;
     }
     if (selectedFilters.products.length > 0) {
-      // Map category names to nice display names for page title
       const niceNames = selectedFilters.products.map(category => {
         switch(category) {
           case 'Hair bow': return 'Beautiful Hair Bows';
@@ -362,19 +429,18 @@ const handleSearch = (query) => {
     }
     if (category) {
       const categoryMap = {
-        'claws': 'Trendy Claws',
+        'claw-clips': 'Trendy Claws',
         'earring': 'Elegant Earrings',
         'hair-bows': 'Beautiful Hair Bows',
         'scrunchies': 'Soft Scrunchies'
       };
-      return categoryMap[category] || 'All Products';
+      return `${categoryMap[category] || 'All Products'} (${filteredProducts.length} items)`;
     }
-    return 'All Products';
+    return `All Products (${filteredProducts.length} items)`;
   };
 
   return (
     <div className="page-container">
-      {/* Header */}
       <Header 
         activePage="products" 
         cartCount={getCartCount()} 
@@ -507,8 +573,8 @@ const handleSearch = (query) => {
 
           {/* Products Section */}
           <div className="products-section">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px',marginRight: '-13rem' }}>
-              <h2 className="section-title" style={{ color:'rgb(156, 39, 176)',marginBottom: 0 }}>{getPageTitle()}</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', marginRight: '-13rem' }}>
+              <h2 className="section-title" style={{ color: 'rgb(156, 39, 176)', marginBottom: 0 }}>{getPageTitle()}</h2>
               {(selectedFilters.products.length > 0 || 
                 selectedFilters.ratings.length > 0 || 
                 selectedFilters.discounts.length > 0 || 
@@ -533,14 +599,27 @@ const handleSearch = (query) => {
               )}
             </div>
             
-            {filteredProducts.length === 0 ? (
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+                <p style={{ fontSize: '18px', color: '#666' }}>Loading products from backend...</p>
+              </div>
+            ) : error ? (
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '60px 20px',
+                backgroundColor: '#fff3f3',
+                borderRadius: '15px',
+                margin: '20px 0'
+              }}>
+                <p style={{ fontSize: '18px', color: '#f44336', marginBottom: '10px' }}>⚠️ Error loading products from backend</p>
+                <p style={{ fontSize: '14px', color: '#666' }}>Showing fallback products</p>
+              </div>
+            ) : filteredProducts.length === 0 ? (
               <div className="no-results">
                 <p>No products found matching your criteria.</p>
                 <button 
                   className="hero-button" 
-                  onClick={() => {
-                    clearAllFilters();
-                  }}
+                  onClick={clearAllFilters}
                   style={{ marginTop: '20px' }}
                 >
                   Clear Filters
@@ -579,7 +658,18 @@ const handleSearch = (query) => {
                             <div key={idx} className="color-dot" style={{ backgroundColor: color }}></div>
                           ))}
                         </div>
-                        <span className="product-price">₹{product.price}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          {product.originalPrice && (
+                            <span style={{
+                              fontSize: '14px',
+                              color: '#999',
+                              textDecoration: 'line-through'
+                            }}>
+                              ₹{product.originalPrice}
+                            </span>
+                          )}
+                          <span className="product-price">₹{product.price}</span>
+                        </div>
                       </div>
                       <div className="product-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
                         <div className="product-rating">
@@ -610,12 +700,12 @@ const handleSearch = (query) => {
             )}
 
             {/* Trending Products */}
-            {!category && !searchQuery && (
+            {!category && !searchQuery && trendingProducts.length > 0 && (
               <div className="trending-section">
                 <div className="trending-header">
-                  <h2 className="section-title" >Trending Product</h2>
+                  <h2 className="section-title">Trending Product</h2>
                   <button 
-                    className="trending-button " 
+                    className="trending-button" 
                     onClick={() => setShowAllTrending(!showAllTrending)}
                   >
                     {showAllTrending ? 'Show Less' : 'See All Trending Products'}
@@ -653,7 +743,18 @@ const handleSearch = (query) => {
                               <div key={idx} className="color-dot" style={{ backgroundColor: color }}></div>
                             ))}
                           </div>
-                          <span className="product-price">₹{product.price}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            {product.originalPrice && (
+                              <span style={{
+                                fontSize: '14px',
+                                color: '#999',
+                                textDecoration: 'line-through'
+                              }}>
+                                ₹{product.originalPrice}
+                              </span>
+                            )}
+                            <span className="product-price">₹{product.price}</span>
+                          </div>
                         </div>
                         <div className="product-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
                           <div className="product-rating">
@@ -712,8 +813,8 @@ const handleSearch = (query) => {
         </div>
       </div>
 
-      {/* Footer */}
       <Footer />
+      <WhatsAppLogo />
     </div>
   );
 };

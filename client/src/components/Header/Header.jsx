@@ -117,6 +117,7 @@ const handleSearchSubmit = (e) => {
         left: 0,
         right: 0,
         zIndex: 9999,
+        height: '65px',
         background: '#ffffffff',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
       },

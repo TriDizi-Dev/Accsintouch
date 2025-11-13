@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import company1 from '../../assets/about1.png'; // you can use a different banner if available
 import company2 from '../../assets/about2.png';
 import './Company.css';
+import WhatsAppLogo from '../../components/WhatsAppLogo';
 
 const Company = () => {
   return (
@@ -74,6 +75,7 @@ const Company = () => {
       </section>
 
       <Footer />
+      <WhatsAppLogo />
     </div>
   );
 };

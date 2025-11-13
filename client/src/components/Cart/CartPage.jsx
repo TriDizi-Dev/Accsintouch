@@ -3,6 +3,7 @@ import { Heart, Trash2, Plus, Minus, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './CartPage.css';
 import Header from '../../components/Header/Header';
+import WhatsAppLogo from '../WhatsAppLogo';
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -104,7 +105,9 @@ const CartPage = () => {
   // Calculate totals
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const discount = appliedCoupon ? Math.floor(subtotal * (appliedCoupon.discount / 100)) : 0;
-  const total = subtotal - discount;
+  const subtotalAfterDiscount = subtotal - discount;
+  const shippingCharge = subtotalAfterDiscount >= 499 ? 0 : 40; // Free shipping above ₹499
+  const total = subtotalAfterDiscount + shippingCharge;
 
   // Get cart count - unique products only
   const getCartCount = () => {
@@ -334,8 +337,19 @@ const CartPage = () => {
 
                 <div className="summary-row shipping">
                   <span>Shipping</span>
-                  <span>Free</span>
+                  <span>{shippingCharge === 0 ? 'Free' : `₹${shippingCharge}`}</span>
                 </div>
+                
+                {subtotalAfterDiscount < 499 && (
+                  <div style={{ 
+                    fontSize: '12px', 
+                    color: '#2e7d32', 
+                    marginTop: '5px',
+                    marginBottom: '10px'
+                  }}>
+                    Add ₹{499 - subtotalAfterDiscount} more for free shipping!
+                  </div>
+                )}
 
                 <div className="summary-divider"></div>
 
@@ -350,6 +364,7 @@ const CartPage = () => {
           )}
         </div>
       </main>
+      <WhatsAppLogo />
     </div>
   );
 };

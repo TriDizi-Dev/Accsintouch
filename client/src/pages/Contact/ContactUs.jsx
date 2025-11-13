@@ -10,6 +10,7 @@ import shippingandquality from '../../assets/shippingandquality.png';
 import support from '../../assets/support.png';
 import returnlogo from '../../assets/returnlogo.png';
 import './ContactUs.css';
+import WhatsAppLogo from '../../components/WhatsAppLogo';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -76,8 +77,7 @@ const ContactUs = () => {
                 <img src={phone} alt="Phone" />
               </div>
               <div className="contact-details">
-                <p className="contact-detail-text">04498 27681</p>
-                <p className="contact-detail-text">04498 28681 (Operations & Sales)</p>
+                <p className="contact-detail-text">+91 9553765409</p>
               </div>
             </div>
 
@@ -86,7 +86,7 @@ const ContactUs = () => {
                 <img src={mail} alt="Email" />
               </div>
               <div className="contact-details">
-                <p className="contact-detail-text">accsmangalore@gmail.com</p>
+                <p className="contact-detail-text"> accsintouch@gmail.com</p>
               </div>
             </div>
 
@@ -96,8 +96,7 @@ const ContactUs = () => {
               </div>
               <div className="contact-details">
                 <p className="contact-detail-text">
-                  Miracle Compound, Behind Ashoka Business Centre, Bojai Kopikad, Kottara Cross, Mangalore – 575 004
-                </p>
+                      Pragathi Nagar, Hyderabad - 500090                </p>
               </div>
             </div>
           </div>
@@ -168,6 +167,7 @@ const ContactUs = () => {
 
       {/* Footer */}
       <Footer />
+      <WhatsAppLogo />
     </div>
   );
 };

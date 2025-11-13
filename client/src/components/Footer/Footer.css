@@ -4,10 +4,36 @@
   padding: 80px 0 0;
   margin-top: 0;
 }
+/* Footer.css – add this rule */
+/* ---------- NEW RULES (add to Footer.css) ---------- */
+.footer-quick-legal-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* two equal columns inside the wrapper */
+  gap: 49px;                         /* space between Quick links & Legal */
+}
 
+/* keep the same spacing on tablets */
+@media (max-width: 1024px) {
+  .footer-quick-legal-wrapper {
+    gap: 40px;
+  }
+}
+
+/* on mobile stack them vertically (still inside the same wrapper) */
+@media (max-width: 768px) {
+  .footer-quick-legal-wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* remove the old negative‑margin hacks */
+.footer-col-about[style*="margin-left"] {
+  margin-left: 0 !important;
+}
 .footer-content-about {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 80px;
   padding: 0 120px 60px;
   max-width: 1400px;
