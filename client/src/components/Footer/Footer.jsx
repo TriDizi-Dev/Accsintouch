@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
 
         {/* ---- QUICK LINKS + LEGAL (wrapped together) ---- */}
-        <div className="footer-quick-legal-wrapper" style={{marginLeft:'-110px'}}>
+        <div className="footer-quick-legal-wrapper" >
           {/* Quick links */}
           <div className="footer-col-about" style={{marginLeft:'-400px'}}>
             <h4 className="footer-heading-about" style={{ color: 'rgb(156, 39, 176)' }}>
@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
 
           {/* Legal */}
-          <div className="footer-col-about" style={{marginLeft:'-400px'}}>
+          <div className="footer-col-about">
             <h4 className="footer-heading-about" style={{ color: 'rgb(156, 39, 176)' }}>
               Legal
             </h4>
