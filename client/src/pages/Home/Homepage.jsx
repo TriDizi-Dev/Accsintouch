@@ -586,7 +586,7 @@ export default function HomePage() {
       </section>
 
       {/* Browse Categories - Claw Clips */}
-      <section className="section">
+      <section className="section" style={{marginTop:'-50px'}}>
         <h2 className="section-title">Claws</h2>
         {categoryLoading ? (
           <div style={{ textAlign: 'center', padding: '40px' }}>
