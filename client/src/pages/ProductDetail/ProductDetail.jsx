@@ -27,6 +27,11 @@ const ProductDetail = () => {
   const descriptionRef = useRef(null);
   const navigate = useNavigate();
 
+  // Product price - you can make this dynamic based on the actual product
+  
+  const productPrice = 1500;
+   const FREE_DELIVERY_THRESHOLD = 499;
+
   // State for wishlist and cart
   const [wishlist, setWishlist] = useState(() => {
     const saved = localStorage.getItem('wishlist');
@@ -98,7 +103,7 @@ const ProductDetail = () => {
     const currentProduct = {
       id: 999, // Use a unique ID for this product
       name: 'YouBella Jewellery Bohemian Multi-Color Earrings for Girls and Women',
-      price: 1500,
+      price: productPrice,
       originalPrice: 5500,
       rating: 4,
       colors: ['#FFD700', '#FF69B4', '#9C27B0'],
@@ -119,7 +124,6 @@ const ProductDetail = () => {
     } else {
       // Add new item
       setCart([...cart, currentProduct]);
-      
     }
   };
 
@@ -210,15 +214,9 @@ const ProductDetail = () => {
 
         <div className="product-info">
           <h1>YouBella Jewellery Bohemian Multi-Color Earrings for Girls and Women</h1>
-          
-          {/* <div className="rating">
-            <span className="rating-number">4.2</span>
-            <span className="stars">⭐⭐⭐⭐⭐</span>
-            <span className="reviews">245</span>
-          </div>*/}
 
           <div className="price-section">
-            <span className="current-price">₹ 1,500</span>
+            <span className="current-price">₹ {productPrice.toLocaleString()}</span>
             <span className="original-price">₹ 5,500</span>
             <span className="discount">70% OFF</span>
           </div>
@@ -248,10 +246,14 @@ const ProductDetail = () => {
           </div>
 
           <div className="features">
-            <div className="feature">
-              <img src={freeDelivery} alt="Free Delivery" />
-              <span>Free Delivery</span>
-            </div>
+            {/* Conditionally show Free Delivery only if price >= 499 */}
+            {productPrice >= FREE_DELIVERY_THRESHOLD && (
+              <div className="feature">
+                <img src={freeDelivery} alt="Free Delivery" />
+                <span>Free Delivery</span>
+              </div>
+            )}
+            
             <div className="feature">
               <img src={cod} alt="COD" />
               <span>COD</span>
@@ -265,6 +267,20 @@ const ProductDetail = () => {
               <span>Premium Quality</span>
             </div>
           </div>
+
+          {/* Optional: Show message for products below threshold */}
+          {productPrice < FREE_DELIVERY_THRESHOLD && (
+            <div style={{
+              marginTop: '10px',
+              padding: '10px',
+              backgroundColor: '#fff3e0',
+              borderRadius: '8px',
+              fontSize: '14px',
+              color: '#e65100'
+            }}>
+              💡 Add ₹{FREE_DELIVERY_THRESHOLD - productPrice} more to get FREE delivery!
+            </div>
+          )}
         </div>
       </div>
 

@@ -14,7 +14,7 @@ export default function ReturnPolicy() {
 
         <section>
           <h2>Return Window</h2>
-          <p>We accept returns within 7 days of the delivery date. To be eligible for a return, your item must be unused, in the same condition that you received it, and in its original packaging with all tags attached.</p>
+          <p>We accept returns within 10 Days of the delivery date. To be eligible for a return, your item must be unused, in the same condition that you received it, and in its original packaging with all tags attached.</p>
         </section>
 
         <section>
@@ -79,7 +79,7 @@ export default function ReturnPolicy() {
           <ul>
             <li>Items show signs of wear or use</li>
             <li>Original packaging or tags are missing</li>
-            <li>Return is initiated after the 7-day window</li>
+            <li>Return is initiated after the 10 Day window</li>
             <li>Item doesn't match the return authorization</li>
           </ul>
           <p>Rejected returns will be shipped back to you at your expense.</p>

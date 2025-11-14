@@ -102,7 +102,7 @@ export default function ShippingPolicy() {
           <p>Our shipping partners typically make 2-3 delivery attempts. If delivery fails:</p>
           <ul>
             <li>You'll receive notification of failed delivery attempt</li>
-            <li>Package will be held at local courier facility for 5-7 days</li>
+            <li>Package will be held at local courier facility for 5-10 Days</li>
             <li>Contact the courier or us to arrange redelivery</li>
             <li>After holding period, package returns to us and you'll be contacted for next steps</li>
           </ul>

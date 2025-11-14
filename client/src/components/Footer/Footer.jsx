@@ -4,10 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 import LOGO from '../../assets/LOGO.png';
 import facebookIcon from '../../assets/fb.png';
-import twitterIcon from '../../assets/twitter.png';
-import pinterestIcon from '../../assets/pin.png';
 import instagramIcon from '../../assets/ig.png';
-
+import youtubeIcon from '../../assets/yt.png';
 export default function Footer() {
   const navigate = useNavigate();
 
@@ -28,12 +26,10 @@ export default function Footer() {
             <a href="https://www.facebook.com/share/17KwHu2unu/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <img src={facebookIcon} alt="Facebook" />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <img src={twitterIcon} alt="Twitter" />
+            <a href="https://youtube.com/@accs.in_touch?si=YhafnIdCnl80p-Rp" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <img src={youtubeIcon} alt="YouTube" />
             </a>
-            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
-              <img src={pinterestIcon} alt="Pinterest" />
-            </a>
+            
             <a href="https://www.instagram.com/accs.in_touch?igsh=MTU5MTY1YXNiejl4MA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <img src={instagramIcon} alt="Instagram" />
             </a>

@@ -68,44 +68,150 @@ const ProductPage = () => {
     { id: 12, name: 'White Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#FFFFFF', '#808080', '#000000'], image: whiteclip, category: 'Claws' },
     { id: 13, name: 'Fluffy Scrunchie', price: 150, originalPrice: 250, rating: 4, colors: ['#FF0000', '#FFB6C1', '#FF69B4'], image: fluffyredband, category: 'Scrunchies' },
   ];
-
-  // Helper function to transform product from backend
-  const transformProduct = (product) => {
+  const normalizeCategoryName = (category) => {
+  if (!category) return '';
+  
+  const normalized = category.toLowerCase().trim();
+  
+  const categoryMapping = {
+    'claw': 'Claws',
+    'claws': 'Claws',
+    'claw clip': 'Claws',
+    'claw clips': 'Claws',
+    'claw-clips': 'Claws',
+    'earring': 'Earrings',
+    'earrings': 'Earrings',
+    'scrunchie': 'Scrunchies',
+    'scrunchies': 'Scrunchies',
+    'bow': 'Hair bow',
+    'bows': 'Hair bow',
+    'hair bow': 'Hair bow',
+    'hair bows': 'Hair bow',
+    'hairbow': 'Hair bow',
+    'hairbows': 'Hair bow',
+    'hair-bow': 'Hair bow',
+    'hair-bows': 'Hair bow',
+    'hair_bow': 'Hair bow',
+    'hair_bows': 'Hair bow'
+  };
+  
+  return categoryMapping[normalized] || category;
+};
+   // Helper function to transform product data from backend
+    const transformProduct = (product) => {
+    // Default fallback
     let imageUrl = bow1;
     
-    if (product.image_url) {
-      if (typeof product.image_url === 'string') {
-        imageUrl = product.image_url;
-      } else if (product.image_url.url) {
-        imageUrl = product.image_url.url;
-      }
-    }
-
-    const basePrice = parseFloat(product.basicPricing) || 150;
-    const discountPercent = product.discountType ? parseInt(product.discountType.replace('%', '')) : 0;
-    const finalPrice = basePrice - (basePrice * discountPercent / 100);
-    const originalPrice = discountPercent > 0 ? basePrice : null;
-
-    // Map backend category to display category
-    const categoryMap = {
-      'claws': 'Claws',
-      'Earrings': 'Earrings',
-      'hairBows': 'Hair bow',
-      'scrunchies': 'Scrunchies'
-    };
-
-    return {
+    console.log('🔍 Raw Product Data:', {
       id: product.id,
+      name: product.productName,
+      image_url: product.image_url,
+      image_url_type: typeof product.image_url
+    });
+    
+    if (product.image_url) {
+      try {
+        let imageData = product.image_url;
+        
+        // Handle stringified JSON
+        if (typeof imageData === 'string') {
+          const trimmed = imageData.trim();
+          
+          // Check if it's a direct URL first
+          if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+            imageUrl = trimmed;
+            console.log('✅ Direct URL found:', imageUrl);
+          }
+          // Try parsing as JSON
+          else if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+            try {
+              imageData = JSON.parse(trimmed);
+              console.log('🔓 Parsed JSON:', imageData);
+            } catch (parseError) {
+              console.warn('⚠️ JSON parse failed:', parseError.message);
+              // Maybe it's a plain filename or path
+              if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
+                imageUrl = trimmed;
+                console.log('📝 Using string as-is:', imageUrl);
+              }
+            }
+          }
+          // Not a URL, not JSON - might be a filename or path
+          else if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
+            imageUrl = trimmed;
+            console.log('📝 Using trimmed string:', imageUrl);
+          }
+        }
+        
+        // Handle parsed object/array
+        if (typeof imageData === 'object' && imageData !== null) {
+          if (Array.isArray(imageData)) {
+            // Array of images
+            if (imageData.length > 0) {
+              const firstImage = imageData[0];
+              if (typeof firstImage === 'object' && firstImage.url) {
+                imageUrl = firstImage.url;
+              } else if (typeof firstImage === 'string') {
+                imageUrl = firstImage;
+              }
+              console.log('✅ Image from array:', imageUrl);
+            }
+          } else {
+            // Single object with url property
+            if (imageData.url) {
+              imageUrl = imageData.url;
+              console.log('✅ Image from object.url:', imageUrl);
+            } else if (imageData.path) {
+              imageUrl = imageData.path;
+              console.log('✅ Image from object.path:', imageUrl);
+            } else if (imageData.src) {
+              imageUrl = imageData.src;
+              console.log('✅ Image from object.src:', imageUrl);
+            }
+          }
+        }
+        
+      } catch (error) {
+        console.error('❌ Error processing image_url:', error);
+        console.error('❌ Product data:', product);
+      }
+    } else {
+      console.warn('⚠️ No image_url found for product:', product.productName);
+    }
+  
+    // Validate final URL
+    const isValidUrl = imageUrl && (
+      imageUrl.startsWith('http://') || 
+      imageUrl.startsWith('https://') ||
+      imageUrl.startsWith('/') ||
+      imageUrl.startsWith('data:')
+    );
+    
+    if (!isValidUrl && imageUrl !== bow1) {
+      console.warn('⚠️ Invalid URL format, using fallback:', imageUrl);
+      imageUrl = bow1;
+    }
+  
+    console.log('✨ Final Image URL:', imageUrl);
+    console.log('---');
+  
+    // Calculate price with discount
+    const basePrice = parseFloat(product.basicPricing) || 15;
+    const discountPercent = product.discountType ? 
+      parseInt(product.discountType.toString().replace('%', '')) : 0;
+    const finalPrice = basePrice - (basePrice * discountPercent / 100);
+  
+    return {
+      id: product.id || product._id,
       name: product.productName || 'Unnamed Product',
-      price: Math.round(finalPrice),
-      originalPrice: originalPrice ? Math.round(originalPrice) : null,
-      rating: 4, // Default rating (you can add rating field in backend later)
-      colors: ['#C00C0C', '#0C8DC0', '#169E5C'],
+      price: `₹${finalPrice.toFixed(0)}`,
+      originalPrice: discountPercent > 0 ? `₹${basePrice}` : null,
+      discount: discountPercent > 0 ? `${discountPercent}%` : null,
       image: imageUrl,
-      category: categoryMap[product.productCategory] || 'Other',
+      colors: ['#C00C0C', '#0C8DC0', '#169E5C'],
+  category: normalizeCategoryName(product.productCategory), // <-- Add this
       stock: product.productStatus,
       description: product.productDescription,
-      discount: discountPercent,
       createdAt: product.createdAt
     };
   };
@@ -412,7 +518,9 @@ const ProductPage = () => {
     if (searchQuery) {
       return `Search Results for "${searchQuery}" (${filteredProducts.length} items)`;
     }
-    if (selectedFilters.products.length === 4) {
+    
+    // If we have product filters selected
+    if (selectedFilters.products.length === 4 || (selectedFilters.products.length === 0 && !category)) {
       return `All Products (${filteredProducts.length} items)`;
     }
     if (selectedFilters.products.length > 0) {
@@ -427,6 +535,8 @@ const ProductPage = () => {
       });
       return `${niceNames.join(' & ')} (${filteredProducts.length} items)`;
     }
+    
+    // If we're on a category URL and no product filters are selected
     if (category) {
       const categoryMap = {
         'claw-clips': 'Trendy Claws',
@@ -436,6 +546,7 @@ const ProductPage = () => {
       };
       return `${categoryMap[category] || 'All Products'} (${filteredProducts.length} items)`;
     }
+    
     return `All Products (${filteredProducts.length} items)`;
   };
 
@@ -601,7 +712,7 @@ const ProductPage = () => {
             
             {loading ? (
               <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-                <p style={{ fontSize: '18px', color: '#666' }}>Loading products from backend...</p>
+                <p style={{ fontSize: '18px', color: '#666' }}></p>
               </div>
             ) : error ? (
               <div style={{ 

@@ -37,7 +37,7 @@ const ContactUs = () => {
       img: shippingandquality,
     },
     {
-      title: '30 Days Return',
+      title: '10 Days Return',
       description: 'Money back guarantee',
       img: returnlogo,
     }

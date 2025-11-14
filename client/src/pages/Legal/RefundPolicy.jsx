@@ -19,7 +19,7 @@ export default function RefundPolicy() {
 
         <section>
           <h2>Eligibility for Refunds</h2>
-          <p>You may request a refund within 7 days of receiving your order if:</p>
+          <p>You may request a refund within 10 Days of receiving your order if:</p>
           <ul>
             <li>The product is defective or damaged upon arrival</li>
             <li>You received the wrong item</li>
@@ -44,7 +44,7 @@ export default function RefundPolicy() {
           <h2>How to Request a Refund</h2>
           <p>To initiate a refund, please follow these steps:</p>
           <ol>
-            <li>Contact our customer service team at accsintouch@gmail.com within 7 days of delivery</li>
+            <li>Contact our customer service team at accsintouch@gmail.com within 10 Days of delivery</li>
             <li>Provide your order number and reason for the refund</li>
             <li>Include photos if the product is defective or damaged</li>
             <li>Wait for our team to review and approve your request</li>
@@ -69,7 +69,7 @@ export default function RefundPolicy() {
           <ul>
             <li>Items showing obvious signs of use</li>
             <li>Missing components or accessories</li>
-            <li>Items returned more than 7 days after delivery</li>
+            <li>Items returned more than 10 Days after delivery</li>
           </ul>
         </section>
 
