@@ -212,83 +212,75 @@
   }
 }
 
-/* ========================================
-   MOBILE RESPONSIVENESS (≤768px)
-   Matches the exact layout in your image
-   ======================================== */
+/* -------------------------------------------------
+   MOBILE ONLY – matches the first screenshot
+   ------------------------------------------------- */
 @media (max-width: 768px) {
-  .footer-about {
-    padding: 60px 0 0;
-  }
 
+  /* 1. Stack everything vertically */
   .footer-content-about {
-    grid-template-columns: 1fr;           /* Stack all columns */
-    gap: 30px;
+    grid-template-columns: 1fr;          /* one column */
+    gap: 30px;                           /* vertical spacing between sections */
     padding: 0 30px 30px;
   }
 
-  /* Stack Quick Links & Legal vertically */
+  /* 2. Quick-links + Legal wrapper → single column */
   .footer-quick-legal-wrapper {
-    grid-template-columns: 1fr !important; /* Force single column */
-    gap: 20px;
+    grid-template-columns: 1fr !important;   /* stack them */
+    gap: 20px;                               /* space between Quick & Legal */
   }
 
-  /* Center all footer columns */
+  /* 3. Center all columns */
   .footer-col-about {
     text-align: center;
     gap: 12px;
   }
 
-  /* Center logo */
+  /* 4. Logo */
   .footer-logo {
-    margin: 0 auto 10px;
     width: 100px;
     height: 100px;
+    margin: 0 auto 10px;
   }
 
-  /* Center social icons */
+  /* 5. Social icons */
   .social-links-about {
     justify-content: center;
     margin-top: 8px;
   }
 
-  /* Center list items */
+  /* 6. Lists */
   .footer-list-about {
     align-items: center;
     gap: 10px;
   }
 
-  /* Remove hover effects on mobile */
-  .footer-list-about li:hover {
-    padding-left: 0 !important;
-    color: #666;
-  }
-  .footer-list-about li::before {
-    display: none;
+  /* 7. Remove hover effects on mobile */
+  .footer-list-about li:hover { padding-left:0 !important; color:#666; }
+  .footer-list-about li::before { display:none; }
+
+  /* 8. Font sizes (same as your screenshot) */
+  .footer-title-about   { font-size:20px; margin-bottom:8px; }
+  .footer-text-about    { font-size:14px; margin-bottom:12px; }
+  .footer-heading-about { font-size:16px; margin-bottom:16px; }
+  .footer-list-about li { font-size:14px; }
+
+  /* 9. Bottom bar */
+  .footer-bottom-about { padding:20px 30px; }
+  .footer-bottom-about p { font-size:12px; }
+
+  /* -------------------------------------------------
+     FIX THE GAP BETWEEN CATEGORIES & QUICK LINKS
+     ------------------------------------------------- */
+  /* The wrapper that holds Quick+Legal is now the 3rd child
+     of .footer-content-about (logo → categories → wrapper) */
+  .footer-content-about > .footer-quick-legal-wrapper {
+    margin-top: -10px;      /* pull it up a little – exact visual match */
   }
 
-  /* Headings */
-  .footer-title-about {
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-  .footer-text-about {
-    font-size: 14px;
-    margin-bottom: 12px;
-  }
-  .footer-heading-about {
-    font-size: 16px;
-    margin-bottom: 16px;
-  }
-  .footer-list-about li {
-    font-size: 14px;
-  }
-
-  /* Bottom bar */
-  .footer-bottom-about {
-    padding: 20px 30px;
-  }
-  .footer-bottom-about p {
-    font-size: 12px;
+  /* If you still see a tiny extra gap, tighten the gap of the
+     main grid just for this section */
+  .footer-content-about {
+    row-gap: 25px;          /* slightly smaller than the 30px above */
   }
 }
