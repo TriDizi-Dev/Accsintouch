@@ -539,10 +539,10 @@ const ProductPage = () => {
     // If we're on a category URL and no product filters are selected
     if (category) {
       const categoryMap = {
-        'claw-clips': 'Trendy Claws',
-        'earring': 'Elegant Earrings',
-        'hair-bows': 'Beautiful Hair Bows',
-        'scrunchies': 'Soft Scrunchies'
+        'claw-clips': 'All Products',
+        'earring': 'All Products',
+        'hair-bows': 'All Products',
+        'scrunchies': 'All Products'
       };
       return `${categoryMap[category] || 'All Products'} (${filteredProducts.length} items)`;
     }
