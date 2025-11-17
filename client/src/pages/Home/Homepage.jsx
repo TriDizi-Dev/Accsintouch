@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart, ShoppingCart, Search, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import './Homepage.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -63,8 +63,18 @@ const API_BASE_URL = 'https://acc-in-touch-1.onrender.com/api';
 export default function HomePage() {
   const [currentProductSlide, setCurrentProductSlide] = useState(0);
   const [currentEarringSlide, setCurrentEarringSlide] = useState(0);
-  const [wishlistItems, setWishlistItems] = useState(new Set());
-  const [cartItems, setCartItems] = useState(new Set());
+  
+  // ✅ FIX: Use array instead of Set, and load from localStorage
+  const [wishlist, setWishlist] = useState(() => {
+    const saved = localStorage.getItem('wishlist');
+    return saved ? JSON.parse(saved) : [];
+  });
+  
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem('cart');
+    return saved ? JSON.parse(saved) : [];
+  });
+  
   const navigate = useNavigate();
 
   // Fallback products
@@ -123,7 +133,16 @@ export default function HomePage() {
   const [categoryLoading, setCategoryLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  React.useEffect(() => {
+  // ✅ Save to localStorage whenever cart/wishlist changes
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -131,129 +150,82 @@ export default function HomePage() {
 
   // Helper function to transform product data from backend
   const transformProduct = (product) => {
-  // Default fallback
-  let imageUrl = bow1;
-  
-  console.log('🔍 Raw Product Data:', {
-    id: product.id,
-    name: product.productName,
-    image_url: product.image_url,
-    image_url_type: typeof product.image_url
-  });
-  
-  if (product.image_url) {
-    try {
-      let imageData = product.image_url;
-      
-      // Handle stringified JSON
-      if (typeof imageData === 'string') {
-        const trimmed = imageData.trim();
+    let imageUrl = bow1;
+    
+    if (product.image_url) {
+      try {
+        let imageData = product.image_url;
         
-        // Check if it's a direct URL first
-        if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
-          imageUrl = trimmed;
-          console.log('✅ Direct URL found:', imageUrl);
+        if (typeof imageData === 'string') {
+          const trimmed = imageData.trim();
+          
+          if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+            imageUrl = trimmed;
+          } else if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+            try {
+              imageData = JSON.parse(trimmed);
+            } catch (parseError) {
+              if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
+                imageUrl = trimmed;
+              }
+            }
+          } else if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
+            imageUrl = trimmed;
+          }
         }
-        // Try parsing as JSON
-        else if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
-          try {
-            imageData = JSON.parse(trimmed);
-            console.log('🔓 Parsed JSON:', imageData);
-          } catch (parseError) {
-            console.warn('⚠️ JSON parse failed:', parseError.message);
-            // Maybe it's a plain filename or path
-            if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
-              imageUrl = trimmed;
-              console.log('📝 Using string as-is:', imageUrl);
+        
+        if (typeof imageData === 'object' && imageData !== null) {
+          if (Array.isArray(imageData)) {
+            if (imageData.length > 0) {
+              const firstImage = imageData[0];
+              if (typeof firstImage === 'object' && firstImage.url) {
+                imageUrl = firstImage.url;
+              } else if (typeof firstImage === 'string') {
+                imageUrl = firstImage;
+              }
+            }
+          } else {
+            if (imageData.url) {
+              imageUrl = imageData.url;
+            } else if (imageData.path) {
+              imageUrl = imageData.path;
+            } else if (imageData.src) {
+              imageUrl = imageData.src;
             }
           }
         }
-        // Not a URL, not JSON - might be a filename or path
-        else if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
-          imageUrl = trimmed;
-          console.log('📝 Using trimmed string:', imageUrl);
-        }
+      } catch (error) {
+        console.error('Error processing image_url:', error);
       }
-      
-      // Handle parsed object/array
-      if (typeof imageData === 'object' && imageData !== null) {
-        if (Array.isArray(imageData)) {
-          // Array of images
-          if (imageData.length > 0) {
-            const firstImage = imageData[0];
-            if (typeof firstImage === 'object' && firstImage.url) {
-              imageUrl = firstImage.url;
-            } else if (typeof firstImage === 'string') {
-              imageUrl = firstImage;
-            }
-            console.log('✅ Image from array:', imageUrl);
-          }
-        } else {
-          // Single object with url property
-          if (imageData.url) {
-            imageUrl = imageData.url;
-            console.log('✅ Image from object.url:', imageUrl);
-          } else if (imageData.path) {
-            imageUrl = imageData.path;
-            console.log('✅ Image from object.path:', imageUrl);
-          } else if (imageData.src) {
-            imageUrl = imageData.src;
-            console.log('✅ Image from object.src:', imageUrl);
-          }
-        }
-      }
-      
-    } catch (error) {
-      console.error('❌ Error processing image_url:', error);
-      console.error('❌ Product data:', product);
     }
-  } else {
-    console.warn('⚠️ No image_url found for product:', product.productName);
-  }
 
-  // Validate final URL
-  const isValidUrl = imageUrl && (
-    imageUrl.startsWith('http://') || 
-    imageUrl.startsWith('https://') ||
-    imageUrl.startsWith('/') ||
-    imageUrl.startsWith('data:')
-  );
-  
-  if (!isValidUrl && imageUrl !== bow1) {
-    console.warn('⚠️ Invalid URL format, using fallback:', imageUrl);
-    imageUrl = bow1;
-  }
+    const basePrice = parseFloat(product.basicPricing) || 15;
+    const discountPercent = product.discountType ? 
+      parseInt(product.discountType.toString().replace('%', '')) : 0;
+    const finalPrice = basePrice - (basePrice * discountPercent / 100);
 
-  console.log('✨ Final Image URL:', imageUrl);
-  console.log('---');
-
-  // Calculate price with discount
-  const basePrice = parseFloat(product.basicPricing) || 15;
-  const discountPercent = product.discountType ? 
-    parseInt(product.discountType.toString().replace('%', '')) : 0;
-  const finalPrice = basePrice - (basePrice * discountPercent / 100);
-
-  return {
-    id: product.id || product._id,
-    name: product.productName || 'Unnamed Product',
-    price: `₹${finalPrice.toFixed(0)}`,
-    originalPrice: discountPercent > 0 ? `₹${basePrice}` : null,
-    discount: discountPercent > 0 ? `${discountPercent}%` : null,
-    image: imageUrl,
-    colors: ['#C00C0C', '#0C8DC0', '#169E5C'],
-    category: product.productCategory,
-    stock: product.productStatus,
-    description: product.productDescription,
-    createdAt: product.createdAt
+    return {
+      id: product.id || product._id,
+      name: product.productName || 'Unnamed Product',
+      price: finalPrice,
+      priceDisplay: `₹${finalPrice.toFixed(0)}`,
+      originalPrice: discountPercent > 0 ? basePrice : null,
+      originalPriceDisplay: discountPercent > 0 ? `₹${basePrice}` : null,
+      discount: discountPercent > 0 ? `${discountPercent}%` : null,
+      image: imageUrl,
+      colors: ['#C00C0C', '#0C8DC0', '#169E5C'],
+      category: product.productCategory,
+      stock: product.productStatus,
+      description: product.productDescription,
+      createdAt: product.createdAt
+    };
   };
-};
 
   // Fetch New Arrivals
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchNewArrivals = async () => {
       try {
         setLoading(true);
-        console.log('Fetching new arrivals from:', `${API_BASE_URL}/Product`);
         
         const response = await fetch(`${API_BASE_URL}/Product`, {
           method: 'GET',
@@ -262,18 +234,13 @@ export default function HomePage() {
           },
         });
         
-        console.log('Response status:', response.status);
-        
         if (!response.ok) {
           throw new Error(`Failed to fetch products: ${response.status}`);
         }
         
         const data = await response.json();
-        console.log('Fetched data:', data);
-        
         const transformedProducts = data.map(transformProduct);
         
-        // Get the 4 most recent products
         const trending = transformedProducts
           .sort((a, b) => {
             const dateA = new Date(b.createdAt || 0);
@@ -297,11 +264,10 @@ export default function HomePage() {
   }, []);
 
   // Fetch Category Products
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchCategoryProducts = async () => {
       try {
         setCategoryLoading(true);
-        console.log('Fetching category products from:', `${API_BASE_URL}/Product`);
         
         const response = await fetch(`${API_BASE_URL}/Product`, {
           method: 'GET',
@@ -315,33 +281,20 @@ export default function HomePage() {
         }
         
         const data = await response.json();
-        console.log('All products fetched:', data);
-        
-        // Transform all products
         const transformedProducts = data.map(transformProduct);
         
-        // Filter products by category and limit to 8 each
         const claws = transformedProducts.filter(p => p.category === 'claws').slice(0, 8);
         const earrings = transformedProducts.filter(p => p.category === 'Earrings').slice(0, 8);
         const hairBows = transformedProducts.filter(p => p.category === 'hairBows').slice(0, 8);
         const scrunchies = transformedProducts.filter(p => p.category === 'scrunchies').slice(0, 8);
         
-        // Set state for each category (use fallback if empty)
         setClawProducts(claws.length > 0 ? claws : fallbackProducts.claws);
         setEarringProducts(earrings.length > 0 ? earrings : fallbackProducts.earrings);
         setHairBowProducts(hairBows.length > 0 ? hairBows : fallbackProducts.hairBows);
         setScrunchieProducts(scrunchies.length > 0 ? scrunchies : fallbackProducts.scrunchies);
         
-        console.log('✅ Category Products:', {
-          claws: claws.length,
-          earrings: earrings.length,
-          hairBows: hairBows.length,
-          scrunchies: scrunchies.length
-        });
-        
       } catch (err) {
         console.error('Error fetching category products:', err);
-        // Use fallback products
         setClawProducts(fallbackProducts.claws);
         setEarringProducts(fallbackProducts.earrings);
         setHairBowProducts(fallbackProducts.hairBows);
@@ -410,28 +363,34 @@ export default function HomePage() {
     }
   ];
 
-  const toggleWishlist = (id) => {
-    setWishlistItems(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
+  // ✅ Updated toggleWishlist - pass entire product
+  const toggleWishlist = (product) => {
+    const isInWishlist = wishlist.some(item => item.id === product.id);
+    
+    if (isInWishlist) {
+      setWishlist(wishlist.filter(item => item.id !== product.id));
+    } else {
+      setWishlist([...wishlist, product]);
+    }
   };
 
-  const toggleCart = (id) => {
-    setCartItems(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
+  const isInWishlist = (productId) => {
+    return wishlist.some(item => item.id === productId);
+  };
+
+  // ✅ Updated toggleCart - pass entire product with quantity
+  const toggleCart = (product) => {
+    const existingItem = cart.find(item => item.id === product.id);
+    
+    if (existingItem) {
+      setCart(cart.filter(item => item.id !== product.id));
+    } else {
+      setCart([...cart, { ...product, quantity: 1 }]);
+    }
+  };
+
+  const isInCart = (productId) => {
+    return cart.some(item => item.id === productId);
   };
 
   const handleNavigateToProducts = () => {
@@ -461,7 +420,7 @@ export default function HomePage() {
     window.scrollTo(0, 0);
   };
 
-  // Reusable Product Card Component
+  // ✅ Updated ProductCard Component
   const ProductCard = ({ product }) => (
     <div 
       className="product-card"
@@ -471,11 +430,11 @@ export default function HomePage() {
       <div className="product-image-container">
         <Heart 
           className="product-heart" 
-          fill={wishlistItems.has(product.id) ? '#f44336' : 'none'}
-          color={wishlistItems.has(product.id) ? '#f44336' : '#999'}
+          fill={isInWishlist(product.id) ? '#f44336' : 'none'}
+          color={isInWishlist(product.id) ? '#f44336' : '#999'}
           onClick={(e) => {
             e.stopPropagation();
-            toggleWishlist(product.id);
+            toggleWishlist(product);
           }}
           style={{ cursor: 'pointer' }}
         />
@@ -486,10 +445,10 @@ export default function HomePage() {
           <h3 className="product-name">{product.name}</h3>
           <ShoppingCart 
             className="product-cart"
-            color={cartItems.has(product.id) ? '#9C27B0' : '#666'}
+            color={isInCart(product.id) ? '#9C27B0' : '#666'}
             onClick={(e) => {
               e.stopPropagation();
-              toggleCart(product.id);
+              toggleCart(product);
             }}
             style={{ cursor: 'pointer' }}
           />
@@ -501,16 +460,16 @@ export default function HomePage() {
             ))}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {product.originalPrice && (
+            {product.originalPriceDisplay && (
               <span style={{
                 fontSize: '14px',
                 color: '#999',
                 textDecoration: 'line-through'
               }}>
-                {product.originalPrice}
+                {product.originalPriceDisplay}
               </span>
             )}
-            <span className="product-price">{product.price}</span>
+            <span className="product-price">{product.priceDisplay}</span>
           </div>
         </div>
       </div>
@@ -520,8 +479,8 @@ export default function HomePage() {
   return (
     <div className="accs-container">
       <Header 
-        cartCount={cartItems.size} 
-        wishlistCount={wishlistItems.size}
+        cartCount={cart.length}
+        wishlistCount={wishlist.length}
         activePage="home"
         onCartClick={() => navigate('/cart')}
         onWishlistClick={() => navigate('/wishlist')}

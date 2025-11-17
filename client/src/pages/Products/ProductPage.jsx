@@ -1,25 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { Heart, Search, Lock } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import './ProductPage.css';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import halfface from '../../assets/halfface.png';
-import bands from '../../assets/bands.png';
-import violetclip from '../../assets/violetclip.png';
-import bow1 from '../../assets/bow1.png';
-import goldbow from '../../assets/goldbow.png';
-import earring1 from '../../assets/earring1.png';
-import earring2 from '../../assets/earring2.png';
-import earring3 from '../../assets/earring3.png';
-import trending4 from '../../assets/trending4.png';
-import trending3 from '../../assets/trending3.png';
-import bands2 from '../../assets/bands2.png';
-import bowred from '../../assets/bowred.png';
-import earring4 from '../../assets/earring4.png';
-import earring5 from '../../assets/earring5.png';
-import fluffyredband from '../../assets/fluffyredband.png';
-import whiteclip from '../../assets/whiteclip.png';
 import WhatsAppLogo from '../../components/WhatsAppLogo';
 
 const API_BASE_URL = 'https://acc-in-touch-1.onrender.com/api';
@@ -57,96 +42,64 @@ const ProductPage = () => {
 
   const [showAllTrending, setShowAllTrending] = useState(false);
 
-  // Fallback products (only used if backend fails)
-  const fallbackProducts = [
-    { id: 1, name: 'Organza Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#8B4513', '#000000', '#D2691E'], image: bands, category: 'Hair bow' },
-    { id: 2, name: 'Purple Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#DDA0DD', '#FFB6C1', '#E6E6FA'], image: violetclip, category: 'Claws' },
-    { id: 3, name: 'Hair Bow Classic', price: 150, originalPrice: 250, rating: 4, colors: ['#F5F5DC', '#8B4513', '#000000'], image: bow1, category: 'Hair bow' },
-    { id: 4, name: 'Gold Bow', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#FFA500', '#DAA520'], image: goldbow, category: 'Hair bow' },
-    { id: 7, name: 'Diamond Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#F5DEB3', '#B8860B'], image: earring5, category: 'Earrings' },
-    { id: 8, name: 'Gold Hoop Earring', price: 150, originalPrice: 250, rating: 4, colors: ['#FFD700', '#C0C0C0', '#CD7F32'], image: earring2, category: 'Earrings' },
-    { id: 12, name: 'White Claw Clip', price: 150, originalPrice: 250, rating: 4, colors: ['#FFFFFF', '#808080', '#000000'], image: whiteclip, category: 'Claws' },
-    { id: 13, name: 'Fluffy Scrunchie', price: 150, originalPrice: 250, rating: 4, colors: ['#FF0000', '#FFB6C1', '#FF69B4'], image: fluffyredband, category: 'Scrunchies' },
-  ];
   const normalizeCategoryName = (category) => {
-  if (!category) return '';
-  
-  const normalized = category.toLowerCase().trim();
-  
-  const categoryMapping = {
-    'claw': 'Claws',
-    'claws': 'Claws',
-    'claw clip': 'Claws',
-    'claw clips': 'Claws',
-    'claw-clips': 'Claws',
-    'earring': 'Earrings',
-    'earrings': 'Earrings',
-    'scrunchie': 'Scrunchies',
-    'scrunchies': 'Scrunchies',
-    'bow': 'Hair bow',
-    'bows': 'Hair bow',
-    'hair bow': 'Hair bow',
-    'hair bows': 'Hair bow',
-    'hairbow': 'Hair bow',
-    'hairbows': 'Hair bow',
-    'hair-bow': 'Hair bow',
-    'hair-bows': 'Hair bow',
-    'hair_bow': 'Hair bow',
-    'hair_bows': 'Hair bow'
-  };
-  
-  return categoryMapping[normalized] || category;
-};
-   // Helper function to transform product data from backend
-    const transformProduct = (product) => {
-    // Default fallback
-    let imageUrl = bow1;
+    if (!category) return '';
     
-    console.log('🔍 Raw Product Data:', {
-      id: product.id,
-      name: product.productName,
-      image_url: product.image_url,
-      image_url_type: typeof product.image_url
-    });
+    const normalized = category.toLowerCase().trim();
+    
+    const categoryMapping = {
+      'claw': 'Claws',
+      'claws': 'Claws',
+      'claw clip': 'Claws',
+      'claw clips': 'Claws',
+      'claw-clips': 'Claws',
+      'earring': 'Earrings',
+      'earrings': 'Earrings',
+      'scrunchie': 'Scrunchies',
+      'scrunchies': 'Scrunchies',
+      'bow': 'Hair bow',
+      'bows': 'Hair bow',
+      'hair bow': 'Hair bow',
+      'hair bows': 'Hair bow',
+      'hairbow': 'Hair bow',
+      'hairbows': 'Hair bow',
+      'hair-bow': 'Hair bow',
+      'hair-bows': 'Hair bow',
+      'hair_bow': 'Hair bow',
+      'hair_bows': 'Hair bow'
+    };
+    
+    return categoryMapping[normalized] || category;
+  };
+
+  // Helper function to transform product data from backend
+  const transformProduct = (product) => {
+    let imageUrl = halfface;
     
     if (product.image_url) {
       try {
         let imageData = product.image_url;
         
-        // Handle stringified JSON
         if (typeof imageData === 'string') {
           const trimmed = imageData.trim();
           
-          // Check if it's a direct URL first
           if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
             imageUrl = trimmed;
-            console.log('✅ Direct URL found:', imageUrl);
-          }
-          // Try parsing as JSON
-          else if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+          } else if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
             try {
               imageData = JSON.parse(trimmed);
-              console.log('🔓 Parsed JSON:', imageData);
             } catch (parseError) {
-              console.warn('⚠️ JSON parse failed:', parseError.message);
-              // Maybe it's a plain filename or path
               if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
                 imageUrl = trimmed;
-                console.log('📝 Using string as-is:', imageUrl);
               }
             }
-          }
-          // Not a URL, not JSON - might be a filename or path
-          else if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
+          } else if (trimmed !== '' && trimmed !== 'null' && trimmed !== 'undefined') {
             imageUrl = trimmed;
-            console.log('📝 Using trimmed string:', imageUrl);
           }
         }
         
-        // Handle parsed object/array
         if (typeof imageData === 'object' && imageData !== null) {
           if (Array.isArray(imageData)) {
-            // Array of images
             if (imageData.length > 0) {
               const firstImage = imageData[0];
               if (typeof firstImage === 'object' && firstImage.url) {
@@ -154,49 +107,24 @@ const ProductPage = () => {
               } else if (typeof firstImage === 'string') {
                 imageUrl = firstImage;
               }
-              console.log('✅ Image from array:', imageUrl);
             }
           } else {
-            // Single object with url property
             if (imageData.url) {
               imageUrl = imageData.url;
-              console.log('✅ Image from object.url:', imageUrl);
             } else if (imageData.path) {
               imageUrl = imageData.path;
-              console.log('✅ Image from object.path:', imageUrl);
             } else if (imageData.src) {
               imageUrl = imageData.src;
-              console.log('✅ Image from object.src:', imageUrl);
             }
           }
         }
-        
       } catch (error) {
-        console.error('❌ Error processing image_url:', error);
-        console.error('❌ Product data:', product);
+        console.error('Error processing image_url:', error);
       }
-    } else {
-      console.warn('⚠️ No image_url found for product:', product.productName);
     }
   
-    // Validate final URL
-    const isValidUrl = imageUrl && (
-      imageUrl.startsWith('http://') || 
-      imageUrl.startsWith('https://') ||
-      imageUrl.startsWith('/') ||
-      imageUrl.startsWith('data:')
-    );
-    
-    if (!isValidUrl && imageUrl !== bow1) {
-      console.warn('⚠️ Invalid URL format, using fallback:', imageUrl);
-      imageUrl = bow1;
-    }
-  
-    console.log('✨ Final Image URL:', imageUrl);
-    console.log('---');
-  
-    // Calculate price with discount
-    const basePrice = parseFloat(product.basicPricing) || 15;
+    // Calculate price with discount - STORE AS NUMBERS
+    const basePrice = parseFloat(product.basicPricing) || 150;
     const discountPercent = product.discountType ? 
       parseInt(product.discountType.toString().replace('%', '')) : 0;
     const finalPrice = basePrice - (basePrice * discountPercent / 100);
@@ -204,14 +132,18 @@ const ProductPage = () => {
     return {
       id: product.id || product._id,
       name: product.productName || 'Unnamed Product',
-      price: `₹${finalPrice.toFixed(0)}`,
-      originalPrice: discountPercent > 0 ? `₹${basePrice}` : null,
+      price: finalPrice, // ✅ NUMERIC VALUE
+      priceDisplay: `₹${Math.round(finalPrice)}`, // ✅ DISPLAY STRING
+      originalPrice: discountPercent > 0 ? basePrice : null, // ✅ NUMERIC VALUE
+      originalPriceDisplay: discountPercent > 0 ? `₹${Math.round(basePrice)}` : null, // ✅ DISPLAY STRING
       discount: discountPercent > 0 ? `${discountPercent}%` : null,
+      discountPercent: discountPercent, // ✅ NUMERIC DISCOUNT
       image: imageUrl,
       colors: ['#C00C0C', '#0C8DC0', '#169E5C'],
-  category: normalizeCategoryName(product.productCategory), // <-- Add this
+      category: normalizeCategoryName(product.productCategory),
       stock: product.productStatus,
       description: product.productDescription,
+      rating: 4,
       createdAt: product.createdAt
     };
   };
@@ -221,7 +153,6 @@ const ProductPage = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        console.log('🔄 Fetching products from:', `${API_BASE_URL}/Product`);
         
         const response = await fetch(`${API_BASE_URL}/Product`, {
           method: 'GET',
@@ -235,9 +166,19 @@ const ProductPage = () => {
         }
         
         const data = await response.json();
-        console.log('✅ Products fetched:', data);
         
         const transformed = data.map(transformProduct);
+        
+        // 🔍 DEBUG: Log product data to console
+        console.log('📦 Total Products Loaded:', transformed.length);
+        console.log('🔍 Sample Product Data:', transformed[0]);
+        console.log('💰 All Product Discounts:', transformed.map(p => ({
+          name: p.name,
+          discountPercent: p.discountPercent,
+          price: p.price,
+          category: p.category
+        })));
+        
         setAllProducts(transformed);
         
         // Set trending products (4 most recent)
@@ -248,10 +189,8 @@ const ProductPage = () => {
         
         setError(null);
       } catch (err) {
-        console.error('❌ Error fetching products:', err);
+        console.error('Error fetching products:', err);
         setError(err.message);
-        setAllProducts(fallbackProducts);
-        setTrendingProducts(fallbackProducts.slice(0, 4));
       } finally {
         setLoading(false);
       }
@@ -259,12 +198,6 @@ const ProductPage = () => {
 
     fetchProducts();
   }, []);
-
-  // Calculate discount percentage for a product
-  const getDiscountPercentage = (product) => {
-    if (!product.originalPrice) return 0;
-    return Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
-  };
 
   // Get dominant color from product colors
   const getDominantColor = (colorCode) => {
@@ -342,6 +275,9 @@ const ProductPage = () => {
   useEffect(() => {
     let filtered = [...allProducts];
     
+    console.log('🔄 Filter Update - Starting with products:', filtered.length);
+    console.log('🎯 Active Filters:', selectedFilters);
+    
     // Filter by search query first
     if (location.state?.searchQuery) {
       const query = location.state.searchQuery.toLowerCase();
@@ -350,23 +286,29 @@ const ProductPage = () => {
         p.name.toLowerCase().includes(query) ||
         p.category.toLowerCase().includes(query)
       );
+      console.log('🔍 After search filter:', filtered.length);
     }
 
     // Apply product type filters
     if (selectedFilters.products.length > 0) {
       filtered = filtered.filter(p => selectedFilters.products.includes(p.category));
+      console.log('📁 After category filter:', filtered.length);
     }
 
     // Apply rating filters
     if (selectedFilters.ratings.length > 0) {
       filtered = filtered.filter(p => selectedFilters.ratings.includes(p.rating));
+      console.log('⭐ After rating filter:', filtered.length);
     }
 
-    // Apply discount filters
+    // Apply discount filters - ✅ FIXED TO USE NUMERIC VALUES
     if (selectedFilters.discounts.length > 0) {
+      console.log('💰 Applying discount filter...');
       filtered = filtered.filter(p => {
-        const discount = getDiscountPercentage(p);
-        return selectedFilters.discounts.some(filterDiscount => {
+        const discount = p.discountPercent;
+        console.log(`  Product: ${p.name}, discount: ${discount}`);
+        const matches = selectedFilters.discounts.some(filterDiscount => {
+          if (filterDiscount === 'No Discount') return discount === 0 || !discount;
           if (filterDiscount === '10% Off') return discount >= 10 && discount < 25;
           if (filterDiscount === '25% Off') return discount >= 25 && discount < 35;
           if (filterDiscount === '35% Off') return discount >= 35 && discount < 50;
@@ -374,20 +316,25 @@ const ProductPage = () => {
           if (filterDiscount === 'Above 50%') return discount >= 60;
           return false;
         });
+        console.log(`  Matches filter: ${matches}`);
+        return matches;
       });
+      console.log('💰 After discount filter:', filtered.length);
     }
 
-    // Apply price range filters
+    // Apply price range filters - ✅ FIXED TO USE NUMERIC VALUES
     if (selectedFilters.priceRanges.length > 0) {
       filtered = filtered.filter(p => {
+        const price = p.price; // ✅ Use numeric price
         return selectedFilters.priceRanges.some(range => {
-          if (range === '₹0 - ₹100') return p.price >= 0 && p.price <= 100;
-          if (range === '₹100 - ₹200') return p.price > 100 && p.price <= 200;
-          if (range === '₹200 - ₹300') return p.price > 200 && p.price <= 300;
-          if (range === 'Above ₹300') return p.price > 300;
+          if (range === '₹0 - ₹100') return price >= 0 && price <= 100;
+          if (range === '₹100 - ₹200') return price > 100 && price <= 200;
+          if (range === '₹200 - ₹300') return price > 200 && price <= 300;
+          if (range === 'Above ₹300') return price > 300;
           return false;
         });
       });
+      console.log('💵 After price filter:', filtered.length);
     }
 
     // Apply color filters
@@ -398,8 +345,10 @@ const ProductPage = () => {
           return selectedFilters.colors.includes(colorName);
         });
       });
+      console.log('🎨 After color filter:', filtered.length);
     }
 
+    console.log('✅ Final filtered products:', filtered.length);
     setFilteredProducts(filtered);
   }, [category, location.state, selectedFilters, allProducts]);
 
@@ -519,7 +468,6 @@ const ProductPage = () => {
       return `Search Results for "${searchQuery}" (${filteredProducts.length} items)`;
     }
     
-    // If we have product filters selected
     if (selectedFilters.products.length === 4 || (selectedFilters.products.length === 0 && !category)) {
       return `All Products (${filteredProducts.length} items)`;
     }
@@ -536,7 +484,6 @@ const ProductPage = () => {
       return `${niceNames.join(' & ')} (${filteredProducts.length} items)`;
     }
     
-    // If we're on a category URL and no product filters are selected
     if (category) {
       const categoryMap = {
         'claw-clips': 'All Products',
@@ -601,7 +548,7 @@ const ProductPage = () => {
               <div className="filter-section">
                 <h4 className="filter-section-title">Discount Offer</h4>
                 <div className="filter-options">
-                  {['10% Off', '25% Off', '35% Off', '50% Off', 'Above 50%'].map(item => (
+                  {['No Discount', '10% Off', '25% Off', '35% Off', '50% Off', 'Above 50%'].map(item => (
                     <label key={item} className="filter-option">
                       <input 
                         type="checkbox"
@@ -712,7 +659,7 @@ const ProductPage = () => {
             
             {loading ? (
               <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-                <p style={{ fontSize: '18px', color: '#666' }}></p>
+                <p style={{ fontSize: '18px', color: '#666' }}>Loading products...</p>
               </div>
             ) : error ? (
               <div style={{ 
@@ -723,7 +670,7 @@ const ProductPage = () => {
                 margin: '20px 0'
               }}>
                 <p style={{ fontSize: '18px', color: '#f44336', marginBottom: '10px' }}>⚠️ Error loading products from backend</p>
-                <p style={{ fontSize: '14px', color: '#666' }}>Showing fallback products</p>
+                <p style={{ fontSize: '14px', color: '#666' }}>Error: {error}</p>
               </div>
             ) : filteredProducts.length === 0 ? (
               <div className="no-results">
@@ -770,16 +717,16 @@ const ProductPage = () => {
                           ))}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          {product.originalPrice && (
+                          {product.originalPriceDisplay && (
                             <span style={{
                               fontSize: '14px',
                               color: '#999',
                               textDecoration: 'line-through'
                             }}>
-                              ₹{product.originalPrice}
+                              {product.originalPriceDisplay}
                             </span>
                           )}
-                          <span className="product-price">₹{product.price}</span>
+                          <span className="product-price">{product.priceDisplay}</span>
                         </div>
                       </div>
                       <div className="product-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
@@ -855,16 +802,16 @@ const ProductPage = () => {
                             ))}
                           </div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            {product.originalPrice && (
+                            {product.originalPriceDisplay && (
                               <span style={{
                                 fontSize: '14px',
                                 color: '#999',
                                 textDecoration: 'line-through'
                               }}>
-                                ₹{product.originalPrice}
+                                {product.originalPriceDisplay}
                               </span>
                             )}
-                            <span className="product-price">₹{product.price}</span>
+                            <span className="product-price">{product.priceDisplay}</span>
                           </div>
                         </div>
                         <div className="product-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
