@@ -14,7 +14,7 @@ export default function RefundPolicy() {
 
         <section>
           <h2>Our Commitment</h2>
-          <p>At ACCS IN-TOUCH, we want you to be completely satisfied with your purchase. If you're not happy with your order, we're here to help with our refund policy.</p>
+          <p>At Accs In Touch, we want you to be completely satisfied with your purchase. If you're not happy with your order, we're here to help with our refund policy.</p>
         </section>
 
         <section>

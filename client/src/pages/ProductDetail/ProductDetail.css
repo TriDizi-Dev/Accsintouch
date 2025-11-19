@@ -35,7 +35,7 @@ body {
   background: #f5f5f5;
   border-radius: 8px;
   overflow: hidden;
-  height: 350px; /* Reduced height */
+  height: 450px; /* Reduced height */
   display: flex;
   align-items: center;
   justify-content: center;

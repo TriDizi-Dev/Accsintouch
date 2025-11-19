@@ -13,7 +13,7 @@ export default function TermsConditions() {
 
         <section>
           <h2>Acceptance of Terms</h2>
-          <p>By accessing and using the ACCS IN-TOUCH website, you accept and agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our website or services.</p>
+          <p>By accessing and using the Accs In Touch website, you accept and agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our website or services.</p>
         </section>
 
         <section>
@@ -45,12 +45,12 @@ export default function TermsConditions() {
 
         <section>
           <h2>Intellectual Property</h2>
-          <p>All content on this website, including text, graphics, logos, images, and software, is the property of ACCS IN-TOUCH and is protected by copyright and intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+          <p>All content on this website, including text, graphics, logos, images, and software, is the property of Accs In Touch and is protected by copyright and intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
         </section>
 
         <section>
           <h2>Limitation of Liability</h2>
-          <p>ACCS IN-TOUCH shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our website or products. Our total liability shall not exceed the amount you paid for the product in question.</p>
+          <p>Accs In Touch shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our website or products. Our total liability shall not exceed the amount you paid for the product in question.</p>
         </section>
 
         <section>

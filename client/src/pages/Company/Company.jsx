@@ -68,7 +68,7 @@ const Company = () => {
         <div className="company-closing-text">
           <h2>Building Connections</h2>
           <p>
-            ACCS IN-TOUCH isn’t just a brand; it’s a community built on creativity and trust.
+            Accs In Touch isn’t just a brand; it’s a community built on creativity and trust.
             We’re committed to bringing you accessories that make every day special.
           </p>
         </div>

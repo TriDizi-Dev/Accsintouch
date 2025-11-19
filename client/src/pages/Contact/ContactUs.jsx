@@ -11,7 +11,6 @@ import support from '../../assets/support.png';
 import returnlogo from '../../assets/returnlogo.png';
 import './ContactUs.css';
 import WhatsAppLogo from '../../components/WhatsAppLogo';
-
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,6 +18,9 @@ const ContactUs = () => {
     subject: '',
     message: ''
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
   const features = [
     {
@@ -50,10 +52,58 @@ const ContactUs = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your form submission logic here
+    setIsSubmitting(true);
+    setSubmitStatus({ type: '', message: '' });
+
+    try {
+      
+      const response = await fetch('https://formspree.io/f/xdkbeezr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email, // Allows replying directly to the sender
+          _subject: `New Contact Form Submission: ${formData.subject}` // Custom email subject
+        })
+      });
+
+      if (response.ok) {
+        setSubmitStatus({ 
+          type: 'success', 
+          message: 'Thank you! Your message has been sent successfully.' 
+        });
+
+        // Clear form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus({ 
+          type: 'error', 
+          message: 'Failed to send message. Please try again later.' 
+        });
+      }
+
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'Failed to send message. Please try again later.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -86,7 +136,7 @@ const ContactUs = () => {
                 <img src={mail} alt="Email" />
               </div>
               <div className="contact-details">
-                <p className="contact-detail-text"> accsintouch@gmail.com</p>
+                <p className="contact-detail-text">accsintouch@gmail.com</p>
               </div>
             </div>
 
@@ -96,7 +146,8 @@ const ContactUs = () => {
               </div>
               <div className="contact-details">
                 <p className="contact-detail-text">
-                      Pragathi Nagar, Hyderabad - 500090                </p>
+                  Pragathi Nagar, Hyderabad - 500090
+                </p>
               </div>
             </div>
           </div>
@@ -104,6 +155,13 @@ const ContactUs = () => {
           {/* Right Section - Contact Form */}
           <div className="contact-form-section">
             <h2 className="contact-form-title">Contact Us</h2>
+            
+            {submitStatus.message && (
+              <div className={`status-message ${submitStatus.type}`}>
+                {submitStatus.message}
+              </div>
+            )}
+
             <form className="contact-form" onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -113,6 +171,7 @@ const ContactUs = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               />
               <input
                 type="email"
@@ -122,6 +181,7 @@ const ContactUs = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               />
               <input
                 type="text"
@@ -131,6 +191,7 @@ const ContactUs = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               />
               <textarea
                 name="message"
@@ -139,9 +200,10 @@ const ContactUs = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
+                disabled={isSubmitting}
               />
-              <button type="submit" className="submit-button">
-                Send Message
+              <button type="submit" className="submit-button" disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>

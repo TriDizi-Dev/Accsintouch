@@ -64,7 +64,7 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
             <div style={{ display: 'flex', alignItems: 'baseline', gap: isMobile ? '10px' : '15px' }}>
               <h1 style={{
                 fontSize: isMobile ? '60px' : isTablet ? '80px' : '100px',
-                fontWeight: '800',
+                fontWeight: '500',
                 lineHeight: '1',
                 margin: 0,
                 color: '#000',
@@ -171,14 +171,13 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
         <span style={{
           fontSize: isMobile ? '11px' : '12px',
           fontWeight: '700',
-          textTransform: 'uppercase',
           letterSpacing: '1px',
           color: '#555'
         }}>For New Accounts</span>
 
         <h2 style={{
           fontSize: isMobile ? '28px' : isTablet ? '38px' : '48px',
-          fontWeight: '800',
+          fontWeight: '500',
           lineHeight: '1.1',
           color: '#000',
           margin: 0
@@ -244,10 +243,10 @@ export default function HeroCarousel({ handleNavigateToProducts, handleNavigateT
             <span style={{
               fontSize: isMobile ? '10px' : '12px',
               fontWeight: '700',
-              textTransform: 'uppercase',
+              
               letterSpacing: '2px',
               color: '#666'
-            }}>NEW ARRIVAL</span>
+            }}>New Arrival</span>
             <span style={{
               fontSize: isMobile ? '10px' : '12px',
               fontWeight: '700',

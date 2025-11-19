@@ -312,7 +312,7 @@ export default function HomePage() {
       name: 'Saurabh Agarwal', 
       image: review1,
       rating: 4.5,
-      text: 'Amazing quality products! The hair accessories are beautiful and durable. Highly recommend AccsInTouch for all your accessory needs.'
+      text: 'Amazing quality products! The hair accessories are beautiful and durable. Highly recommend Accs In Touch for all your accessory needs.'
     },
     { 
       name: 'Shruti', 
@@ -531,7 +531,7 @@ export default function HomePage() {
           </div>
           <div className="category-card" onClick={() => handleNavigateToCategory('earring')}>
             <img src={earringcategory} alt="Earring" className="category-icon" />
-            <p className="category-name">Earring</p>
+            <p className="category-name">Earrings</p>
           </div>
           <div className="category-card" onClick={() => handleNavigateToCategory('hair-bows')}>
             <img src={bow1} alt="Hair Bows" className="category-icon" />
@@ -640,7 +640,7 @@ export default function HomePage() {
         </div>
         <div className="hero-content">
           <p className="hero-subtitle">Last Chance</p>
-          <h1 className="hero-title">END OF SEASON SALE UP TO</h1>
+          <h1 className="hero-title">End Of Season Sale Up To</h1>
           <h2 className="hero-discount">50% OFF</h2>
           <button className="hero-button" onClick={handleNavigateToProducts}>Check It Now</button>
         </div>
@@ -649,7 +649,7 @@ export default function HomePage() {
       {/* New Arrivals */}
       <section className="section">
         <div className="section-header">
-          <h2 className="section-title">NEW ARRIVALS</h2>
+          <h2 className="section-title">New Arrivals</h2>
         </div>
         
         {loading ? (

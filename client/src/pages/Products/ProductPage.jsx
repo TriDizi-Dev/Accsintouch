@@ -42,6 +42,14 @@ const ProductPage = () => {
 
   const [showAllTrending, setShowAllTrending] = useState(false);
 
+  // Helper function to create URL-friendly slug
+  const createSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  };
+
   const normalizeCategoryName = (category) => {
     if (!category) return '';
     
@@ -123,7 +131,6 @@ const ProductPage = () => {
       }
     }
   
-    // Calculate price with discount - STORE AS NUMBERS
     const basePrice = parseFloat(product.basicPricing) || 150;
     const discountPercent = product.discountType ? 
       parseInt(product.discountType.toString().replace('%', '')) : 0;
@@ -132,12 +139,12 @@ const ProductPage = () => {
     return {
       id: product.id || product._id,
       name: product.productName || 'Unnamed Product',
-      price: finalPrice, // ✅ NUMERIC VALUE
-      priceDisplay: `₹${Math.round(finalPrice)}`, // ✅ DISPLAY STRING
-      originalPrice: discountPercent > 0 ? basePrice : null, // ✅ NUMERIC VALUE
-      originalPriceDisplay: discountPercent > 0 ? `₹${Math.round(basePrice)}` : null, // ✅ DISPLAY STRING
+      price: finalPrice,
+      priceDisplay: `₹${Math.round(finalPrice)}`,
+      originalPrice: discountPercent > 0 ? basePrice : null,
+      originalPriceDisplay: discountPercent > 0 ? `₹${Math.round(basePrice)}` : null,
       discount: discountPercent > 0 ? `${discountPercent}%` : null,
-      discountPercent: discountPercent, // ✅ NUMERIC DISCOUNT
+      discountPercent: discountPercent,
       image: imageUrl,
       colors: ['#C00C0C', '#0C8DC0', '#169E5C'],
       category: normalizeCategoryName(product.productCategory),
@@ -148,7 +155,6 @@ const ProductPage = () => {
     };
   };
 
-  // Fetch all products from backend
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -166,22 +172,10 @@ const ProductPage = () => {
         }
         
         const data = await response.json();
-        
         const transformed = data.map(transformProduct);
-        
-        // 🔍 DEBUG: Log product data to console
-        console.log('📦 Total Products Loaded:', transformed.length);
-        console.log('🔍 Sample Product Data:', transformed[0]);
-        console.log('💰 All Product Discounts:', transformed.map(p => ({
-          name: p.name,
-          discountPercent: p.discountPercent,
-          price: p.price,
-          category: p.category
-        })));
         
         setAllProducts(transformed);
         
-        // Set trending products (4 most recent)
         const trending = [...transformed]
           .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
           .slice(0, 4);
@@ -199,7 +193,6 @@ const ProductPage = () => {
     fetchProducts();
   }, []);
 
-  // Get dominant color from product colors
   const getDominantColor = (colorCode) => {
     const colorMap = {
       '#3B82F6': 'Blue', '#2196F3': 'Blue', '#0C8DC0': 'Blue', '#4169E1': 'Blue',
@@ -238,11 +231,10 @@ const ProductPage = () => {
       case 'earring': return 'Elegant Earrings';
       case 'scrunchies': return 'Soft Scrunchies';
       case 'claw-clips': return 'Trendy Claws';
-      default: return 'END OF SEASON SALE UP TO';
+      default: return 'End Of Season Sale Up To';
     }
   };
 
-  // Load wishlist and cart from localStorage
   useEffect(() => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
@@ -251,7 +243,6 @@ const ProductPage = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  // Set initial filter based on URL category
   useEffect(() => {
     if (category) {
       const categoryMap = {
@@ -271,14 +262,9 @@ const ProductPage = () => {
     }
   }, [category]);
 
-  // Handle category filtering from URL
   useEffect(() => {
     let filtered = [...allProducts];
     
-    console.log('🔄 Filter Update - Starting with products:', filtered.length);
-    console.log('🎯 Active Filters:', selectedFilters);
-    
-    // Filter by search query first
     if (location.state?.searchQuery) {
       const query = location.state.searchQuery.toLowerCase();
       setSearchQuery(query);
@@ -286,28 +272,20 @@ const ProductPage = () => {
         p.name.toLowerCase().includes(query) ||
         p.category.toLowerCase().includes(query)
       );
-      console.log('🔍 After search filter:', filtered.length);
     }
 
-    // Apply product type filters
     if (selectedFilters.products.length > 0) {
       filtered = filtered.filter(p => selectedFilters.products.includes(p.category));
-      console.log('📁 After category filter:', filtered.length);
     }
 
-    // Apply rating filters
     if (selectedFilters.ratings.length > 0) {
       filtered = filtered.filter(p => selectedFilters.ratings.includes(p.rating));
-      console.log('⭐ After rating filter:', filtered.length);
     }
 
-    // Apply discount filters - ✅ FIXED TO USE NUMERIC VALUES
     if (selectedFilters.discounts.length > 0) {
-      console.log('💰 Applying discount filter...');
       filtered = filtered.filter(p => {
         const discount = p.discountPercent;
-        console.log(`  Product: ${p.name}, discount: ${discount}`);
-        const matches = selectedFilters.discounts.some(filterDiscount => {
+        return selectedFilters.discounts.some(filterDiscount => {
           if (filterDiscount === 'No Discount') return discount === 0 || !discount;
           if (filterDiscount === '10% Off') return discount >= 10 && discount < 25;
           if (filterDiscount === '25% Off') return discount >= 25 && discount < 35;
@@ -316,16 +294,12 @@ const ProductPage = () => {
           if (filterDiscount === 'Above 50%') return discount >= 60;
           return false;
         });
-        console.log(`  Matches filter: ${matches}`);
-        return matches;
       });
-      console.log('💰 After discount filter:', filtered.length);
     }
 
-    // Apply price range filters - ✅ FIXED TO USE NUMERIC VALUES
     if (selectedFilters.priceRanges.length > 0) {
       filtered = filtered.filter(p => {
-        const price = p.price; // ✅ Use numeric price
+        const price = p.price;
         return selectedFilters.priceRanges.some(range => {
           if (range === '₹0 - ₹100') return price >= 0 && price <= 100;
           if (range === '₹100 - ₹200') return price > 100 && price <= 200;
@@ -334,10 +308,8 @@ const ProductPage = () => {
           return false;
         });
       });
-      console.log('💵 After price filter:', filtered.length);
     }
 
-    // Apply color filters
     if (selectedFilters.colors.length > 0) {
       filtered = filtered.filter(p => {
         return p.colors.some(colorCode => {
@@ -345,21 +317,17 @@ const ProductPage = () => {
           return selectedFilters.colors.includes(colorName);
         });
       });
-      console.log('🎨 After color filter:', filtered.length);
     }
 
-    console.log('✅ Final filtered products:', filtered.length);
     setFilteredProducts(filtered);
   }, [category, location.state, selectedFilters, allProducts]);
 
-  // Initialize filtered products
   useEffect(() => {
     if (!category && !loading) {
       setFilteredProducts(allProducts);
     }
   }, [category, allProducts, loading]);
 
-  // Handle search from header
   const handleSearch = (query) => {
     setSearchQuery(query);
     
@@ -392,7 +360,6 @@ const ProductPage = () => {
     }
   };
 
-  // Wishlist functions
   const toggleWishlist = (e, product) => {
     e.stopPropagation();
     const isInWishlist = wishlist.some(item => item.id === product.id);
@@ -408,7 +375,6 @@ const ProductPage = () => {
     return wishlist.some(item => item.id === productId);
   };
 
-  // Cart functions
   const toggleCart = (e, product) => {
     e.stopPropagation();
     const existingItem = cart.find(item => item.id === product.id);
@@ -428,13 +394,13 @@ const ProductPage = () => {
     return cart.length;
   };
 
-  // Navigation
-  const handleProductClick = (productId) => {
-    navigate(`/product/${productId}`);
+  // ✅ FIXED: Pass entire product object and create slug from name
+  const handleProductClick = (product) => {
+    const slug = createSlug(product.name);
+    navigate(`/product/${slug}`, { state: { product } });
     window.scrollTo(0, 0);
   };
 
-  // Filter handlers
   const handleFilterChange = (filterType, value) => {
     setSelectedFilters(prev => {
       const currentValues = prev[filterType];
@@ -446,7 +412,6 @@ const ProductPage = () => {
     });
   };
 
-  // Clear all filters
   const clearAllFilters = () => {
     setSelectedFilters({
       products: [],
@@ -461,7 +426,6 @@ const ProductPage = () => {
     }
   };
 
-  // Get page title
   const getPageTitle = () => {
     if (loading) return 'Loading Products...';
     if (searchQuery) {
@@ -506,7 +470,6 @@ const ProductPage = () => {
         onSearch={handleSearch}
       />
 
-      {/* Hero Banner */}
       <div className="hero-banner">
         <div className="hero-images">
           <img src={halfface} alt="Model" className="hero-image-left" />
@@ -519,15 +482,12 @@ const ProductPage = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="main-content">
         <div className="content-wrapper">
-          {/* Filters Sidebar */}
           <aside className="filters-sidebar">
             <div className="filters-container">
               <h3 className="filters-title">All Filters</h3>
               
-              {/* Product Type */}
               <div className="filter-section">
                 <h4 className="filter-section-title">Product</h4>
                 <div className="filter-options">
@@ -544,7 +504,6 @@ const ProductPage = () => {
                 </div>
               </div>
 
-              {/* Discount Offer */}
               <div className="filter-section">
                 <h4 className="filter-section-title">Discount Offer</h4>
                 <div className="filter-options">
@@ -561,7 +520,6 @@ const ProductPage = () => {
                 </div>
               </div>
 
-              {/* Rating */}
               <div className="filter-section">
                 <h4 className="filter-section-title">Rating</h4>
                 <div className="filter-options">
@@ -582,9 +540,8 @@ const ProductPage = () => {
                 </div>
               </div>
 
-              {/* Price Filter */}
               <div className="filter-section">
-                <h4 className="filter-section-title">Price Filter</h4>
+                <h4 className="filter-section-title">Price</h4>
                 <div className="filter-options">
                   {['₹0 - ₹100', '₹100 - ₹200', '₹200 - ₹300', 'Above ₹300'].map(range => (
                     <label key={range} className="filter-option">
@@ -599,9 +556,8 @@ const ProductPage = () => {
                 </div>
               </div>
 
-              {/* Filter By Color */}
               <div className="filter-section">
-                <h4 className="filter-section-title">Filter By Color</h4>
+                <h4 className="filter-section-title">Color</h4>
                 <div className="filter-options">
                   {[
                     { name: 'Blue', color: '#3B82F6' },
@@ -629,7 +585,6 @@ const ProductPage = () => {
             </div>
           </aside>
 
-          {/* Products Section */}
           <div className="products-section">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', marginRight: '-13rem' }}>
               <h2 className="section-title" style={{ color: 'rgb(156, 39, 176)', marginBottom: 0 }}>{getPageTitle()}</h2>
@@ -689,7 +644,7 @@ const ProductPage = () => {
                   <div 
                     key={product.id} 
                     className="product-card"
-                    onClick={() => handleProductClick(product.id)}
+                    onClick={() => handleProductClick(product)}
                   >
                     <div className="product-image-container">
                       <img src={product.image} alt={product.name} className="product-image" />
@@ -757,6 +712,7 @@ const ProductPage = () => {
               </div>
             )}
 
+            
             {/* Trending Products */}
             {!category && !searchQuery && trendingProducts.length > 0 && (
               <div className="trending-section">
@@ -850,8 +806,8 @@ const ProductPage = () => {
           <div className="newsletter-section">
             <div className="newsletter-container">
               <div className="newsletter-heading">
-                <h2>SUBSCRIBE OUR</h2>
-                <h2>NEWSLETTER</h2>
+                <h2>Subscribe Our</h2>
+                <h2>Newsletter</h2>
               </div>
               <div className="newsletter-form-container">
                 <p className="newsletter-description">

@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
 
         <section>
           <h2>Introduction</h2>
-          <p>ACCS IN-TOUCH ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase from us.</p>
+          <p>Accs In Touch ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase from us.</p>
         </section>
 
         <section>

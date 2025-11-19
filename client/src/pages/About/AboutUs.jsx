@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import about1 from '../../assets/about1.png';
-import about2 from '../../assets/about2.png';
+import about7 from '../../assets/about7.webp';
 import LOGO from '../../assets/LOGO.png';
 import WhatsAppLogo from '../../components/WhatsAppLogo';
 import icon from '../../assets/icon.png';
@@ -60,9 +60,9 @@ const AboutUs = () => {
       <section className="about-content">
         <div className="about-section">
           <h1 className="about-title">About Us:</h1>
-          <h2 className="about-subtitle" style={{color:'rgb(156, 39, 176)'}}>The Story of ACCS IN-TOUCH</h2>
+          <h2 className="about-subtitle" style={{color:'rgb(156, 39, 176)'}}>The Story of Accs In Touch</h2>
           <p className="about-text">
-            Welcome to ACCS IN-TOUCH, where every piece tells a story of passion and craftsmanship. Our journey began with a 
+            Welcome to Accs In Touch, where every piece tells a story of passion and craftsmanship. Our journey began with a 
             simple idea: to create beautiful, high-quality hair accessories and jewelry that not only add a touch of sparkle to your 
             day but are also made with genuine care. Our tagline, "Handmade with Love," isn't just a phrase—it's the heart of 
             everything we do.
@@ -71,7 +71,7 @@ const AboutUs = () => {
 
         {/* Philosophy Section */}
         <div className="philosophy-section">
-          <img src={about2} alt="Colorful Hair Bows" className="philosophy-image" />
+          <img src={about7} alt="Colorful Hair Bows" className="philosophy-image" />
           <div className="philosophy-content">
             <h2 className="about-subtitle">Our Philosophy</h2>
             <p className="about-text">
@@ -105,7 +105,7 @@ const AboutUs = () => {
               find something you love.
             </p>
             <p className="about-text signature">With love,</p>
-            <p className="about-text signature-name" >The ACCS IN-TOUCH Team</p>
+            <p className="about-text signature-name" >The Accs In Touch Team</p>
           </div>
         </div>
 

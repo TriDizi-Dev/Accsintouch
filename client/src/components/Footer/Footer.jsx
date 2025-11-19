@@ -20,7 +20,7 @@ export default function Footer() {
         {/* ---- LOGO + DESCRIPTION ---- */}
         <div className="footer-col-about">
           <img src={LOGO} alt="ACCS Logo" className="footer-logo" />
-          <h3 className="footer-title-about">ACCS IN-TOUCH</h3>
+          <h3 className="footer-title-about">Accs In Touch</h3>
           <p className="footer-text-about">One Stop for your Hair Accessories</p>
           <div className="social-links-about">
             <a href="https://www.facebook.com/share/17KwHu2unu/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
@@ -81,7 +81,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom-about">
-        <p>© 2025 ACCS IN-TOUCH - All Rights Reserved</p>
+        <p>© 2025 Accs In Touch - All Rights Reserved</p>
       </div>
     </footer>
   );
