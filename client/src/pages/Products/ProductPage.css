@@ -478,7 +478,7 @@ body {
 
 /* Trending Section */
 .trending-section {
-  margin-bottom: 3rem;
+  margin-bottom:0;
 }
 
 .trending-header {
@@ -511,7 +511,7 @@ body {
   margin-left: calc( - 2rem);
   margin-right: 3rem;
   width: calc(100% + 8rem + 10rem);
-  margin-bottom: 3rem;
+  margin-bottom:0;
 }
 
 .newsletter-section {
@@ -695,7 +695,51 @@ body {
 .footer-links a:hover {
   color: #1f2937;
 }
+/* Add this to your ProductPage.css to remove the gap */
 
+/* Trending Section - Remove bottom margin */
+.trending-section {
+  margin-bottom: 0; /* Changed from any value to 0 */
+}
+
+/* Main Content - Remove extra bottom padding */
+.main-content {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 15px;
+  padding: 2rem 0.3rem 0; /* Removed bottom padding */
+}
+
+/* Products Section - Remove extra bottom spacing */
+.products-section {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: visible;
+  margin-bottom: 0; /* Ensure no bottom margin */
+}
+
+/* Newsletter Wrapper - Already set to margin-bottom: 0, keep it */
+.newsletter-wrapper {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-about {
+    padding: 0;
+  }
+
+  .footer-content-about {
+    padding: 40px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content-about {
+    padding: 30px 20px;
+  }
+}
 /* Responsive Design */
 @media (max-width: 1024px) {
   .products-grid {

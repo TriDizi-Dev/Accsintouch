@@ -482,7 +482,7 @@ const ProductPage = () => {
         </div>
       </div>
 
-      <div className="main-content">
+      <div className="main-content" >
         <div className="content-wrapper">
           <aside className="filters-sidebar">
             <div className="filters-container">
@@ -715,7 +715,7 @@ const ProductPage = () => {
             
             {/* Trending Products */}
             {!category && !searchQuery && trendingProducts.length > 0 && (
-              <div className="trending-section">
+              <div className="trending-section" >
                 <div className="trending-header">
                   <h2 className="section-title">Trending Product</h2>
                   <button 

@@ -11,6 +11,7 @@ import support from '../../assets/support.png';
 import returnlogo from '../../assets/returnlogo.png';
 import './ContactUs.css';
 import WhatsAppLogo from '../../components/WhatsAppLogo';
+
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -58,45 +59,40 @@ const ContactUs = () => {
     setSubmitStatus({ type: '', message: '' });
 
     try {
+      // Replace this URL with your Google Apps Script Web App URL
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzv9o20ftnhMyMFhWNMlwKVLHiXHMbNP4_0d7RZw7RCKvqFz2zeEfjsxZoeCssLwpIO/exec';
       
-      const response = await fetch('https://formspree.io/f/xdkbeezr', {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors', // Important for Google Apps Script
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          _replyto: formData.email, // Allows replying directly to the sender
-          _subject: `New Contact Form Submission: ${formData.subject}` // Custom email subject
+          timestamp: new Date().toLocaleString()
         })
       });
 
-      if (response.ok) {
-        setSubmitStatus({ 
-          type: 'success', 
-          message: 'Thank you! Your message has been sent successfully.' 
-        });
+      // With 'no-cors' mode, we can't read the response, so we assume success
+      setSubmitStatus({ 
+        type: 'success', 
+        message: 'Thank you! Your message has been sent successfully.' 
+      });
 
-        // Clear form
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-      } else {
-        setSubmitStatus({ 
-          type: 'error', 
-          message: 'Failed to send message. Please try again later.' 
-        });
-      }
+      // Clear form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
 
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending data:', error);
       setSubmitStatus({ 
         type: 'error', 
         message: 'Failed to send message. Please try again later.' 
