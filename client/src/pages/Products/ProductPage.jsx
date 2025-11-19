@@ -802,7 +802,7 @@ const ProductPage = () => {
         </div>
         
         {/* Newsletter Section */}
-        <div className="newsletter-wrapper">
+        {/* <div className="newsletter-wrapper">
           <div className="newsletter-section">
             <div className="newsletter-container">
               <div className="newsletter-heading">
@@ -824,7 +824,7 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>*/}
       </div>
 
       <Footer />
